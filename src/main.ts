@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 // 引入windi css
 import App from './App.vue'
 import '@/plugins/windi.css'

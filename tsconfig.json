@@ -26,8 +26,6 @@
     "types": [
       "vite/client",
       "element-plus/global",
-      "vite-plugin-svg-icons/client",
-      "unplugin-vue-define-options"
     ],
     "typeRoots": ["./node_modules/@types/", "./types"]
   },

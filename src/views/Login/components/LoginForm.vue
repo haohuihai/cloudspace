@@ -32,6 +32,7 @@ const { t } = useI18n()
 const ruleFormRef = ref<FormInstance>()
 
 const checkAge = (rule: any, value: any, callback: any) => {
+  console.log(rule)
   if (!value) {
     return callback(new Error('Please input the age'))
   }
@@ -49,6 +50,7 @@ const checkAge = (rule: any, value: any, callback: any) => {
 }
 
 const validatePass = (rule: any, value: any, callback: any) => {
+  console.log(rule)
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
@@ -60,6 +62,7 @@ const validatePass = (rule: any, value: any, callback: any) => {
   }
 }
 const validatePass2 = (rule: any, value: any, callback: any) => {
+  console.log(rule)
   if (value === '') {
     callback(new Error('Please input the password again'))
   } else if (value !== ruleForm.pass) {
@@ -78,7 +81,7 @@ const ruleForm = reactive({
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  age: [{ validator: checkAge, trigger: 'blur' }],
+  age: [{ validator: checkAge, trigger: 'blur' }]
 })
 
 const submitForm = (formEl: FormInstance | undefined) => {
