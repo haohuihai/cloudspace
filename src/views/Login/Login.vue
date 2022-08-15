@@ -13,7 +13,6 @@ const isLogin = ref(true)
 const toRegister = () => {
   isLogin.value = false
 }
-
 const toLogin = () => {
   isLogin.value = true
 }
