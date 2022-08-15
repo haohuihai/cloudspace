@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import { ConfigGlobal } from '@/components/ConfigGlobal'
 import { useAppStore } from '@/stores/modules/app'
 import { useDesign } from '@/hooks/web/useDesign'

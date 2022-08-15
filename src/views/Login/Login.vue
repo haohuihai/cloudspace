@@ -19,7 +19,10 @@ const toLogin = () => {
 }
 </script>
 <template>
-  <div :class="prefixCls" class="h-[100%] relative <xl:bg-v-dark <sm:px-10px <xl:px-10px <md:px-10px">
+  <div
+    :class="prefixCls"
+    class="h-[100%] relative <xl:bg-v-dark <sm:px-10px <xl:px-10px <md:px-10px"
+  >
     <div class="flex justify-end items-center space-x-10px">
       <ThemeSwitch />
       <LocaleDropdown class="<xl:text-white dark:text-white" />
