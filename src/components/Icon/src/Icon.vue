@@ -2,7 +2,6 @@
 import { computed, unref, ref, watch, nextTick } from 'vue'
 import { ElIcon } from 'element-plus'
 import { propTypes } from '@/utils/propTypes'
-import Iconify from '@purge-icons/generated'
 import { useDesign } from '@/hooks/web/useDesign'
 
 const { getPrefixCls } = useDesign()
@@ -44,8 +43,8 @@ const updateIcon = async (icon: string) => {
 
   if (!icon) return
 
-  const svg = Iconify.renderSVG(icon, {})
-  if (svg) {
+  // const svg = Iconify.renderSVG(icon, {})
+  if (false) {
     el.textContent = ''
     el.appendChild(svg)
   } else {
