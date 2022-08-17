@@ -1,7 +1,7 @@
 <template>
   <!-- 用户名密码登录 -->
-  <div class="flex flex-col items-center w-4/12 p-10 shadow-2xl min-w-100">
-    <div class="loginType w-full flex justify-around text-white text-sm m-4">
+  <div class="flex flex-col items-center w-4/12 p-10 shadow-2xl min-w-100 min-h-380px relative">
+    <div class="loginType w-full flex justify-between text-white text-sm mb-4">
       <span
         :class="{ active_type: loginTypeIndex === index }"
         @click="chooseLoginType(index)"
@@ -11,8 +11,8 @@
         >{{ item }}</span
       >
     </div>
-    <template v-if="loginTypeIndex !== 2">
-      <div class="login_box">
+    <template v-if="loginTypeIndex === 0">
+      <div class="login_box mt-6">
         <input type="text" required v-model="loginForm.loginInput" /><label>邮箱/手机/昵称</label>
       </div>
       <div class="login_box">
@@ -20,7 +20,7 @@
           type="password"
           @blur="valitedInput('isPassword', loginForm.password)"
           v-model="loginForm.password"
-          required="required"
+          required
         />
         <label>密码</label>
       </div>
@@ -32,27 +32,39 @@
         <span></span>
       </a>
     </template>
-
-    <!-- <template v-else>
+    <template v-if="loginTypeIndex === 1">
+      <div class="login_box  mt-6" v-if="loginTypeIndex === 1">
+        <input
+          type="text"
+          required
+          @blur="valitedInput('isPhonenumber', loginForm.phoneNumber)"
+          v-model="loginForm.phoneNumber"
+        /><label>手机</label>
+      </div>
+      <div class="login_box lastInput">
+        <input type="password" v-model="loginForm.codeNumber" required /><label>验证码</label>
+        <span class="absolute top-10px -right-2/5 text-base px-4px bg-light-50 cursor-pointer rounded-2px" @click="handleSendNumber">{{
+          isSend ? endTime + 's' : sendNumberTip
+        }}</span>
+      </div>
+    </template>
+    <template v-if="loginTypeIndex === 2">
       <div class="QRcode">
         <div class="QRcode_success" v-if="successShow">
-          <img src="../../assets/img/login/success.png" alt="success" />
+          <img src="@/assets/img/login/success.png" alt="success" />
           <p>扫码成功</p>
         </div>
         <div class="QRcode_overtime" @click="scanAgainScanCode" v-if="overtimeShow">
           <p>二维码失效，点击重新获取</p>
-          <img src="../../assets/img/login/reload.png" alt="reload.png" />
+          <img src="@/assets/img/login/reload.png" alt="reload.png" />
         </div>
-        <img class="QRcode_img" :src="QRcode" />
+        <!-- <img class="QRcode_img" :src="" /> -->
       </div>
       <p class="tips">{{ tipsText }}</p>
-    </template> -->
-
-    <div class="bottomDesc" v-if="loginTypeIndex === 0">
-      <span class="toregister" @click="handleToRegister">
-        {{ isRegister ? '去登录' : '去注册' }}
-      </span>
-      <span class="forgetPassword">忘记密码</span>
+    </template>
+    <div class="absolute bottom-40px flex justify-between w-[80%] left-10">
+      <span class="cursor-pointer text-light-50" @click="handleToRegister"> 去注册</span>
+      <span class="cursor-pointer text-light-50">忘记密码</span>
     </div>
   </div>
 </template>
@@ -62,7 +74,11 @@ import type { FormInstance } from 'element-plus'
 import { ElInput, ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useI18n } from '@/hooks/web/useI18n'
 const { t } = useI18n()
+const emit = defineEmits(['to-register'])
 const isRegister = ref(false)
+const successShow = ref(false)
+const overtimeShow = ref(false)
+const tipsText = ref('')
 const isPassInput = reactive<string[]>([])
 const loginForm = reactive({
   loginInput: '', // 邮箱或手机号
@@ -171,10 +187,7 @@ const countDown = () => {
   // }, 1000)
 }
 const handleToRegister = () => {
-  // Object.keys(loginForm).forEach((key) => {
-  //   loginForm[key] = ''
-  // })
-  // isRegister = isRegister
+  emit('to-register')
 }
 // ------------------------ 扫码登录
 // 进入扫码登录
@@ -187,14 +200,16 @@ const getQRcode = () => {
   // scanCodeQuery.timerCheck = setInterval(() => checkScanCode(), 1000)
 }
 const chooseLoginType = (index) => {
-  // isRegister = false
-  // loginTypeIndex = index
-  // Object.keys(loginForm).forEach((key) => {
-  //   loginForm[key] = ''
-  // })
-  // if (index === 2) {
-  //   getScanOperate()
-  // }
+  loginTypeIndex.value = index
+  Object.keys(loginForm).forEach((key) => {
+    loginForm[key] = ''
+  })
+  if (index === 2) {
+    getScanOperate()
+  }
+}
+const scanAgainScanCode = () => {
+  console.log(111)
 }
 // 验证输入框是否合法
 const valitedInput = (str, value) => {
@@ -229,15 +244,6 @@ const valitedInput = (str, value) => {
   /* 相对定位 */
   position: relative;
   width: 100%;
-  .sendNumber {
-    position: absolute;
-    top: 0;
-    right: -37%;
-    padding: 10px 5px;
-    background: white;
-    border-radius: 4px;
-    cursor: pointer;
-  }
   input {
     /* 清除input框自带的边框和轮廓 */
     outline: none;
@@ -257,8 +263,7 @@ const valitedInput = (str, value) => {
     left: 0;
     padding: 10px 0;
     color: #fff;
-    /* 这个属性的默认值是auto 默认是这个元素可以被点击 但是如果我们写了none 就是这个元素不能被点击 , 就好像它可见但是不能用 可望而不可即 */
-    /* 这个就是两者的区别 */
+    font-size: 14px;
     pointer-events: none;
     /* 加个过渡 */
     transition: all 0.5s;
@@ -341,7 +346,7 @@ a {
 //扫码登录
 .QRcode {
   width: 240px;
-  height: 240px;
+  height: 238px;
   position: relative;
   .QRcode_overtime {
     display: flex;

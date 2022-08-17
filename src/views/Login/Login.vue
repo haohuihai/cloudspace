@@ -28,16 +28,8 @@ const toLogin = () => {
     </div> -->
     <Transition appear enter-active-class="animate__animated animate__bounceInRight">
       <div class="h-full flex items-center m-auto w-[100%]">
-        <LoginForm
-          v-if="isLogin"
-          class="p-20px h-auto m-auto"
-          @to-register="toRegister"
-        />
-        <RegisterForm
-          v-else
-          class="p-20px h-auto m-auto"
-          @to-login="toLogin"
-        />
+        <LoginForm v-if="isLogin" class="p-20px h-auto m-auto" @to-register="toRegister" />
+        <RegisterForm v-else class="p-20px h-auto m-auto" @to-login="toLogin" />
       </div>
     </Transition>
   </div>

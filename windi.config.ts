@@ -17,6 +17,12 @@ export default defineConfig({
       backgroundColor: {
         // 暗黑背景色
         'v-dark': 'var(--dark-bg-color)'
+      },
+      fontSize: {
+        sm: ['14px', '20px'],
+        base: ['16px', '24px'],
+        lg: ['20px', '28px'],
+        xl: ['24px', '32px']
       }
       // screens: {
       //   sm: '768px',
