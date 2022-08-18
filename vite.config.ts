@@ -8,9 +8,8 @@ import WindiCSS from 'vite-plugin-windicss'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import styleImport, { ElementPlusResolve } from 'vite-plugin-style-import'
 import PurgeIcons from 'vite-plugin-purge-icons'
-// import AutoImport from 'unplugin-auto-import/vite'
-// import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { viteMockServe } from 'vite-plugin-mock'
+import { createHtmlPlugin } from 'vite-plugin-html'
 const root = process.cwd()
 
 function pathResolve(dir: string) {
@@ -44,16 +43,30 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         ]
       }),
       PurgeIcons(),
-      // AutoImport({
-      //   resolvers: [ElementPlusResolver()]
-      // }),
-      // Components({
-      //   resolvers: [ElementPlusResolver()]
-      // }),
+   
       VueI18n({
         runtimeOnly: true,
         compositionOnly: true,
         include: [resolve(__dirname, 'src/locales/**')]
+      }),
+      viteMockServe({
+        ignore: /^\_/,
+        mockPath: 'mock',
+        localEnabled: !isBuild,
+        prodEnabled: isBuild,
+        injectCode: `
+          import { setupProdMockServer } from '../mock/_createProductionServer'
+
+          setupProdMockServer()
+          `
+      }),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            title: env.VITE_APP_TITLE,
+            injectScript: `<script src="./inject.js"></script>`,
+          }
+        }
       })
     ],
     css: {

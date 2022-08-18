@@ -1,6 +1,6 @@
 <template>
   <!-- 用户名密码登录 -->
-  <div class="flex flex-col items-center w-4/12 p-10 shadow-2xl min-w-100 min-h-380px relative">
+  <div class="flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
     <div class="loginType w-full flex justify-between text-white text-sm mb-4">
       <span
         :class="{ active_type: loginTypeIndex === index }"
@@ -33,7 +33,7 @@
       </a>
     </template>
     <template v-if="loginTypeIndex === 1">
-      <div class="login_box  mt-6" v-if="loginTypeIndex === 1">
+      <div class="login_box mt-6" v-if="loginTypeIndex === 1">
         <input
           type="text"
           required
@@ -72,6 +72,8 @@
 import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
+import { useRouter } from 'vue-router'
+import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 import { ElInput, ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useI18n } from '@/hooks/web/useI18n'
 const { t } = useI18n()
@@ -139,19 +141,53 @@ const handleSendNumber = () => {
 const handleLogin = () => {
   if (isPassInput.length) return
   if (loginTypeIndex.value === 1) return phoneLoginHtttp() // 手机登录
-  emailLoginHttp() // 邮箱登录
+  emailLoginHttp() // 邮箱/昵称登录
 }
 const emailLoginHttp = async () => {
-  const res = { status: 'fail', result: { token: 1 } }
   // await loginApi(params);
   // const { data: res } = await $http.post('/user/login1', Qs.stringify(loginForm))
-  if (res.status === 'fail') return // $message.error(res.msg)
-  console.log(`res`, res)
-  window.localStorage.setItem('userInfo', JSON.stringify(res.result))
+  let params = {
+    EName: loginForm.loginInput,
+    password: loginForm.password
+  }
+  try {
+    const res = await loginApi(params)
+    if (res) {
+      wsCache.set(appStore.getUserInfo, res.data)
+      getRole()
+    }
+  } finally {
+    loading.value = false
+  }
+  // if (res.status === 'fail') return // $message.error(res.msg)
+  // console.log(`res`, res)
+  // window.localStorage.setItem('userInfo', JSON.stringify(res.result))
   // window.localStorage.setItem('token', res.result.token)
   // $message.success("邮箱登录成功")
 
   // $router.push('/')
+}
+// 获取权限/路由
+const getRole = async () => {
+  let params = {
+    roleName: loginForm.loginInput
+  }
+  const res = await getAdminRoleApi(params)
+  if (res) {
+    const { wsCache } = useCache()
+    const routers = res.data || []
+    wsCache.set('roleRouters', routers)
+    try {
+      await permissionStore.generateRoutes('admin', routers).catch(() => {})
+      permissionStore.getAddRouters.forEach((route) => {
+        addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+      })
+      permissionStore.setIsAddRouters(true)
+      push({ path: redirect.value || permissionStore.addRouters[0].path })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 const emailRegister = async () => {
   // loginForm.code = loginForm.codeNumber
