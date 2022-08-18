@@ -69,35 +69,48 @@
   </div>
 </template>
 <script setup lang="ts">
+import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
 import { reactive, ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { ElInput, ElForm, ElFormItem, ElButton } from 'element-plus'
 import { useI18n } from '@/hooks/web/useI18n'
 const { t } = useI18n()
+
+declare type LoginInput = {
+  loginInput?: string
+  password?: string
+  codeNumber?: string
+  nickname?: string
+  phoneNumber?: string
+}
+interface ScanSchema {
+  socket?: string
+  timerCheck?: string
+  activeName?: string
+}
 const emit = defineEmits(['to-register'])
-const isRegister = ref(false)
 const successShow = ref(false)
 const overtimeShow = ref(false)
 const tipsText = ref('')
 const isPassInput = reactive<string[]>([])
-const loginForm = reactive({
+const loginForm = reactive<LoginInput>({
   loginInput: '', // 邮箱或手机号
   password: '', // 密码,
   codeNumber: '', // 验证码
   nickname: '', // 昵称
   phoneNumber: ''
 })
-const scanCodeQuery = reactive({
-  socket: null,
-  timerCheck: null,
+const scanCodeQuery = reactive<ScanSchema>({
+  socket: '',
+  timerCheck: '',
   activeName: 'ScanCode'
 })
-const sendNumberTip = ref('发送验证码')
+const sendNumberTip = ref<string>('发送验证码')
 const isSend = ref(false)
 const endTime = ref(60)
 const timeId = ref(null)
 const loginTypeList = reactive<string[]>(['邮箱', '手机', '扫码'])
-const loginTypeIndex = ref(0) // 0 邮箱，1  手机  2  扫码
+const loginTypeIndex = ref<number>(0) // 0 邮箱，1  手机  2  扫码
 const handleSendNumber = () => {
   if (isSend.value && isPassInput.length) {
     // delete loginForm.codeNumber
@@ -126,15 +139,11 @@ const handleSendNumber = () => {
 const handleLogin = () => {
   if (isPassInput.length) return
   if (loginTypeIndex.value === 1) return phoneLoginHtttp() // 手机登录
-  if (isRegister.value) {
-    //邮箱登录
-    emailLoginHttp()
-  } else {
-    emailRegister() //邮箱注册
-  }
+  emailLoginHttp() // 邮箱登录
 }
 const emailLoginHttp = async () => {
   const res = { status: 'fail', result: { token: 1 } }
+  // await loginApi(params);
   // const { data: res } = await $http.post('/user/login1', Qs.stringify(loginForm))
   if (res.status === 'fail') return // $message.error(res.msg)
   console.log(`res`, res)
