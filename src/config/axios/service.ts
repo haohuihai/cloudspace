@@ -10,7 +10,6 @@ const service: AxiosInstance = axios.create({
 })
 
 service.interceptors.request.use((config: AxiosRequestConfig) => {
-    console.log(config);
     if (
       config.method === 'post' &&
       (config.headers as any)['Content-Type'] === 'application/x-www-form-urlencoded'

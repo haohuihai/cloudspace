@@ -20,8 +20,9 @@ const toLogin = () => {
 <template>
   <div
     :class="prefixCls"
-    class="h-[100%] flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500"
   >
+    <!-- class="h-[100%] flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500" -->
+
     <!-- <div class="flex justify-end items-center space-x-10px">
       <ThemeSwitch />
       <LocaleDropdown class="<xl:text-white dark:text-white" />
@@ -35,4 +36,5 @@ const toLogin = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

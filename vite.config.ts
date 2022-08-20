@@ -43,7 +43,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         ]
       }),
       PurgeIcons(),
-   
       VueI18n({
         runtimeOnly: true,
         compositionOnly: true,
@@ -51,12 +50,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }),
       viteMockServe({
         ignore: /^\_/,
-        mockPath: 'mock',
+        mockPath: './mock/',
         localEnabled: !isBuild,
         prodEnabled: isBuild,
         injectCode: `
           import { setupProdMockServer } from '../mock/_createProductionServer'
-
           setupProdMockServer()
           `
       }),
@@ -64,7 +62,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         inject: {
           data: {
             title: env.VITE_APP_TITLE,
-            injectScript: `<script src="./inject.js"></script>`,
+            injectScript: `<script src="./inject.js"></script>`
           }
         }
       })
@@ -78,10 +76,17 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }
     },
     resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      },
-      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css']
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.less', '.css'],
+      alias: [
+        {
+          find: 'vue-i18n',
+          replacement: 'vue-i18n/dist/vue-i18n.cjs.js'
+        },
+        {
+          find: /\@\//,
+          replacement: `${pathResolve('src')}/`
+        }
+      ]
     },
     server: {
       port: 4000,
