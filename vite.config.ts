@@ -1,4 +1,3 @@
-import { fileURLToPath, URL } from 'node:url'
 import { resolve } from 'path'
 import type { UserConfig, ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'

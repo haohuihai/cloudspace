@@ -15,8 +15,15 @@ import { setupElementPlus } from '@/plugins/elementPlus'
 import '@/plugins/animate.css'
 // 全局组件
 import { setupGlobCom } from '@/components'
+// 权限
+import { setupPermission } from './directives'
 // 引入状态管理
 import { setupStore } from '@/stores'
+
+import './permission'
+
+import '@purge-icons/generated' 
+
 // 创建实例
 const setupAll = async () => {
   const app = createApp(App)
@@ -25,6 +32,7 @@ const setupAll = async () => {
   setupRouter(app)
   setupElementPlus(app)
   setupGlobCom(app)
+  setupPermission(app)
   app.mount('#app')
 }
 

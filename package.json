@@ -32,6 +32,7 @@
     "echarts-wordcloud": "^2.0.0",
     "element-plus": "2.2.11",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.17",
     "pinia-plugin-persist": "^1.0.0",
     "qrcode": "^1.5.1",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@iconify/json": "^2.1.95",
     "@intlify/vite-plugin-vue-i18n": "^5.0.1",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/node": "^16.11.47",
@@ -66,6 +68,7 @@
     "postcss": "^8.4.14",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
+    "rollup": "^2.78.1",
     "stylelint": "^14.9.1",
     "stylelint-config-html": "^1.1.0",
     "stylelint-config-prettier": "^9.0.3",

@@ -1,63 +1,60 @@
 <template>
-  <div>
-    <!-- 用户名密码登录 -->
-    <div class="displaylogin flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
-      <div class="loginType w-full flex justify-between text-white text-sm mb-4">
-        <span :class="{ active_type: loginTypeIndex === index }" @click="chooseLoginType(index)"
-          v-for="(item, index) in loginTypeList" :key="index" class="cursor-pointer text-gray-600 hover:text-white">{{
-              item
+  <!-- 用户名密码登录 -->
+  <div class="flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
+    <div class="loginType w-full flex justify-between text-white text-sm mb-4">
+      <span :class="{ active_type: loginTypeIndex === index }" @click="chooseLoginType(index)"
+        v-for="(item, index) in loginTypeList" :key="index" class="cursor-pointer text-gray-600 hover:text-white">{{
+            item
+        }}</span>
+    </div>
+    <template v-if="loginTypeIndex === 0">
+      <div class="login_box mt-6">
+        <input type="text" required v-model="loginForm.loginInput" /><label>邮箱/手机/昵称</label>
+      </div>
+      <div class="login_box">
+        <input type="password" @blur="valitedInput('isPassword', loginForm.password)" v-model="loginForm.password"
+          required />
+        <label>密码</label>
+      </div>
+      <a href="javascript:void(0)" @click="handleLogin">
+        登录
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </template>
+    <template v-if="loginTypeIndex === 1">
+      <div class="login_box mt-6" v-if="loginTypeIndex === 1">
+        <input type="text" required @blur="valitedInput('isPhonenumber', loginForm.phoneNumber)"
+          v-model="loginForm.phoneNumber" /><label>手机</label>
+      </div>
+      <div class="login_box lastInput">
+        <input type="password" v-model="loginForm.codeNumber" required /><label>验证码</label>
+        <span class="absolute top-10px -right-2/5 text-base px-4px bg-light-50 cursor-pointer rounded-2px"
+          @click="handleSendNumber">{{
+              isSend ? endTime + 's' : sendNumberTip
           }}</span>
       </div>
-      <template v-if="loginTypeIndex === 0">
-        <div class="login_box mt-6">
-          <input type="text" required v-model="loginForm.loginInput" /><label>邮箱/手机/昵称</label>
+    </template>
+    <template v-if="loginTypeIndex === 2">
+      <div class="QRcode">
+        <div class="QRcode_success" v-if="successShow">
+          <img src="@/assets/img/login/success.png" alt="success" />
+          <p>扫码成功</p>
         </div>
-        <div class="login_box">
-          <input type="password" @blur="valitedInput('isPassword', loginForm.password)" v-model="loginForm.password"
-            required />
-          <label>密码</label>
+        <div class="QRcode_overtime" @click="scanAgainScanCode" v-if="overtimeShow">
+          <p>二维码失效，点击重新获取</p>
+          <img src="@/assets/img/login/reload.png" alt="reload.png" />
         </div>
-        <a href="javascript:void(0)" @click="handleLogin">
-          登录
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </a>
-      </template>
-      <template v-if="loginTypeIndex === 1">
-        <div class="login_box mt-6" v-if="loginTypeIndex === 1">
-          <input type="text" required @blur="valitedInput('isPhonenumber', loginForm.phoneNumber)"
-            v-model="loginForm.phoneNumber" /><label>手机</label>
-        </div>
-        <div class="login_box lastInput">
-          <input type="password" v-model="loginForm.codeNumber" required /><label>验证码</label>
-          <span class="absolute top-10px -right-2/5 text-base px-4px bg-light-50 cursor-pointer rounded-2px"
-            @click="handleSendNumber">{{
-                isSend ? endTime + 's' : sendNumberTip
-            }}</span>
-        </div>
-      </template>
-      <template v-if="loginTypeIndex === 2">
-        <div class="QRcode">
-          <div class="QRcode_success" v-if="successShow">
-            <img src="@/assets/img/login/success.png" alt="success" />
-            <p>扫码成功</p>
-          </div>
-          <div class="QRcode_overtime" @click="scanAgainScanCode" v-if="overtimeShow">
-            <p>二维码失效，点击重新获取</p>
-            <img src="@/assets/img/login/reload.png" alt="reload.png" />
-          </div>
-          <!-- <img class="QRcode_img" :src="" /> -->
-        </div>
-        <p class="tips">{{ tipsText }}</p>
-      </template>
-      <div class="absolute bottom-40px flex justify-between w-[80%] left-10">
-        <span class="cursor-pointer text-light-50" @click="handleToRegister"> 去注册</span>
-        <span class="cursor-pointer text-light-50">忘记密码</span>
+        <!-- <img class="QRcode_img" :src="" /> -->
       </div>
+      <p class="tips">{{ tipsText }}</p>
+    </template>
+    <div class="absolute bottom-40px flex justify-between w-[80%] left-10">
+      <span class="cursor-pointer text-light-50" @click="handleToRegister"> 去注册</span>
+      <span class="cursor-pointer text-light-50">忘记密码</span>
     </div>
-    <button @click="handleLogin">测试</button>
   </div>
 </template>
 <script setup lang="ts">
@@ -185,8 +182,6 @@ const getRole = async () => {
   const res = await getAdminRoleApi(params)
   if (res) {
     const routers = res.data || []
-    console.log(routers);
-    
     wsCache.set('roleRouters', routers)
     try {
       await permissionStore.generateRoutes('admin', routers).catch(() => { })
