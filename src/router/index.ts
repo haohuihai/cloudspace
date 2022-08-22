@@ -4,7 +4,25 @@ import type { App } from 'vue'
 
 export const constantRouterMap: AppRouteRecordRaw[] = [
   {
-    path: '/',
+    path: '/home',
+    component: () => import('@/views/Home/Home.vue'),
+    name: 'Home',
+    meta: {
+      title: '首页',
+      hidden: true
+    }
+  },
+  {
+    path: '/visualization',
+    component: () => import('@/views/Visualization/Visualization.vue'),
+    name: 'Visiual',
+    meta: {
+      title: '可视化',
+      hidden: true
+    }
+  },
+  {
+    path: '/dashboard',
     component: '',
     redirect: '/dashboard/analysis',
     name: 'Root',

@@ -7,6 +7,26 @@ const timeout = 1000
 
 const adminList = [
   {
+    path: '/home',
+    component: 'views/Home/Home',
+    name: 'Home',
+    meta: {
+      title: '首页',
+      icon: 'ant-design:dashboard-filled',
+      alwaysShow: true
+    }
+  },
+  {
+    path: '/visualization',
+    component: '/Visualization/Visualization',
+    name: 'Visiual',
+    meta: {
+      title: '可视化',
+      icon: 'ant-design:dashboard-filled',
+      alwaysShow: true
+    }
+  },
+  {
     path: '/dashboard',
     component: '#',
     redirect: '/dashboard/analysis',

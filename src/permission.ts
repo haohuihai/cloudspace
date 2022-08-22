@@ -5,15 +5,15 @@ import type { RouteRecordRaw } from 'vue-router'
 import { useTitle } from '@/hooks/web/useTitle'
 import { useNProgress } from '@/hooks/web/useNProgress'
 import { usePermissionStoreWithOut } from '@/stores/modules/permission'
-import { useDictStoreWithOut } from '@/stores/modules/dict'
+// import { useDictStoreWithOut } from '@/stores/modules/dict'
 import { usePageLoading } from '@/hooks/web/usePageLoading'
-import { getDictApi } from '@/api/common'
+// import { getDictApi } from '@/api/common'
 
 const permissionStore = usePermissionStoreWithOut()
 
 const appStore = useAppStoreWithOut()
 
-const dictStore = useDictStoreWithOut()
+// const dictStore = useDictStoreWithOut()
 
 const { wsCache } = useCache()
 
@@ -35,14 +35,14 @@ router.beforeEach(async (to, from, next) => {
         return
       }
 
-      if (!dictStore.getIsSetDict) {
-        // 获取所有字典
-        const res = await getDictApi()
-        if (res) {
-          dictStore.setDictObj(res.data)
-          dictStore.setIsSetDict(true)
-        }
-      }
+      // if (!dictStore.getIsSetDict) {
+      //   // 获取所有字典
+      //   const res = await getDictApi()
+      //   if (res) {
+      //     dictStore.setDictObj(res.data)
+      //     dictStore.setIsSetDict(true)
+      //   }
+      // }
       // 开发者可根据实际情况进行修改
       const roleRouters = wsCache.get('roleRouters') || []
       await permissionStore.generateRoutes('admin', roleRouters as AppCustomRouteRecordRaw[])
@@ -54,13 +54,14 @@ router.beforeEach(async (to, from, next) => {
       const redirect = decodeURIComponent(redirectPath as string)
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
       permissionStore.setIsAddRouters(true)
+      console.log(nextData)
       next(nextData)
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
+      next(`/login`) // 否则全部重定向到登录页
     }
   }
 })
