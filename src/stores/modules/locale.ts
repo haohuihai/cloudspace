@@ -6,8 +6,7 @@ import type { LocaleState } from '@/config/locale'
 
 const { wsCache } = useCache()
 
-export const useLocaleStore = defineStore({
-  id: 'locales',
+export const useLocaleStore = defineStore('locales', {
   state: (): LocaleState => localeModules,
   persist: {
     enabled: true
