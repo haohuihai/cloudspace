@@ -19,15 +19,21 @@ import { setupGlobCom } from '@/components'
 import { setupPermission } from './directives'
 // 引入状态管理
 import { setupStore } from '@/stores'
+// 引入字体的文件
+import '@/assets/font/iconfont.css'
+// 引入全局的样式文件
+import '@/styles/global.less'
 
 import './permission'
 
-import '@purge-icons/generated' 
-
+import '@purge-icons/generated'
+import SocketService from '@/utils/socket_service'
 // 创建实例
 const setupAll = async () => {
   const app = createApp(App)
   await setupI18n(app)
+  app.config.globalProperties.$socket = SocketService
+  app.config.globalProperties.$echarts = window.echarts
   setupStore(app)
   setupRouter(app)
   setupElementPlus(app)

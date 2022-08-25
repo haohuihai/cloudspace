@@ -18,7 +18,7 @@ const adminList = [
   },
   {
     path: '/visualization',
-    component: '/Visualization/Visualization',
+    component: 'views/Visualization/Visualization',
     name: 'Visiual',
     meta: {
       title: '可视化',
