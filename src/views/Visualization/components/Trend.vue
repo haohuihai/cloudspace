@@ -1,210 +1,225 @@
 <template>
   <div class="com-container">
     <div class="title" :style="comStyle">
-      <span>{{ '▎ ' +  showTitle }}</span>
-      <span class="iconfont title-icon" :style="comStyle"  @click="showChoice = !showChoice">&#xe6eb;</span>
+      <span>{{ '▎ ' + showTitle }}</span>
+      <span class="iconfont title-icon" :style="comStyle" @click="showChoice = !showChoice"
+        >&#xe6eb;</span
+      >
       <div class="select-con" v-show="showChoice" :style="marginStyle">
-        <div class="select-item" v-for="item in selectTypes" :key="item.key" @click="handleSelect(item.key)">
+        <div
+          class="select-item"
+          v-for="item in selectTypes"
+          :key="item.key"
+          @click="handleSelect(item.key)"
+        >
           {{ item.text }}
         </div>
       </div>
     </div>
-    <div class="com-chart" ref="trend_ref"></div>
+    <div class="com-chart" ref="trend_ref" id="trend_ref"></div>
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex'
-import { getThemeValue } from '@/utils/theme_utils'
-export default {
-  data () {
-    return {
-      chartInstane: null,
-      allData: null, // 从服务器中获取的所有数据
-      showChoice: false, // 是否显示可选项
-      choiceType: 'map', // 显示的数据类型
-      titleFontSize: 0 // 指明标题的字体大小
-    }
-  },
-  created () {
-    // 在组件创建完成之后 进行回调函数的注册
-    this.$socket.registerCallBack('trendData', this.getData)
-  },
-  mounted () {
-    this.initChart()
-    // this.getData()
-    // 发送数据给服务器, 告诉服务器, 我现在需要数据
-    this.$socket.send({
-      action: 'getData',
-      socketType: 'trendData',
-      chartName: 'trend',
-      value: ''
-    })
-    window.addEventListener('resize', this.screenAdapter)
-    this.screenAdapter()
-  },
-  destroyed () {
-    window.removeEventListener('resize', this.screenAdapter)
-    // 在组件销毁的时候, 进行回调函数的取消
-    this.$socket.unRegisterCallBack('trendData')
-  },
-  computed: {
-    selectTypes () {
-      if (!this.allData) {
-        return []
-      } else {
-        return this.allData.type.filter(item => {
-          return item.key !== this.choiceType
-        })
-      }
+<script setup lang="ts">
+import { watch, ref, computed, getCurrentInstance, onMounted, reactive } from 'vue'
+import * as echarts from 'echarts'
+onMounted(() => {
+  var chartDom = document.getElementById('trend_ref')
+  var myChart = echarts.init(chartDom, 'dark')
+  var option
+
+  option = {
+    color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+    title: {
+      text: '地区销量趋势',
+      top: 20,
+      left: 15
     },
-    showTitle () {
-      if (!this.allData) {
-        return ''
-      } else {
-        return this.allData[this.choiceType].title
-      }
-    },
-    // 设置给标题的样式
-    comStyle () {
-      return {
-        fontSize: this.titleFontSize + 'px',
-        color: getThemeValue(this.theme).titleColor
-      }
-    },
-    marginStyle () {
-      return {
-        marginLeft: this.titleFontSize + 'px'
-      }
-    },
-    ...mapState(['theme'])
-  },
-  methods: {
-    initChart () {
-      this.chartInstane = this.$echarts.init(this.$refs.trend_ref, this.theme)
-      const initOption = {
-        grid: {
-          left: '3%',
-          top: '35%',
-          right: '4%',
-          bottom: '1%',
-          containLabel: true
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          left: 20,
-          top: '15%',
-          icon: 'circle'
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false
-        },
-        yAxis: {
-          type: 'value'
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
         }
       }
-      this.chartInstane.setOption(initOption)
     },
-    // ret 就是服务端发送给客户端的图表的数据
-    getData (ret) {
-      // await this.$http.get()
-      // 对allData进行赋值
-      // const { data: ret } = await this.$http.get('trend')
-      this.allData = ret
-      console.log(this.allData)
-      this.updateChart()
+    legend: {
+      top: 50,
+      left: 110,
+      data: ['服装', '裤装', '手机数码', '摄影摄像', '其他']
     },
-    updateChart () {
-      // 半透明的颜色值
-      const colorArr1 = [
-        'rgba(11, 168, 44, 0.5)',
-        'rgba(44, 110, 255, 0.5)',
-        'rgba(22, 242, 217, 0.5)',
-        'rgba(254, 33, 30, 0.5)',
-        'rgba(250, 105, 0, 0.5)'
-      ]
-      // 全透明的颜色值
-      const colorArr2 = [
-        'rgba(11, 168, 44, 0)',
-        'rgba(44, 110, 255, 0)',
-        'rgba(22, 242, 217, 0)',
-        'rgba(254, 33, 30, 0)',
-        'rgba(250, 105, 0, 0)'
-      ]
-      // 处理数据
-      // 类目轴的数据
-      const timeArr = this.allData.common.month
-      // y轴的数据 series下的数据
-      const valueArr = this.allData[this.choiceType].data
-      const seriesArr = valueArr.map((item, index) => {
-        return {
-          name: item.name,
-          type: 'line',
-          data: item.data,
-          stack: this.choiceType,
-          areaStyle: {
-            color: new this.$echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              {
-                offset: 0,
-                color: colorArr1[index]
-              }, // %0的颜色值
-              {
-                offset: 1,
-                color: colorArr2[index]
-              } // 100%的颜色值
-            ])
-          }
-        }
-      })
-      // 图例的数据
-      const legendArr = valueArr.map(item => {
-        return item.name
-      })
-      const dataOption = {
-        xAxis: {
-          data: timeArr
-        },
-        legend: {
-          data: legendArr
-        },
-        series: seriesArr
+    toolbox: {
+      feature: {
+        saveAsImage: {}
+      },
+      top: 7,
+      right: 10
+    },
+    grid: {
+      top: 100,
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        boundaryGap: false,
+        data: ['一', '二', '三', '四', '五', '六', '日']
       }
-      this.chartInstane.setOption(dataOption)
-    },
-    screenAdapter () {
-      this.titleFontSize = this.$refs.trend_ref.offsetWidth / 100 * 3.6
-      const adapterOption = {
-        legend: {
-          itemWidth: this.titleFontSize,
-          itemHeight: this.titleFontSize,
-          itemGap: this.titleFontSize,
-          textStyle: {
-            fontSize: this.titleFontSize / 2
-          }
-        }
+    ],
+    yAxis: [
+      {
+        type: 'value'
       }
-      this.chartInstane.setOption(adapterOption)
-      this.chartInstane.resize()
-    },
-    handleSelect (currentType) {
-      this.choiceType = currentType
-      this.updateChart()
-      this.showChoice = false
-    }
-  },
-  watch: {
-    theme () {
-      console.log('主题切换了')
-      this.chartInstane.dispose() // 销毁当前的图表
-      this.initChart() // 重新以最新的主题名称初始化图表对象
-      this.screenAdapter() // 完成屏幕的适配
-      this.updateChart() // 更新图表的展示
-    }
+    ],
+    series: [
+      {
+        name: '服装',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
+        },
+        showSymbol: false,
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgb(128, 255, 165)'
+            },
+            {
+              offset: 1,
+              color: 'rgb(1, 191, 236)'
+            }
+          ])
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: [140, 232, 101, 264, 90, 340, 250]
+      },
+      {
+        name: '裤装',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
+        },
+        showSymbol: false,
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgb(0, 221, 255)'
+            },
+            {
+              offset: 1,
+              color: 'rgb(77, 119, 255)'
+            }
+          ])
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: [120, 282, 111, 234, 220, 340, 310]
+      },
+      {
+        name: '手机数码',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
+        },
+        showSymbol: false,
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgb(55, 162, 255)'
+            },
+            {
+              offset: 1,
+              color: 'rgb(116, 21, 219)'
+            }
+          ])
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: [320, 132, 201, 334, 190, 130, 220]
+      },
+      {
+        name: '摄影摄像',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
+        },
+        showSymbol: false,
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgb(255, 0, 135)'
+            },
+            {
+              offset: 1,
+              color: 'rgb(135, 0, 157)'
+            }
+          ])
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: [220, 402, 231, 134, 190, 230, 120]
+      },
+      {
+        name: '其他',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
+        },
+        showSymbol: false,
+        label: {
+          show: true,
+          position: 'top'
+        },
+        areaStyle: {
+          opacity: 0.8,
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            {
+              offset: 0,
+              color: 'rgb(255, 191, 0)'
+            },
+            {
+              offset: 1,
+              color: 'rgb(224, 62, 76)'
+            }
+          ])
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: [220, 302, 181, 234, 210, 290, 150]
+      }
+    ]
   }
-}
+
+  option && myChart.setOption(option)
+})
 </script>
 
 <style lang="less" scoped>

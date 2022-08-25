@@ -2,27 +2,53 @@
   <div class="screen-container" :style="containerStyle">
     <header class="screen-header">
       <div>
-        <img :src="headerSrc" alt="">
+        <img :src="headerSrc" alt="" />
       </div>
       <span class="logo">
         <img :src="logoSrc" alt="" />
       </span>
       <span class="title">电商平台实时监控系统</span>
       <div class="title-right">
-        <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme">
+        <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme" />
         <span class="datetime">2049-01-01 00:00:00</span>
       </div>
     </header>
     <div class="screen-body">
-    
+      <section class="screen-left">
+        <div id="left-top" :class="[fullScreenStatus.trend ? 'fullscreen' : '']">
+          <!-- 销量趋势图表 -->
+          <Trend ref="trend"></Trend>
+          <div class="resize">
+            <!-- icon-compress-alt -->
+            <span @click="changeSize('trend')" :class="['iconfont', fullScreenStatus.trend ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+          </div>
+        </div>
+        <div id="left-bottom" :class="[fullScreenStatus.seller ? 'fullscreen' : '']">
+          <!-- 商家销售金额图表 -->
+          <Seller ref="seller"></Seller>
+          <div class="resize">
+            <!-- icon-compress-alt -->
+            <span @click="changeSize('seller')"  :class="['iconfont', fullScreenStatus.seller ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+          </div>
+        </div>
+      </section>
+      <section class="screen-middle">
+        <div id="middle-bottom" :class="[fullScreenStatus.rank ? 'fullscreen' : '']">
+          <!-- 地区销量排行图表 -->
+          <Rank ref="rank"></Rank>
+          <div class="resize">
+            <!-- icon-compress-alt -->
+            <span @click="changeSize('rank')"  :class="['iconfont', fullScreenStatus.rank ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+          </div>
+        </div>
+      </section>
       <section class="screen-right">
         <div id="right-top" :class="[fullScreenStatus.hot ? 'fullscreen' : '']">
           <!-- 热销商品占比图表 -->
           <Hot ref="hot"></Hot>
           <div class="resize">
             <!-- icon-compress-alt -->
-            <span @click="changeSize('hot')"
-              :class="['iconfont', fullScreenStatus.hot ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+            <span @click="changeSize('hot')"  :class="['iconfont', fullScreenStatus.hot ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
           </div>
         </div>
       </section>
@@ -34,10 +60,10 @@
 import { getCurrentInstance, reactive, onUnmounted, ref, computed } from 'vue'
 import Hot from './components/Hot.vue'
 // import Map from './components/Map.vue'
-// import Rank from './components/Rank.vue'
-// import Seller from './components/Seller.vue'
+import Rank from './components/Rank.vue'
+import Seller from './components/Seller.vue'
 // import Stock from './components/Stock.vue'
-// import Trend from './components/Trend.vue'
+import Trend from './components/Trend.vue'
 // import { mapState } from 'vuex'
 import { useVisionStore } from '@/stores/modules/vision'
 import { getThemeValue } from '@/utils/theme_utils'
@@ -51,7 +77,7 @@ import headerBorderLight from '@/assets/imgs/header_border_light.png'
 import qiehuanDark from '@/assets/imgs/qiehuan_dark.png'
 import qiehuanLight from '@/assets/imgs/qiehuan_light.png'
 
-const visionStore = useVisionStore();
+const visionStore = useVisionStore()
 const { proxy }: any = getCurrentInstance()
 
 interface FullScreenTypes {
@@ -63,90 +89,90 @@ interface FullScreenTypes {
   stock: Boolean
 }
 let fullScreenStatus = reactive<FullScreenTypes>({
-        trend: false,
-        seller: false,
-        map: false,
-        rank: false,
-        hot: false,
-        stock: false
-      }) 
+  trend: false,
+  seller: false,
+  map: false,
+  rank: false,
+  hot: false,
+  stock: false
+})
 let theme = ref('chalk')
 // 注册接收到数据的回调函数
 // proxy.$socket.registerCallBack('fullScreen', recvData)
 // proxy.$socket.registerCallBack('themeChange', recvThemeChange)
-  onUnmounted (() => {
-      proxy.$socket.unRegisterCallBack('fullScreen')
-      proxy.$socket.unRegisterCallBack('themeChange')
+onUnmounted(() => {
+  proxy.$socket.unRegisterCallBack('fullScreen')
+  proxy.$socket.unRegisterCallBack('themeChange')
+})
+const changeSize = (chartName) => {
+  // 1.改变fullScreenStatus的数据
+  // this.fullScreenStatus[chartName] = !this.fullScreenStatus[chartName]
+  // 2.需要调用每一个图表组件的screenAdapter的方法
+  // this.$refs[chartName].screenAdapter()
+  // this.$nextTick(() => {
+  //   this.$refs[chartName].screenAdapter()
+  // })
+  // 将数据发送给服务端
+  const targetValue = fullScreenStatus[chartName]
+  proxy.$socket.send({
+    action: 'fullScreen',
+    socketType: 'fullScreen',
+    chartName: chartName,
+    value: targetValue
   })
-  const changeSize = (chartName) => {
-    // 1.改变fullScreenStatus的数据
-    // this.fullScreenStatus[chartName] = !this.fullScreenStatus[chartName]
-    // 2.需要调用每一个图表组件的screenAdapter的方法
-    // this.$refs[chartName].screenAdapter()
-    // this.$nextTick(() => {
-    //   this.$refs[chartName].screenAdapter()
-    // })
-    // 将数据发送给服务端
-    const targetValue = fullScreenStatus[chartName]
-    proxy.$socket.send({
-      action: 'fullScreen',
-      socketType: 'fullScreen',
-      chartName: chartName,
-      value: targetValue
-    })
-  }
-  // 接收到全屏数据之后的处理
-  const recvData = (data) => {
-    // 取出是哪一个图表需要进行切换
-    const chartName = data.chartName
-    // 取出, 切换成什么状态
-    const targetValue = data.value
-    fullScreenStatus[chartName] = targetValue
-    // this.$nextTick(() => {
-    //   this.$refs[chartName].screenAdapter()
-    // })
-  }
-  const handleChangeTheme = () => {
-    // 修改VueX中数据
-    // this.$store.commit('changeTheme')
-    proxy.$socket.send({
-      action: 'themeChange',
-      socketType: 'themeChange',
-      chartName: '',
-      value: ''
-    })
-  }
-  const recvThemeChange = () => {
-    visionStore.setVisionTheme('changeTheme')
-  }
-  const logoSrc = computed(() => {
-    if (theme.value === 'chalk') {
-      return logoImgDark
-    }
-    return logoImgLight
+}
+// 接收到全屏数据之后的处理
+const recvData = (data) => {
+  // 取出是哪一个图表需要进行切换
+  const chartName = data.chartName
+  // 取出, 切换成什么状态
+  const targetValue = data.value
+  fullScreenStatus[chartName] = targetValue
+  // this.$nextTick(() => {
+  //   this.$refs[chartName].screenAdapter()
+  // })
+}
+const handleChangeTheme = () => {
+  // 修改VueX中数据
+  // this.$store.commit('changeTheme')
+  proxy.$socket.send({
+    action: 'themeChange',
+    socketType: 'themeChange',
+    chartName: '',
+    value: ''
   })
-  // const logoSrc = () => '@/static/img/' + getThemeValue(theme.value).logoSrc
+}
+const recvThemeChange = () => {
+  visionStore.setVisionTheme('changeTheme')
+}
+const logoSrc = computed(() => {
+  if (theme.value === 'chalk') {
+    return logoImgDark
+  }
+  return logoImgLight
+})
+// const logoSrc = () => '@/static/img/' + getThemeValue(theme.value).logoSrc
 
-  const headerSrc = computed(() => {
-    if (theme.value === 'chalk') {
-      return headerBorderDark
-    }
-    return headerBorderLight
-  })
+const headerSrc = computed(() => {
+  if (theme.value === 'chalk') {
+    return headerBorderDark
+  }
+  return headerBorderLight
+})
 
-  const themeSrc = computed(() => {
-    if (theme.value === 'chalk') {
-      return qiehuanDark
-    }
-    return qiehuanLight
-  })
+const themeSrc = computed(() => {
+  if (theme.value === 'chalk') {
+    return qiehuanDark
+  }
+  return qiehuanLight
+})
 
-  const containerStyle = computed(() => {
-    return {
-      backgroundColor: getThemeValue(theme.value).backgroundColor,
-      color: getThemeValue(theme.value).titleColor
-    }
-  })
+const containerStyle = computed(() => {
+  return {
+    backgroundColor: getThemeValue(theme.value).backgroundColor,
+    color: getThemeValue(theme.value).titleColor
+  }
+})
 </script>
 <style lang="less" scoped>
 // 全屏样式的定义
@@ -175,7 +201,7 @@ let theme = ref('chalk')
   font-size: 20px;
   position: relative;
 
-  >div {
+  > div {
     img {
       width: 100%;
     }
@@ -285,7 +311,7 @@ let theme = ref('chalk')
   position: absolute;
   right: 40px;
   top: 10px;
-  color: #74728B;
+  color: #74728b;
   cursor: pointer;
   &:hover {
     color: blue;
