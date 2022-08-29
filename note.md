@@ -162,3 +162,57 @@ store.use(piniaPluginPersist)
 
 但最终结果是将store放到app的use里面
 
+# Visualization页面
+
+map获取数据是从服务端获取的，在proxy里面定义代理，这里的做法是去调用接口，然后监听客户端的socket，客户端发送消息到服务端，服务端在将数据发送到客户端，直到端开链接；
+
+通过socket将数据发送到客户端，所以将静态文件资源都放到服务端
+
+只有在可视化页面请求了接口，才会去监听客户端的消息。
+
+主要的做法：
+
+map请求接口，返回数据
+
+在服务端使用import from导入模块报错
+
+SyntaxError: Cannot use import statement outside a module
+
+在服务端使用import会报错。得使用require
+
+比如：import { Server } from 'socket.io'会报错
+
+只有const { Server } = require('socket.io')才不回报错
+
+本地开的服务，不管是127.0.0.1还剩localhost，在访问的时候都要用localhost去访问，为什么？
+
+# Proxy
+
+使用代理的时候必须使用明确的ip或者域名，不能使用localhost或者127.0.0.1
+
+# 后端+ mock返回数据格式规范
+
+成功：
+
+```json
+{
+	code: '0000',
+    data: []
+}
+```
+
+失败：
+
+```json
+{
+    code: '0001',
+    message: '一些说明'
+}
+```
+
+可视化：
+
+echarts + websocket的使用
+
+
+

@@ -12,12 +12,36 @@
 <script setup lang="ts">
 
 import * as echarts from 'echarts'
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, reactive, ref } from 'vue'
 type EChartsOption = echarts.EChartsOption
+let chartInstance = ref(null);
+let currentIndex = ref(0)
+let titleFontSize = ref(0)
+let allData = reactive([])
+let myChart = reactive({})
 onMounted(() => {
-  var chartDom = document.getElementById('hot_ref')!
-  var myChart = echarts.init(chartDom)
-  var option: EChartsOption
+  // this.$socket.registerCallBack('hotData', this.getData)
+  initChart()
+    // $socket.send({
+  //     action: 'getData',
+  //     socketType: 'hotData',
+  //     chartName: 'hot',
+  //     value: ''
+  //   })
+  screenAdapter()
+  document.addEventListener('resize', screenAdapter)
+
+})
+
+  onUnmounted(() => {
+    document.removeEventListener('resize', screenAdapter)
+    // this.$socket.unRegisterCallBack('hotData')
+  });
+const initChart = () => {
+  var chartDom = document.getElementById('hot_ref');
+  myChart = echarts.init(chartDom)
+
+  let option: EChartsOption
 
   option = {
     title: {
@@ -56,7 +80,35 @@ onMounted(() => {
   }
 
   option && myChart.setOption(option)
-})
+}
+const screenAdapter = () => {
+  let chartDom = document.getElementById('hot_ref');
+  
+  titleFontSize.value = chartDom.offsetWidth / 100 * 3.6
+  const adapterOption = {
+    title: {
+      textStyle: {
+        fontSize: titleFontSize.value
+      }
+    },
+    legend: {
+      itemWidth: titleFontSize.value,
+      itemHeight: titleFontSize.value,
+      itemGap: titleFontSize.value / 2,
+      textStyle: {
+        fontSize: titleFontSize.value / 2
+      }
+    },
+    series: [
+      {
+        radius: titleFontSize.value * 4.5,
+        center: ['50%', '60%']
+      }
+    ]
+  }
+  chartInstance.setOption(adapterOption)
+  chartInstance.resize()
+}
 </script>
 
 <style lang="less" scoped>

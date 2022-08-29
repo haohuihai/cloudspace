@@ -91,10 +91,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: 4000,
       proxy: {
         // 选项写法
-        '/api': {
-          target: 'http://127.0.0.1:8000',
+        // '/api': {
+        //   target: 'http://127.0.0.1:8000',
+        //   changeOrigin: true,
+        //   rewrite: (path) => path.replace(/^\/api/, '')
+        // },
+        '/v1': {
+          target: 'http://10.102.221.50:10000',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
+          rewrite: (path) => path.replace('/v1', '')
         }
       },
       hmr: {

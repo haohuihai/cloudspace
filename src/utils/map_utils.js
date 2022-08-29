@@ -34,9 +34,8 @@ const name2pinyin = {
   云南: 'yunnan',
   浙江: 'zhejiang'
 }
-
 export function getProvinceMapInfo (arg) {
-  const path = `/static/map/province/${name2pinyin[arg]}.json`
+  const path = `${name2pinyin[arg]}.json`
   return {
     key: name2pinyin[arg],
     path: path

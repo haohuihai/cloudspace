@@ -33,6 +33,14 @@
         </div>
       </section>
       <section class="screen-middle">
+        <div id="middle-top" :class="[fullScreenStatus.map ? 'fullscreen' : '']">
+          <!-- 商家分布图表 -->
+          <Map ref="map"></Map>
+          <div class="resize">
+            <!-- icon-compress-alt -->
+            <span @click="changeSize('map')"  :class="['iconfont', fullScreenStatus.map ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+          </div>
+        </div>
         <div id="middle-bottom" :class="[fullScreenStatus.rank ? 'fullscreen' : '']">
           <!-- 地区销量排行图表 -->
           <Rank ref="rank"></Rank>
@@ -59,7 +67,7 @@
 <script setup lang="ts">
 import { getCurrentInstance, reactive, onUnmounted, ref, computed } from 'vue'
 import Hot from './components/Hot.vue'
-// import Map from './components/Map.vue'
+import Map from './components/Map.vue'
 import Rank from './components/Rank.vue'
 import Seller from './components/Seller.vue'
 // import Stock from './components/Stock.vue'
@@ -174,7 +182,7 @@ const containerStyle = computed(() => {
   }
 })
 </script>
-<style lang="less" scoped>
+<style lang="less">
 // 全屏样式的定义
 .fullscreen {
   position: fixed !important;
@@ -317,4 +325,35 @@ const containerStyle = computed(() => {
     color: blue;
   }
 }
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.com-page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.com-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.com-chart {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas {
+  border-radius: 20px;
+}
+
 </style>
