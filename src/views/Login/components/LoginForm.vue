@@ -160,7 +160,7 @@ const emailLoginHttp = async () => {
   try {
     const res = await loginApi(params)
     if (res) {
-      wsCache.set(appStore.getUserInfo, res.data)
+      wsCache.set(appStore.getUserInfo, res)
       getRole()
     }
   } finally {
@@ -180,15 +180,17 @@ const getRole = async () => {
     roleName: loginForm.loginInput || 'admin'
   }
   const res = await getAdminRoleApi(params)
+  console.log(res)
   if (res) {
-    const routers = res.data || []
+    const routers = res || []
     wsCache.set('roleRouters', routers)
     try {
-      await permissionStore.generateRoutes('admin', routers).catch(() => { })
+      await permissionStore.generateRoutes('admin', routers).catch(() => {})
       permissionStore.getAddRouters.forEach((route) => {
         addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
       })
       permissionStore.setIsAddRouters(true)
+      console.log(permissionStore.addRouters[0].path, redirect.value)
       push({ path: redirect.value || permissionStore.addRouters[0].path })
     } catch (e) {
       console.log(e)

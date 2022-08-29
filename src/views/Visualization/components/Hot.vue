@@ -1,4 +1,3 @@
-
 <!-- 热销商品图表 -->
 <template>
   <div class="com-container">
@@ -10,19 +9,19 @@
 </template>
 
 <script setup lang="ts">
-
 import * as echarts from 'echarts'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import { getHotData } from '@/api/vision'
 type EChartsOption = echarts.EChartsOption
-let chartInstance = ref(null);
+let chartInstance = reactive<any>(null)
 let currentIndex = ref(0)
 let titleFontSize = ref(0)
 let allData = reactive([])
-let myChart = reactive({})
 onMounted(() => {
   // this.$socket.registerCallBack('hotData', this.getData)
   initChart()
-    // $socket.send({
+  getData()
+  // $socket.send({
   //     action: 'getData',
   //     socketType: 'hotData',
   //     chartName: 'hot',
@@ -30,61 +29,99 @@ onMounted(() => {
   //   })
   screenAdapter()
   document.addEventListener('resize', screenAdapter)
-
 })
 
-  onUnmounted(() => {
-    document.removeEventListener('resize', screenAdapter)
-    // this.$socket.unRegisterCallBack('hotData')
-  });
-const initChart = () => {
-  var chartDom = document.getElementById('hot_ref');
-  myChart = echarts.init(chartDom)
-
-  let option: EChartsOption
-
-  option = {
-    title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item'
-    },
+onUnmounted(() => {
+  document.removeEventListener('resize', screenAdapter)
+  // this.$socket.unRegisterCallBack('hotData')
+})
+const getData = async () => {
+  let data = await getHotData()
+  allData = JSON.parse(data)
+  updateChart()
+}
+const updateChart = () => {
+  const legendData = allData[currentIndex.value].children.map(item => {
+    return item.name
+  })
+  const seriesData = allData[currentIndex.value].children.map(item => {
+    return {
+      name: item.name,
+      value: item.value,
+      children: item.children // 新增加children的原因是为了在tooltip中的formatter的回调函数中,来拿到这个二级分类下的三级分类数据
+    }
+  })
+  const dataOption = {
     legend: {
-      orient: 'vertical',
-      left: 'left'
+      data: legendData
     },
     series: [
       {
-        name: 'Access From',
+        data: seriesData
+      }
+    ]
+  }
+  chartInstance.setOption(dataOption)
+}
+const initChart = () => {
+  var chartDom = document.getElementById('hot_ref')
+  chartInstance = echarts.init(chartDom)
+
+  let option: EChartsOption
+  option = {
+    title: {
+      text: '▎ 热销商品的占比',
+      left: 20,
+      top: 20
+    },
+    legend: {
+      top: '15%',
+      icon: 'circle'
+    },
+    tooltip: {
+      show: true,
+      formatter: arg => {
+        // console.log(arg)
+        const thirdCategory = arg.data.children
+        // 计算出所有三级分类的数值总和
+        let total = 0
+        thirdCategory.forEach(item => {
+          total += item.value
+        })
+        let retStr = ''
+        thirdCategory.forEach(item => {
+          retStr += `
+          ${item.name}:${parseInt(item.value / total * 100) + '%'}
+          <br/>
+          `
+        })
+        return retStr
+      }
+    },
+    series: [
+      {
         type: 'pie',
-        radius: '50%',
-        data: [
-          { value: 1048, name: 'Search Engine' },
-          { value: 735, name: 'Direct' },
-          { value: 580, name: 'Email' },
-          { value: 484, name: 'Union Ads' },
-          { value: 300, name: 'Video Ads' }
-        ],
+        label: {
+          show: false
+        },
         emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          label: {
+            show: true
+          },
+          labelLine: {
+            show: false
           }
         }
       }
     ]
   }
 
-  option && myChart.setOption(option)
+  option && chartInstance.setOption(option)
 }
 const screenAdapter = () => {
-  let chartDom = document.getElementById('hot_ref');
-  
-  titleFontSize.value = chartDom.offsetWidth / 100 * 3.6
+  let chartDom = document.getElementById('hot_ref')
+
+  titleFontSize.value = (chartDom.offsetWidth / 100) * 3.6
   const adapterOption = {
     title: {
       textStyle: {

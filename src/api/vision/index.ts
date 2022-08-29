@@ -1,15 +1,18 @@
 import request from '@/config/axios'
 
 export const getChinaMap = (params): any => {
-  return request.get({ url: '/v1/vision/getmap', params})
+  return request.get({ url: '/v1/vision/getmap', params })
 }
 
 export const getProvince = (params): any => {
-    return request.get({url: '/v1/vision/province', params})
+  return request.get({ url: '/v1/vision/province', params })
 }
 export const getMapType = (params): any => {
-    return request.get({url: '/v1/vision/mapDataType', params})
+  return request.get({ url: '/v1/vision/mapDataType', params })
 }
 export const getTrendData = (params): any => {
-    return request.get({url: '/v1/vision/getTrendData', params})
+  return request.get({ url: '/v1/vision/getTrendData', params })
+}
+export const getHotData = (params): any => {
+  return request.get({ url: '/v1/vision/getHotData', params })
 }
