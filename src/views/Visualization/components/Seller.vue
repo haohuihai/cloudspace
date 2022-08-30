@@ -9,14 +9,15 @@
 import { onMounted, reactive, ref, onUnmounted, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
+import { getSellerData } from '@/api/vision'
 let useVision =  useVisionStore()
 let chartInstance = reactive(null)
 let allData = reactive([]) // 服务器返回的数据
 let currentPage = ref(1) // 当前显示的页数
 let totalPage = ref(0) // 一共有多少页
-let timerId =  null // 定时器的标识
+let timerId = null // 定时器的标识
+let seller_ref = ref(null)
 onMounted(() => {
-  
   initChart()
   getData()
 })
@@ -24,12 +25,12 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timerId)
   window.removeEventListener('resize', screenAdapter)
-
 })
 
-const getData = () => {
+const getData = async () => {
   // const { data: ret } = await this.$http.get('seller')
-  allData = ret
+  let data = await getSellerData()
+  allData = JSON.parse(data)
   // 对数据排序
   allData.sort((a, b) => {
     return a.value - b.value // 从小到大的排序
@@ -42,17 +43,19 @@ const getData = () => {
 }
 const initChart = () => {
   type EChartsOption = echarts.EChartsOption
-  var chartDom = document.getElementById('seller_ref')!
-  chartInstance = echarts.init(chartDom)
+  console.log(useVision.getVisionTheme)
+  
+  chartInstance = echarts.init(seller_ref.value, useVision.getVisionTheme)
   window.addEventListener('resize', screenAdapter)
   screenAdapter()
   const initOption = {
     title: {
       text: '▎商家销售统计',
       left: 20,
-      top: 20
+      top: 20,
     },
     grid: {
+      show: false,
       top: '20%',
       left: '3%',
       right: '6%',
@@ -117,7 +120,7 @@ const initChart = () => {
 
 const screenAdapter = () => {
   // console.log(this.$refs.seller_ref.offsetWidth)
-  const titleFontSize = $refs.seller_ref.offsetWidth / 100 * 3.6
+  const titleFontSize = seller_ref.value.offsetWidth / 100 * 3.6
   // 和分辨率大小相关的配置项
   const adapterOption = {
     title: {
@@ -188,4 +191,6 @@ watch(() => useVision.getVisionTheme,
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+@import '@/styles/vision.less';
+</style>

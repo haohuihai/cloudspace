@@ -16,3 +16,12 @@ export const getTrendData = (params): any => {
 export const getHotData = (params): any => {
   return request.get({ url: '/v1/vision/getHotData', params })
 }
+export const getRankData = (params): any => {
+  return request.get({ url: '/v1/vision/getRankData', params })
+}
+export const getSellerData = (params): any => {
+  return request.get({ url: '/v1/vision/getSellerData', params })
+}
+export const getStockData = (params): any => {
+  return request.get({ url: '/v1/vision/getStockData', params })
+}

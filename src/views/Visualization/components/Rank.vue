@@ -9,13 +9,14 @@
 import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
+import { getRankData } from '@/api/vision'
 let useVision =  useVisionStore()
 let chartInstance = reactive<any>(null)
 let allData = reactive([])
 let startValue = ref(0) // 区域缩放的起点值
 let endValue = ref(9) // 区域缩放的终点值
 let timerId = null // 定时器的标识
-
+let rank_ref = ref(null)
 onMounted(() => {
   initChart()
   getData()
@@ -27,19 +28,18 @@ onUnmounted(() => {
   window.removeEventListener('resize', screenAdapter)
   clearInterval(timerId)
 })
-const getData = () => {
-  allData = ret
+const getData = async () => {
+  let data = await getRankData()
+  allData = JSON.parse(data)
   // 对allData里面的每一个元素进行排序, 从大到小进行
   allData.sort((a, b) => {
     return b.value - a.value
   })
-  console.log(this.allData)
   updateChart()
   startInterval()
 }
 const initChart = () => {
-  let chartDom = document.getElementById('map_ref');
-  chartInstance = echarts.init(chartDom);
+  chartInstance = echarts.init(rank_ref.value)
 
   const initOption = {
     title: {
@@ -48,6 +48,7 @@ const initChart = () => {
       top: 20
     },
     grid: {
+      show: false,
       top: '40%',
       left: '5%',
       right: '5%',
@@ -147,8 +148,7 @@ const updateChart = () => {
   chartInstance.setOption(dataOption)
 }
 const screenAdapter = () => {
-  let chartDom = document.getElementById('map_ref');
-  const titleFontSize = chartDom.offsetWidth / 100 * 3.6
+  const titleFontSize = rank_ref.value.offsetWidth / 100 * 3.6
   const adapterOption = {
     title: {
       textStyle: {
@@ -178,5 +178,5 @@ watch(() => useVision.getVisionTheme,
 </script>
 
 <style lang="less" scoped>
-  
+@import '@/styles/vision.less';
 </style>

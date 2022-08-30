@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { watch, ref, computed, getCurrentInstance, onUnmounted, onMounted, reactive } from 'vue'
 import * as echarts from 'echarts'
-import { getTrendData } from '@/api/vision'
+import { getStockData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
 import { useVisionStore } from '@/stores/modules/vision'
 let useVision =  useVisionStore()
@@ -16,13 +16,15 @@ let chartInstance = reactive<any>(null)
 let allData = reactive([])
 let currentIndex = ref(0) // 当前显示的数据
 let timerId = null // 定时器的标识
+
+let stock_ref = ref(null)
 // created () {
 //     // 在组件创建完成之后 进行回调函数的注册
 //     this.$socket.registerCallBack('stockData', this.getData)
 // }
 onMounted (() => {
     initChart()
-  // this.getData()
+    getData()
   //   $socket.send({
   //   action: 'getData',
   //   socketType: 'stockData',
@@ -35,11 +37,10 @@ onMounted (() => {
 onUnmounted (() => {
   window.removeEventListener('resize', screenAdapter)
   clearInterval(timerId)
-  this.$socket.unRegisterCallBack('stockData')
+  // this.$socket.unRegisterCallBack('stockData')
 })
-const initChart =  () => {
-  let chartDom = document.getElementById('stock_ref')!;
-  chartInstance = echarts.init(chartDom, useVision.getVisionTheme)
+const initChart = () => {
+  chartInstance = echarts.init(stock_ref.value, useVision.getVisionTheme)
   const initOption = {
     title: {
       text: '▎库存和销量分析',
@@ -55,10 +56,10 @@ const initChart =  () => {
     startInterval()
   })
 }
-const getData = (ret) => {
+const getData = async () => {
   // 获取服务器的数据, 对this.allData进行赋值之后, 调用updateChart方法更新图表
-  // const { data: ret } = await this.$http.get('stock')
-  allData = ret
+  let data = await getStockData()
+  allData = JSON.parse(data)
   updateChart()
   startInterval()
 }
@@ -125,9 +126,7 @@ const updateChart = () => {
   chartInstance.setOption(dataOption)
 }
 const screenAdapter = () => {
-  let chartDom = document.getElementById('trend_ref')
-
-  const titleFontSize = chartDom.offsetWidth / 100 * 3.6
+  const titleFontSize = stock_ref.value.offsetWidth / 100 * 3.6
   const innerRadius = titleFontSize * 2.8
   const outterRadius = innerRadius * 1.125
   const adapterOption = {
@@ -200,5 +199,6 @@ watch(() => useVision.getVisionTheme,
   })
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
+@import '@/styles/vision.less';
 </style>

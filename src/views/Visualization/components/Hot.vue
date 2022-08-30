@@ -137,13 +137,13 @@ const toRight =  () => {
 }
 let comStyle = computed(() => {
   return {
-        fontSize: titleFontSize.value + 'px',
-        color: getThemeValue(useVision.getVisionTheme).titleColor
-      }
+    fontSize: titleFontSize.value + 'px',
+    color: getThemeValue(useVision.getVisionTheme).titleColor
+  }
 })
 
 let catName = computed(() => {
-  if (allData.length) {
+  if (!allData.length) {
     return ''
   } else {
     return allData[currentIndex.value].name
@@ -188,6 +188,7 @@ const screenAdapter = () => {
 </script>
 
 <style lang="less" scoped>
+@import '@/styles/vision.less';
 .arr-left {
   position: absolute;
   left: 10%;

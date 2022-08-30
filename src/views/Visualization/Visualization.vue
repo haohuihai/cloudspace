@@ -59,6 +59,14 @@
             <span @click="changeSize('hot')"  :class="['iconfont', fullScreenStatus.hot ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
           </div>
         </div>
+        <div id="right-bottom" :class="[fullScreenStatus.stock ? 'fullscreen' : '']">
+          <!-- 库存销量分析图表 -->
+          <Stock ref="stock"></Stock>
+          <div class="resize">
+            <!-- icon-compress-alt -->
+            <span @click="changeSize('stock')"  :class="['iconfont', fullScreenStatus.stock ? 'icon-compress-alt' : 'icon-expand-alt']"></span>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -70,7 +78,7 @@ import Hot from './components/Hot.vue'
 import Map from './components/Map.vue'
 import Rank from './components/Rank.vue'
 import Seller from './components/Seller.vue'
-// import Stock from './components/Stock.vue'
+import Stock from './components/Stock.vue'
 import Trend from './components/Trend.vue'
 // import { mapState } from 'vuex'
 import { useVisionStore } from '@/stores/modules/vision'
@@ -324,36 +332,6 @@ const containerStyle = computed(() => {
   &:hover {
     color: blue;
   }
-}
-html, body, #app {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-.com-page {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.com-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-
-}
-
-.com-chart {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-canvas {
-  border-radius: 20px;
 }
 
 </style>
