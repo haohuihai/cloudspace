@@ -23,12 +23,12 @@ let timerId = null // 定时器的标识
 onMounted (() => {
     initChart()
   // this.getData()
-    $socket.send({
-    action: 'getData',
-    socketType: 'stockData',
-    chartName: 'stock',
-    value: ''
-  })
+  //   $socket.send({
+  //   action: 'getData',
+  //   socketType: 'stockData',
+  //   chartName: 'stock',
+  //   value: ''
+  // })
   window.addEventListener('resize', screenAdapter)
   screenAdapter()
 })

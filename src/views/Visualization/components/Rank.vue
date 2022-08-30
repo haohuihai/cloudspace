@@ -6,53 +6,177 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import * as echarts from 'echarts'
+import { useVisionStore } from '@/stores/modules/vision'
+let useVision =  useVisionStore()
+let chartInstance = reactive<any>(null)
+let allData = reactive([])
+let startValue = ref(0) // 区域缩放的起点值
+let endValue = ref(9) // 区域缩放的终点值
+let timerId = null // 定时器的标识
 
 onMounted(() => {
-  type EChartsOption = echarts.EChartsOption
+  initChart()
+  getData()
+  window.addEventListener('resize', screenAdapter)
+  screenAdapter()
+})
 
-  var chartDom = document.getElementById('rank_ref')!
-  var myChart = echarts.init(chartDom)
-  var option: EChartsOption
+onUnmounted(() => {
+  window.removeEventListener('resize', screenAdapter)
+  clearInterval(timerId)
+})
+const getData = () => {
+  allData = ret
+  // 对allData里面的每一个元素进行排序, 从大到小进行
+  allData.sort((a, b) => {
+    return b.value - a.value
+  })
+  console.log(this.allData)
+  updateChart()
+  startInterval()
+}
+const initChart = () => {
+  let chartDom = document.getElementById('map_ref');
+  chartInstance = echarts.init(chartDom);
 
-  option = {
-    dataset: [
+  const initOption = {
+    title: {
+      text: '▎ 地区销售排行',
+      left: 20,
+      top: 20
+    },
+    grid: {
+      top: '40%',
+      left: '5%',
+      right: '5%',
+      bottom: '5%',
+      containLabel: true
+    },
+    tooltip: {
+      show: true
+    },
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
       {
-        dimensions: ['name', 'age', 'profession', 'score', 'date'],
-        source: [
-          ['Hannah Krause', 41, 'Engineer', 314, '2011-02-12'],
-          ['Zhao Qian', 20, 'Teacher', 351, '2011-03-01'],
-          ['Jasmin Krause ', 52, 'Musician', 287, '2011-02-14'],
-          ['Li Lei', 37, 'Teacher', 219, '2011-02-18'],
-          ['Karle Neumann', 25, 'Engineer', 253, '2011-04-02'],
-          ['Adrian Groß', 19, 'Teacher', '-', '2011-01-16'],
-          ['Mia Neumann', 71, 'Engineer', 165, '2011-03-19'],
-          ['Böhm Fuchs', 36, 'Musician', 318, '2011-02-24'],
-          ['Han Meimei', 67, 'Engineer', 366, '2011-03-12']
-        ]
-      },
+        type: 'bar'
+      }
+    ]
+  }
+  chartInstance.setOption(initOption)
+  chartInstance.on('mouseover', () => {
+    clearInterval(timerId)
+  })
+  chartInstance.on('mouseout', () => {
+    startInterval()
+  })
+
+}
+const startInterval = () => {
+  if (timerId) {
+        clearInterval(timerId)
+      }
+    timerId = setInterval(() => {
+    startValue.value++
+    endValue.value++
+    if (endValue.value > allData.length - 1) {
+      startValue.value = 0
+      endValue.value = 9
+    }
+    updateChart()
+  }, 2000)
+}
+const updateChart = () => {
+  const colorArr = [
+    ['#0BA82C', '#4FF778'],
+    ['#2E72BF', '#23E5E5'],
+    ['#5052EE', '#AB6EE5']
+  ]
+  // 处理图表需要的数据
+  // 所有省份所形成的数组
+  const provinceArr = allData.map(item => {
+    return item.name
+  })
+  // 所有省份对应的销售金额
+  const valueArr = allData.map(item => {
+    return item.value
+  })
+  const dataOption = {
+    xAxis: {
+      data: provinceArr
+    },
+    dataZoom: {
+      show: false,
+      startValue: startValue.value,
+      endValue: endValue.value
+    },
+    series: [
       {
-        transform: {
-          type: 'sort',
-          config: { dimension: 'score', order: 'desc' }
+        data: valueArr,
+        itemStyle: {
+          color: arg => {
+            let targetColorArr = null
+            if (arg.value > 300) {
+              targetColorArr = colorArr[0]
+            } else if (arg.value > 200) {
+              targetColorArr = colorArr[1]
+            } else {
+              targetColorArr = colorArr[2]
+            }
+            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              {
+                offset: 0,
+                color: targetColorArr[0]
+              },
+              {
+                offset: 1,
+                color: targetColorArr[1]
+              }
+            ])
+          }
         }
       }
-    ],
-    xAxis: {
-      type: 'category',
-      axisLabel: { interval: 0, rotate: 30 }
-    },
-    yAxis: {},
-    series: {
-      type: 'bar',
-      encode: { x: 'name', y: 'score' },
-      datasetIndex: 1
-    }
+    ]
   }
+  chartInstance.setOption(dataOption)
+}
+const screenAdapter = () => {
+  let chartDom = document.getElementById('map_ref');
+  const titleFontSize = chartDom.offsetWidth / 100 * 3.6
+  const adapterOption = {
+    title: {
+      textStyle: {
+        fontSize: titleFontSize
+      }
+    },
+    series: [
+      {
+        barWidth: titleFontSize,
+        itemStyle: {
+          barBorderRadius: [titleFontSize / 2, titleFontSize / 2, 0, 0]
+        }
+      }
+    ]
+  }
+  chartInstance.setOption(adapterOption)
+  chartInstance.resize()
+}
 
-  option && myChart.setOption(option)
+watch(() => useVision.getVisionTheme,
+  () => {
+    chartInstance.dispose() // 销毁当前的图表
+    initChart() // 重新以最新的主题名称初始化图表对象
+    screenAdapter() // 完成屏幕的适配
+    updateChart() // 更新图表的展示
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  
+</style>

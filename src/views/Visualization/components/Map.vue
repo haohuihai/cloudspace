@@ -31,7 +31,7 @@ onUnmounted(() => {
 console.log('useVision.getVisionTheme', useVision.getVisionTheme)
 
 const initChart = async () => {
-    let chartDom = document.getElementById('map_ref')!;
+    let chartDom = document.getElementById('map_ref');
     chartInstance = echarts.init(chartDom);
     let option: EChartsOption;
     let data =  await getChinaMap()

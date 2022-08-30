@@ -10,8 +10,11 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, computed, watch } from 'vue'
 import { getHotData } from '@/api/vision'
+import { getThemeValue } from '@/utils/theme_utils'
+import { useVisionStore } from '@/stores/modules/vision'
+let useVision =  useVisionStore()
 type EChartsOption = echarts.EChartsOption
 let chartInstance = reactive<any>(null)
 let currentIndex = ref(0)
@@ -118,6 +121,42 @@ const initChart = () => {
 
   option && chartInstance.setOption(option)
 }
+const toLeft  = ()  =>{
+  currentIndex.value--
+  if (currentIndex.value < 0) {
+    currentIndex.value = allData.length - 1
+  }
+  updateChart()
+}
+const toRight =  () => {
+  currentIndex.value++
+  if (currentIndex.value > allData.length - 1) {
+    currentIndex.value = 0
+  }
+  updateChart()
+}
+let comStyle = computed(() => {
+  return {
+        fontSize: titleFontSize.value + 'px',
+        color: getThemeValue(useVision.getVisionTheme).titleColor
+      }
+})
+
+let catName = computed(() => {
+  if (allData.length) {
+    return ''
+  } else {
+    return allData[currentIndex.value].name
+  }
+})
+
+watch(() => useVision.getVisionTheme,
+  () => {
+    chartInstance.dispose() // 销毁当前的图表
+    initChart() // 重新以最新的主题名称初始化图表对象
+    screenAdapter() // 完成屏幕的适配
+    updateChart() // 更新图表的展示
+})
 const screenAdapter = () => {
   let chartDom = document.getElementById('hot_ref')
 
