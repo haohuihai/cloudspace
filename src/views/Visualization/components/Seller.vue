@@ -10,7 +10,7 @@ import { onMounted, reactive, ref, onUnmounted, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
 import { getSellerData } from '@/api/vision'
-let useVision =  useVisionStore()
+let useVision = useVisionStore()
 let chartInstance = reactive(null)
 let allData = reactive([]) // 服务器返回的数据
 let currentPage = ref(1) // 当前显示的页数
@@ -44,15 +44,16 @@ const getData = async () => {
 const initChart = () => {
   type EChartsOption = echarts.EChartsOption
   console.log(useVision.getVisionTheme)
-  
+
   chartInstance = echarts.init(seller_ref.value, useVision.getVisionTheme)
+  
   window.addEventListener('resize', screenAdapter)
   screenAdapter()
   const initOption = {
     title: {
       text: '▎商家销售统计',
       left: 20,
-      top: 20,
+      top: 20
     },
     grid: {
       show: false,
@@ -115,12 +116,11 @@ const initChart = () => {
   chartInstance.on('mouseout', () => {
     startInterval()
   })
-
 }
 
 const screenAdapter = () => {
   // console.log(this.$refs.seller_ref.offsetWidth)
-  const titleFontSize = seller_ref.value.offsetWidth / 100 * 3.6
+  const titleFontSize = (seller_ref.value.offsetWidth / 100) * 3.6
   // 和分辨率大小相关的配置项
   const adapterOption = {
     title: {
@@ -153,12 +153,12 @@ const startInterval = () => {
     clearInterval(timerId)
   }
   timerId = setInterval(() => {
-  currentPage.value++
-  if (currentPage.value > totalPage.value) {
-    currentPage.value = 1
-  }
-  updateChart()
-}, 3000)
+    currentPage.value++
+    if (currentPage.value > totalPage.value) {
+      currentPage.value = 1
+    }
+    updateChart()
+  }, 3000)
 }
 const updateChart = () => {
   const start = (currentPage.value - 1) * 5
@@ -182,13 +182,15 @@ const updateChart = () => {
   }
   chartInstance.setOption(dataOption)
 }
-watch(() => useVision.getVisionTheme,
+watch(
+  () => useVision.getVisionTheme,
   () => {
     chartInstance.dispose() // 销毁当前的图表
     initChart() // 重新以最新的主题名称初始化图表对象
     screenAdapter() // 完成屏幕的适配
     updateChart() // 更新图表的展示
-})
+  }
+)
 </script>
 
 <style lang="less" scoped>

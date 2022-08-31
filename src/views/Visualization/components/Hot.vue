@@ -14,12 +14,14 @@ import { onMounted, onUnmounted, reactive, ref, computed, watch } from 'vue'
 import { getHotData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
 import { useVisionStore } from '@/stores/modules/vision'
-let useVision =  useVisionStore()
+let useVision = useVisionStore()
 type EChartsOption = echarts.EChartsOption
 let chartInstance = reactive<any>(null)
 let currentIndex = ref(0)
 let titleFontSize = ref(0)
 let allData = reactive([])
+let hot_ref = ref(null)
+let theme = computed(() => useVision.getVisionTheme)
 onMounted(() => {
   // this.$socket.registerCallBack('hotData', this.getData)
   initChart()
@@ -67,9 +69,7 @@ const updateChart = () => {
   chartInstance.setOption(dataOption)
 }
 const initChart = () => {
-  var chartDom = document.getElementById('hot_ref')
-  chartInstance = echarts.init(chartDom)
-
+  chartInstance = echarts.init(hot_ref.value, theme.value)
   let option: EChartsOption
   option = {
     title: {
@@ -138,7 +138,7 @@ const toRight =  () => {
 let comStyle = computed(() => {
   return {
     fontSize: titleFontSize.value + 'px',
-    color: getThemeValue(useVision.getVisionTheme).titleColor
+    color: getThemeValue(theme.value).titleColor
   }
 })
 
@@ -150,13 +150,7 @@ let catName = computed(() => {
   }
 })
 
-watch(() => useVision.getVisionTheme,
-  () => {
-    chartInstance.dispose() // 销毁当前的图表
-    initChart() // 重新以最新的主题名称初始化图表对象
-    screenAdapter() // 完成屏幕的适配
-    updateChart() // 更新图表的展示
-})
+
 const screenAdapter = () => {
   let chartDom = document.getElementById('hot_ref')
 
@@ -185,6 +179,13 @@ const screenAdapter = () => {
   chartInstance.setOption(adapterOption)
   chartInstance.resize()
 }
+watch(() => useVision.getVisionTheme,
+  () => {
+    chartInstance.dispose() // 销毁当前的图表
+    initChart() // 重新以最新的主题名称初始化图表对象
+    screenAdapter() // 完成屏幕的适配
+    updateChart() // 更新图表的展示
+})
 </script>
 
 <style lang="less" scoped>

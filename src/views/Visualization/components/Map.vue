@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, watch, onUnmounted, ref } from 'vue'
+import { onMounted, reactive, watch, onUnmounted, ref, computed } from 'vue'
 import * as echarts from 'echarts'
 import { getProvinceMapInfo } from '@/utils/map_utils'
 import { getChinaMap, getProvince, getMapType } from '@/api/vision'
@@ -17,6 +17,7 @@ let allData = reactive([])
 let mapData = reactive({})
 let useVision = useVisionStore()
 let map_ref = ref(null)
+let theme = computed(() => useVision.getVisionTheme)
 onMounted(async () => {
   initChart()
   window.addEventListener('resize', screenAdapter)
@@ -29,10 +30,8 @@ onUnmounted(() => {
   // this.$socket.unRegisterCallBack('mapData')
 })
 
-console.log('useVision.getVisionTheme', useVision.getVisionTheme)
-
 const initChart = async () => {
-  chartInstance = echarts.init(map_ref.value)
+  chartInstance = echarts.init(map_ref.value, theme.value)
   let option: EChartsOption
   let data = await getChinaMap()
   echarts.registerMap('china', data)
@@ -45,7 +44,6 @@ const initChart = async () => {
     geo: {
       map: 'china',
       roam: true,
-      zoom: 1.3,
       top: '20%',
       bottom: '5%',
       itemStyle: {

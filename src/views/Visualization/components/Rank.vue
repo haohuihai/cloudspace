@@ -6,17 +6,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { onMounted, onUnmounted, computed, reactive, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
 import { getRankData } from '@/api/vision'
-let useVision =  useVisionStore()
+let useVision = useVisionStore()
 let chartInstance = reactive<any>(null)
 let allData = reactive([])
 let startValue = ref(0) // 区域缩放的起点值
 let endValue = ref(9) // 区域缩放的终点值
 let timerId = null // 定时器的标识
 let rank_ref = ref(null)
+
+let theme = computed(() => useVision.getVisionTheme)
 onMounted(() => {
   initChart()
   getData()
@@ -39,8 +41,7 @@ const getData = async () => {
   startInterval()
 }
 const initChart = () => {
-  chartInstance = echarts.init(rank_ref.value)
-
+  chartInstance = echarts.init(rank_ref.value, theme.value)
   const initOption = {
     title: {
       text: '▎ 地区销售排行',
@@ -77,13 +78,12 @@ const initChart = () => {
   chartInstance.on('mouseout', () => {
     startInterval()
   })
-
 }
 const startInterval = () => {
   if (timerId) {
-        clearInterval(timerId)
-      }
-    timerId = setInterval(() => {
+    clearInterval(timerId)
+  }
+  timerId = setInterval(() => {
     startValue.value++
     endValue.value++
     if (endValue.value > allData.length - 1) {
@@ -101,11 +101,11 @@ const updateChart = () => {
   ]
   // 处理图表需要的数据
   // 所有省份所形成的数组
-  const provinceArr = allData.map(item => {
+  const provinceArr = allData.map((item) => {
     return item.name
   })
   // 所有省份对应的销售金额
-  const valueArr = allData.map(item => {
+  const valueArr = allData.map((item) => {
     return item.value
   })
   const dataOption = {
@@ -121,7 +121,7 @@ const updateChart = () => {
       {
         data: valueArr,
         itemStyle: {
-          color: arg => {
+          color: (arg) => {
             let targetColorArr = null
             if (arg.value > 300) {
               targetColorArr = colorArr[0]
@@ -148,7 +148,7 @@ const updateChart = () => {
   chartInstance.setOption(dataOption)
 }
 const screenAdapter = () => {
-  const titleFontSize = rank_ref.value.offsetWidth / 100 * 3.6
+  const titleFontSize = (rank_ref.value.offsetWidth / 100) * 3.6
   const adapterOption = {
     title: {
       textStyle: {
@@ -168,13 +168,15 @@ const screenAdapter = () => {
   chartInstance.resize()
 }
 
-watch(() => useVision.getVisionTheme,
+watch(
+  () => useVision.getVisionTheme,
   () => {
     chartInstance.dispose() // 销毁当前的图表
     initChart() // 重新以最新的主题名称初始化图表对象
     screenAdapter() // 完成屏幕的适配
     updateChart() // 更新图表的展示
-})
+  }
+)
 </script>
 
 <style lang="less" scoped>
