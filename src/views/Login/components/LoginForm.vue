@@ -161,6 +161,7 @@ const emailLoginHttp = async () => {
     const res = await loginApi(params)
     if (res) {
       wsCache.set(appStore.getUserInfo, res)
+      // router.push()
       getRole()
     }
   } finally {
@@ -184,17 +185,19 @@ const getRole = async () => {
   if (res) {
     const routers = res || []
     wsCache.set('roleRouters', routers)
-    try {
-      await permissionStore.generateRoutes('admin', routers).catch(() => {})
-      permissionStore.getAddRouters.forEach((route) => {
-        addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-      })
-      permissionStore.setIsAddRouters(true)
-      console.log(permissionStore.addRouters[0].path, redirect.value)
-      push({ path: redirect.value || permissionStore.addRouters[0].path })
-    } catch (e) {
-      console.log(e)
-    }
+    push({ path: '/home' })
+
+    // try {
+    //   await permissionStore.generateRoutes('admin', routers).catch(() => {})
+    //   permissionStore.getAddRouters.forEach((route) => {
+    //     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+    //   })
+    //   permissionStore.setIsAddRouters(true)
+
+    //   push({ path: redirect.value || permissionStore.addRouters[0].path })
+    // } catch (e) {
+    //   console.log(e)
+    // }
   }
 }
 const emailRegister = async () => {

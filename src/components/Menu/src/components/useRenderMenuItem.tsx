@@ -5,18 +5,21 @@ import { isUrl } from '@/utils/is'
 import { useRenderMenuTitle } from './useRenderMenuTitle'
 import { useDesign } from '@/hooks/web/useDesign'
 import { pathResolve } from '@/utils/routerHelper'
-
+ 
 export const useRenderMenuItem = (
   // allRouters: AppRouteRecordRaw[] = [],
   menuMode: 'vertical' | 'horizontal'
 ) => {
   const renderMenuItem = (routers: AppRouteRecordRaw[], parentPath = '/') => {
+
     return routers.map((v) => {
+
       const meta = (v.meta ?? {}) as RouteMeta
       if (!meta.hidden) {
         const { oneShowingChild, onlyOneChild } = hasOneShowingChild(v.children, v)
-        const fullPath = isUrl(v.path) ? v.path : pathResolve(parentPath, v.path) // getAllParentPath<AppRouteRecordRaw>(allRouters, v.path).join('/')
 
+        const fullPath = isUrl(v.path) ? v.path : pathResolve(parentPath, v.path) // getAllParentPath<AppRouteRecordRaw>(allRouters, v.path).join('/')
+       
         const { renderMenuTitle } = useRenderMenuTitle()
 
         if (
@@ -33,7 +36,7 @@ export const useRenderMenuItem = (
           )
         } else {
           const { getPrefixCls } = useDesign()
-
+          console.log('fullPath', fullPath)
           const preFixCls = getPrefixCls('menu-popper')
           return (
             <ElSubMenu

@@ -7,29 +7,8 @@ const timeout = 1000
 
 const adminList = [
   {
-    path: '/home',
-    component: 'views/Home/Home',
-    name: 'Home',
-    meta: {
-      title: '首页',
-      icon: 'ant-design:dashboard-filled',
-      alwaysShow: true
-    }
-  },
-  {
-    path: '/visualization',
-    component: 'views/Visualization/Visualization',
-    name: 'Visiual',
-    meta: {
-      title: '可视化',
-      icon: 'ant-design:dashboard-filled',
-      alwaysShow: true
-    }
-  },
-  {
-    path: '/dashboard',
+    path: '/backmanage',
     component: '#',
-    redirect: '/dashboard/analysis',
     name: 'Dashboard',
     meta: {
       title: 'router.dashboard',
@@ -57,39 +36,40 @@ const adminList = [
       }
     ]
   },
-  {
-    path: '/external-link',
-    component: '#',
-    meta: {},
-    name: 'ExternalLink',
-    children: [
-      {
-        path: 'https://element-plus-admin-doc.cn/',
-        name: 'DocumentLink',
-        meta: {
-          title: 'router.document',
-          icon: 'clarity:document-solid'
-        }
-      }
-    ]
-  },
-  {
-    path: '/guide',
-    component: '#',
-    name: 'Guide',
-    meta: {},
-    children: [
-      {
-        path: 'index',
-        component: 'views/Guide/Guide',
-        name: 'GuideDemo',
-        meta: {
-          title: 'router.guide',
-          icon: 'cib:telegram-plane'
-        }
-      }
-    ]
-  },
+  
+  // {
+  //   path: '/external-link',
+  //   component: '#',
+  //   meta: {},
+  //   name: 'ExternalLink',
+  //   children: [
+  //     {
+  //       path: 'https://element-plus-admin-doc.cn/',
+  //       name: 'DocumentLink',
+  //       meta: {
+  //         title: 'router.document',
+  //         icon: 'clarity:document-solid'
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/guide',
+  //   component: '#',
+  //   name: 'Guide',
+  //   meta: {},
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: 'views/Guide/Guide',
+  //       name: 'GuideDemo',
+  //       meta: {
+  //         title: 'router.guide',
+  //         icon: 'cib:telegram-plane'
+  //       }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/components',
   //   component: '#',
@@ -444,43 +424,43 @@ const adminList = [
   //     }
   //   ]
   // },
-  {
-    path: '/error',
-    component: '#',
-    redirect: '/error/404',
-    name: 'Error',
-    meta: {
-      title: 'router.errorPage',
-      icon: 'ci:error',
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: '404-demo',
-        component: 'views/Error/404',
-        name: '404Demo',
-        meta: {
-          title: '404'
-        }
-      },
-      {
-        path: '403-demo',
-        component: 'views/Error/403',
-        name: '403Demo',
-        meta: {
-          title: '403'
-        }
-      },
-      {
-        path: '500-demo',
-        component: 'views/Error/500',
-        name: '500Demo',
-        meta: {
-          title: '500'
-        }
-      }
-    ]
-  }
+  // {
+  //   path: '/error',
+  //   component: '#',
+  //   redirect: '/error/404',
+  //   name: 'Error',
+  //   meta: {
+  //     title: 'router.errorPage',
+  //     icon: 'ci:error',
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: '404-demo',
+  //       component: 'views/Error/404',
+  //       name: '404Demo',
+  //       meta: {
+  //         title: '404'
+  //       }
+  //     },
+  //     {
+  //       path: '403-demo',
+  //       component: 'views/Error/403',
+  //       name: '403Demo',
+  //       meta: {
+  //         title: '403'
+  //       }
+  //     },
+  //     {
+  //       path: '500-demo',
+  //       component: 'views/Error/500',
+  //       name: '500Demo',
+  //       meta: {
+  //         title: '500'
+  //       }
+  //     }
+  //   ]
+  // }
 ]
 
 const testList: string[] = [

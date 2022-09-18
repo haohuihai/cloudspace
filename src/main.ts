@@ -27,6 +27,9 @@ import '@/styles/global.less'
 import './permission'
 
 import '@purge-icons/generated'
+// 引入markdown插件
+import { setupVueMarkdownEditor } from '@/plugins/mdEditor'
+
 import SocketService from '@/utils/socket_service'
 // 创建实例
 const setupAll = async () => {
@@ -39,6 +42,8 @@ const setupAll = async () => {
   setupElementPlus(app)
   setupGlobCom(app)
   setupPermission(app)
+  setupVueMarkdownEditor(app)
+  // app.use(plugins)
   app.mount('#app')
 }
 

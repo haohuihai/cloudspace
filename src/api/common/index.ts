@@ -9,3 +9,8 @@ export const getDictApi = (): Promise<IResponse> => {
 export const getDictOneApi = async (): Promise<IResponse> => {
   return request.get({ url: '/dict/one' })
 }
+
+// 获取应用列表
+export const getAppListApi = async (): Promise<IResponse> => {
+  return request.get({ url: '/user/appList' })
+}

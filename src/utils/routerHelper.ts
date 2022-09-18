@@ -91,7 +91,6 @@ export const generateRoutesFn1 = (
 // 后端控制路由生成
 export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRecordRaw[] => {
   const res: AppRouteRecordRaw[] = []
-
   for (const route of routes) {
     const data: AppRouteRecordRaw = {
       path: route.path,
@@ -118,8 +117,9 @@ export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRe
   }
   return res
 }
-
+ 
 export const pathResolve = (parentPath: string, path: string) => {
+
   if (isUrl(path)) return path
   const childPath = path.startsWith('/') || !path ? path : `/${path}`
   return `${parentPath}${childPath}`.replace(/\/\//g, '/')

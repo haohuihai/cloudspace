@@ -28,8 +28,9 @@ router.beforeEach(async (to, from, next) => {
   loadStart()
   if (wsCache.get(appStore.getUserInfo)) {
     if (to.path === '/login') {
-      next({ path: '/' })
+      next({ path: '/home' })
     } else {
+      // 判断是否已经将路由添加到store里面
       if (permissionStore.getIsAddRouters) {
         next()
         return
@@ -43,18 +44,23 @@ router.beforeEach(async (to, from, next) => {
       //     dictStore.setIsSetDict(true)
       //   }
       // }
-      // 开发者可根据实际情况进行修改
+      // 开发者可根据实际情况进行修改   拿缓存中的路由；放到store里面 并push了404的路由
       const roleRouters = wsCache.get('roleRouters') || []
       await permissionStore.generateRoutes('admin', roleRouters as AppCustomRouteRecordRaw[])
 
+
+      // 拿store的路由   添加到可访问路由表
       permissionStore.getAddRouters.forEach((route) => {
-        router.addRoute(route as unknown as RouteRecordRaw) // 动态添加可访问路由表
+        router.addRoute(route as unknown as RouteRecordRaw) 
       })
+
+      // 
       const redirectPath = from.query.redirect || to.path
       const redirect = decodeURIComponent(redirectPath as string)
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
+      // 路由添加完，可以直接进入下面的页面
       permissionStore.setIsAddRouters(true)
-      console.log(nextData)
+
       next(nextData)
     }
   } else {

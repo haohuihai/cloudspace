@@ -28,6 +28,49 @@ const List: {
   }
 ]
 
+const applist: {
+  name: string
+  id: string
+  img: string
+  desc: string
+}[] = [
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '视频播放',
+    id: '123',
+    img: '',
+    desc: '一款强大的视频播放器'
+  }
+]
 export default [
   // 列表接口
   {
@@ -88,6 +131,17 @@ export default [
       return {
         code: result_code,
         data: null
+      }
+    }
+  },
+  {
+    url: '/user/appList',
+    method: 'get',
+    timeout,
+    response: () => {
+      return {
+        code: result_code,
+        data: applist
       }
     }
   }

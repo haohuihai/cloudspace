@@ -52,6 +52,7 @@ export const useRenderLayout = () => {
           ) : undefined}
           <Menu class={[{ '!h-[calc(100%-var(--logo-height))]': logo.value }]}></Menu>
         </div>
+        {/* <TabMenu></TabMenu> */}
         <div
           class={[
             `${prefixCls}-content`,
