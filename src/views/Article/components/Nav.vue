@@ -162,9 +162,6 @@ export default defineComponent({
 
 <style lang="less">
 .global-top {
-  position: fixed;
-  top: 0;
-  width: 90rem;
   height: 6rem;
   transition: all 0.2s;
   transform: translateZ(0);

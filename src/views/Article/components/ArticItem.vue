@@ -4,7 +4,7 @@
       <div class="article-item">
         <div class="article-item-left">
           <div class="article-item-left-top">
-            <span>{{item.nickname}}</span><span class="dot">·</span><span>{{ $utils.timeRight(item.createdAt)
+            <span>{{item.nickname}}</span><span class="dot">·</span><span>{{ item.createdAt
             }}</span><span class="dot">·</span><span>{{ articleType.filter((it) => it.id ==
               item.articleTypeId)[0].name }}</span>
           </div>
@@ -54,6 +54,7 @@ export default defineComponent({
   },
   emits: ['toPreview'],
   setup(props, { slots, expose, emit }) {
+    console.log('props.articItem', props.articItem)
     const articleType = ref([
       {
         id: '1',
