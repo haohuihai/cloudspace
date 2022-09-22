@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 import { Layout, getParentLayout } from '@/utils/routerHelper'
+
+// 这里的路由可以是默认路由
 export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/dashboard',
@@ -18,24 +20,6 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
     name: 'Home',
     meta: {
       title: '首页',
-      hidden: true
-    }
-  },
-  {
-    path: '/article',
-    component: () => import('@/views/Article/Article.vue'),
-    name: 'Article',
-    meta: {
-      title: '文章列表',
-      hidden: true
-    }
-  },
-  {
-    path: '/article/publisharticle',
-    component: () => import('@/views/Article/publicArticle.vue'),
-    name: 'PublishArticle',
-    meta: {
-      title: '写文章',
       hidden: true
     }
   },
@@ -60,31 +44,6 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   }
 ]
 
-export const asyncRouterMap: AppRouteRecordRaw[] = [
-  {
-    path: '/dashboard',
-    component: Layout,
-    redirect: '/dashboard/analysis',
-    name: 'Dashboard',
-    meta: {
-      title: 'dashboard',
-      icon: 'ant-design:dashboard-filled',
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: 'analysis',
-        component: () => import('@/views/Dashboard/Analysis.vue'),
-        name: 'Analysis',
-        meta: {
-          title: 'router.analysis',
-          noCache: true,
-          affix: true
-        }
-      },
-    ]
-  }
-]
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: constantRouterMap as RouteRecordRaw[],

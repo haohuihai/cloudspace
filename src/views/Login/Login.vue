@@ -18,9 +18,9 @@ const toLogin = () => {
 }
 </script>
 <template>
+  <!-- class="h-[100%] flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500" -->
   <div
     :class="prefixCls"
-    class="h-[100%] flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500"
   >
     <!--  -->
 

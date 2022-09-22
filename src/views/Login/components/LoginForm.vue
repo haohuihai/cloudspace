@@ -1,7 +1,7 @@
 <template>
   <!-- 用户名密码登录 -->
   <div class="flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
-    <div class="loginType w-full flex justify-between text-white text-sm mb-4">
+    <!-- <div class="loginType w-full flex justify-between text-white text-sm mb-4">
       <span :class="{ active_type: loginTypeIndex === index }" @click="chooseLoginType(index)"
         v-for="(item, index) in loginTypeList" :key="index" class="cursor-pointer text-gray-600 hover:text-white">{{
             item
@@ -47,14 +47,14 @@
           <p>二维码失效，点击重新获取</p>
           <img src="@/assets/img/login/reload.png" alt="reload.png" />
         </div>
-        <!-- <img class="QRcode_img" :src="" /> -->
       </div>
       <p class="tips">{{ tipsText }}</p>
     </template>
     <div class="absolute bottom-40px flex justify-between w-[80%] left-10">
       <span class="cursor-pointer text-light-50" @click="handleToRegister"> 去注册</span>
       <span class="cursor-pointer text-light-50">忘记密码</span>
-    </div>
+    </div> -->
+    <div @click="handleLogin"> 1111</div>
   </div>
 </template>
 <script setup lang="ts">

@@ -38,57 +38,6 @@ export const getRawRoute = (route: RouteLocationNormalized): RouteLocationNormal
   }
 }
 
-// 前端控制路由生成
-export const generateRoutesFn1 = (
-  routes: AppRouteRecordRaw[],
-  keys: string[],
-  basePath = '/'
-): AppRouteRecordRaw[] => {
-  const res: AppRouteRecordRaw[] = []
-
-  for (const route of routes) {
-    const meta = route.meta as RouteMeta
-    // skip some route
-    if (meta.hidden && !meta.canTo) {
-      continue
-    }
-
-    let data: Nullable<AppRouteRecordRaw> = null
-
-    let onlyOneChild: Nullable<string> = null
-    if (route.children && route.children.length === 1 && !meta.alwaysShow) {
-      onlyOneChild = (
-        isUrl(route.children[0].path)
-          ? route.children[0].path
-          : pathResolve(pathResolve(basePath, route.path), route.children[0].path)
-      ) as string
-    }
-
-    // 开发者可以根据实际情况进行扩展
-    for (const item of keys) {
-      // 通过路径去匹配
-      if (isUrl(item) && (onlyOneChild === item || route.path === item)) {
-        data = Object.assign({}, route)
-      } else {
-        const routePath = pathResolve(basePath, onlyOneChild || route.path)
-        if (routePath === item || meta.followRoute === item) {
-          data = Object.assign({}, route)
-        }
-      }
-    }
-
-    // recursive child routes
-    if (route.children && data) {
-      data.children = generateRoutesFn1(route.children, keys, pathResolve(basePath, data.path))
-    }
-    if (data) {
-      res.push(data as AppRouteRecordRaw)
-    }
-  }
-  return res
-}
-
-// 后端控制路由生成
 export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRecordRaw[] => {
   const res: AppRouteRecordRaw[] = []
   for (const route of routes) {

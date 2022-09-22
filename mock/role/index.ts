@@ -36,7 +36,43 @@ const adminList = [
       }
     ]
   },
-  
+  {
+    path: '/article',
+    name: 'Article',
+    meta: {
+      title: '文章列表',
+      hidden: true
+    },
+    children: [
+      {
+        path: '',
+        component: 'views/Article/Home',
+        name: '文章列表',
+        meta: {
+          title: 'router.Article',
+          noCache: true
+        }
+      },
+      {
+        path: 'publish',
+        component: 'views/Article/Publish',
+        name: '写文章',
+        meta: {
+          title: 'router.Publish',
+          noCache: true
+        }
+      },
+      {
+        path: 'preview',
+        component: 'views/Article/Preview',
+        name: '预览文章',
+        meta: {
+          title: 'router.Preview',
+          noCache: true
+        }
+      }
+    ]
+  }
   // {
   //   path: '/external-link',
   //   component: '#',
