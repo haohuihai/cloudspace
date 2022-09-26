@@ -127,7 +127,7 @@ const toPreview = () => {}
     }
     .fullter ul {
       display: flex;
-      padding: 1.3rem 1rem;
+      padding: 1.3rem 0;
       border-bottom: 1px solid hsla(0, 0%, 59.2%, 0.1);
       li {
         padding: 0 1rem;
@@ -262,7 +262,6 @@ const toPreview = () => {}
   display: flex;
   align-items: center;
   max-width: 1020px;
-  margin: 0 auto;
 }
 
 .global-nav-bottom {

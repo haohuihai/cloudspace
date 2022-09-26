@@ -1,76 +1,75 @@
 <template>
-  <div class="global-top" :class="isShowNav ? 'global-top-hide' : ''">
-    <div class="global-nav">
-      <a href="/">
-        <img src="//sf3-scmcdn2-tos.pstatp.com/xitu_juejin_web/img/logo.a7995ad.svg" alt="111" />
-      </a>
-      <div class="global-nav-right">
+  <div class="global-nav" :class="isShowNav ? 'global-top-hide' : ''">
+    <a href="/">
+      <img class="head-image" src="@/assets/imgs/1256748.png" alt="111" />
+    </a>
+    <div class="global-nav-right">
+      <div class="global-top-left">
         <ul>
-          <li>
-            <ul>
-              <li>
-                <a href="/">首页</a>
-              </li>
-              <li>
-                <a href="/">沸点</a>
-              </li>
+            <li>
+              首页
+            </li>
+            <li>
+              沸点
+            </li>
 
-              <li>
-                <a href="/">小册</a>
-              </li>
-              <li>
-                <a href="/">活动</a>
-              </li>
-            </ul>
-          </li>
+            <li>
+              小册
+            </li>
+            <li>
+              活动
+            </li>
+          </ul>
           <ElInput
-            suffix-icon="el-icon-search"
-            v-model="input"
-            @clear="handleClear"
-            placeholder="请输入内容"
-            :clearable="true"
-            @change="handleChange"
-            max="100"
-          />
-          <router-link to="/publishArticle">写文章</router-link>
-                <!-- <el-dropdown
-                  size="medium"
-                  split-button
-                  type="primary"
-                  @command="handleClick"
-                >
-                  更多菜单
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="a">写文章</el-dropdown-item>
-                    <el-dropdown-item command="b">狮子头</el-dropdown-item>
-                    <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown> -->
-                <!-- <a href='' class="iconfont icon-caret-down"></a> -->
-              <!-- <li class="loginBtn" v-if="!isLogin" @click="toLoginPage">
-                登录
-              </li>
-
-              <li v-else class="avator">
-                <a class="iconfont el-icon-bell notice"></a>
-                <el-popover placement="bottom" width="200" trigger="click">
-                  <div>
-                    <input id="choice_p" size="small" type="file" />
-                  </div>
-                  <div class="changepassword" @click="handleChangePWD">
-                    修改密码
-                  </div>
-                  <div class="output" @click="outLogin">退出登录</div>
-                </el-popover>
-              </li> -->
-        </ul>
+          suffix-icon="el-icon-search"
+          v-model="input"
+          @clear="handleClear"
+          placeholder="请输入内容"
+          :clearable="true"
+          @change="handleChange"
+          max="100"
+        />
       </div>
+      <div class="global-top-right">
+        <ElButton type="primary" @click="btnClick">写文章</ElButton>
+        <!-- <ElButton to="/publishArticle"></ElButton> -->
+      </div>
+              <!-- <el-dropdown
+                size="medium"
+                split-button
+                type="primary"
+                @command="handleClick"
+              >
+                更多菜单
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="a">写文章</el-dropdown-item>
+                  <el-dropdown-item command="b">狮子头</el-dropdown-item>
+                  <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown> -->
+              <!-- <a href='' class="iconfont icon-caret-down"></a> -->
+            <!-- <li class="loginBtn" v-if="!isLogin" @click="toLoginPage">
+              登录
+            </li>
+
+            <li v-else class="avator">
+              <a class="iconfont el-icon-bell notice"></a>
+              <el-popover placement="bottom" width="200" trigger="click">
+                <div>
+                  <input id="choice_p" size="small" type="file" />
+                </div>
+                <div class="changepassword" @click="handleChangePWD">
+                  修改密码
+                </div>
+                <div class="output" @click="outLogin">退出登录</div>
+              </el-popover>
+            </li> -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty } from 'element-plus'
+import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty, ElButton } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
 // const { push } = useRouter()
@@ -161,27 +160,24 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-.global-top {
-  height: 6rem;
-  transition: all 0.2s;
-  transform: translateZ(0);
-  background: #fff;
-  color: #909090;
-  z-index: 20;
-  /* transform: translate3d(0,-100%,0); */
-}
+
 .global-top-hide {
   transform: translate3d(0, -100%, 0);
 }
 .global-nav {
   display: flex;
   align-items: center;
-  max-width: 1020px;
-  margin: 0 auto;
+  height: 6rem;
+  transition: all 0.2s;
+  transform: translateZ(0);
+  background: #fff;
+  color: #909090;
+  z-index: 20;
   justify-content: space-between;
 }
-.global-nav > a {
-  margin-right: 2rem;
+.head-image {
+  width: 70px;
+  height: 41px;
 }
 .global-nav-right ul li:nth-child(2) ul li:nth-child(1) {
   position: relative;
@@ -224,6 +220,13 @@ export default defineComponent({
   width: 63px;
   letter-spacing: 2px;
 }
+.global-nav-right {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
 .global-nav-right .loginBtn:hover {
   background-color: #007fff;
   color: #fff;
@@ -245,38 +248,23 @@ export default defineComponent({
   font-size: 25px;
   margin-right: 10px;
 }
-.global-nav-right ul li:nth-child(2) ul li:nth-child(2)::after {
-  position: absolute;
-  content: '';
-  width: 1px;
-  right: 18px;
-  top: 0;
-  height: 100%;
-  border-left: 1px solid hsla(0, 0%, 100%, 0.1);
-}
-.global-nav-right {
-  display: flex;
-  flex: 1;
-}
-.global-nav-right ul {
+
+.global-nav-right .global-top-left ul {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  height: 6rem;
+  align-items: flex-end;
+  font-size: 18px;
+  height: 41px;
 }
-.global-nav-right ul li ul {
-  display: flex;
-  align-items: center;
-  font-size: 1.55rem;
+
+.global-nav-right .global-top-left ul li {
+  margin: 0 10px;
+  color: rgba(140, 140, 140, 1);
 }
-.global-nav-right ul li ul li {
-  margin: 0 1.2rem;
-}
-.global-nav-right ul li:nth-child(1) ul li:nth-child(1) a {
+.global-nav-right .global-top-left ul li:nth-child(1){
   color: #007fff;
 }
-.global-nav-right > ul li:nth-child(1) ul li a:hover {
+.global-nav-right .global-top-left > ul li:nth-child(1):hover {
   color: #007fff;
 }
 .changepassword {

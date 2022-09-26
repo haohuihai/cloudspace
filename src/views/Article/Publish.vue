@@ -102,7 +102,6 @@ const { wsCache } = useCache()
 
 const userInfo = wsCache.get(appStore.getUserInfo)
 
-// import Qs from "qs"
 let value = ref('') // 是上一次编辑的内容
 let previewContent = ref('') // 预览内容
 let dialogVisible = ref(false)

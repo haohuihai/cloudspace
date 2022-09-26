@@ -102,7 +102,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
+    padding: 0.8rem 1rem;
 
     .article-item-left {
       display: flex;
@@ -165,8 +165,7 @@ export default defineComponent({
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          margin-top: 14px;
-          margin-bottom: 12px;
+          margin-bottom: 4px;
 
           &:hover {
             text-decoration: underline;
@@ -174,17 +173,15 @@ export default defineComponent({
         }
 
         .content {
-          margin-bottom: 14px;
           font-size: 15px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
-          line-clamp: 2;
+          -webkit-line-clamp: 1;
+          line-clamp: 1;
           -webkit-box-orient: vertical;
           color: #4e5969;
           display: block;
