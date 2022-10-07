@@ -6,9 +6,9 @@ import { Layout, getParentLayout } from '@/utils/routerHelper'
 // 这里的路由可以是默认路由
 export const constantRouterMap: AppRouteRecordRaw[] = [
   {
-    path: '/dashboard',
+    path: '/backmanage',
     component: Layout,
-    redirect: '/backmanage',
+    redirect: '/backmanage/analysis',
     name: 'Root',
     meta: {
       hidden: true
@@ -35,7 +35,7 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/login',
     component: () => import('@/views/Login/Login.vue'),
-    name: 'Login',
+    name: 'login',
     meta: {
       hidden: true,
       title: 'login',

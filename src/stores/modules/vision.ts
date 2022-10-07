@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { store } from '../index'
 
-export interface DictState {
+export interface VisionState {
   theme: string
 }
 
 export const useVisionStore = defineStore('vision', {
-  state: (): DictState => {
+  state: (): VisionState => {
     return {
       theme: 'chalk'
     }

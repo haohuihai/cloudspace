@@ -11,6 +11,10 @@ import '@/styles/index.less'
 import './assets/main.css'
 // 引入element-plus
 import { setupElementPlus } from '@/plugins/elementPlus'
+
+// 引入vueknova 
+
+import { setupVueKonva } from '@/plugins/konva'
 // 引入动画
 import '@/plugins/animate.css'
 // 全局组件
@@ -30,12 +34,16 @@ import '@purge-icons/generated'
 // 引入markdown插件
 import { setupVueMarkdownEditor } from '@/plugins/mdEditor'
 
-import SocketService from '@/utils/socket_service'
+// import SocketService from '@/utils/socket_service'
+
+// 引入socket
+
+// import '@/socket'
 // 创建实例
 const setupAll = async () => {
   const app = createApp(App)
   await setupI18n(app)
-  app.config.globalProperties.$socket = SocketService
+  // app.config.globalProperties.$socket = SocketService
   app.config.globalProperties.$echarts = window.echarts
   setupStore(app)
   setupRouter(app)
@@ -43,7 +51,7 @@ const setupAll = async () => {
   setupGlobCom(app)
   setupPermission(app)
   setupVueMarkdownEditor(app)
-  // app.use(plugins)
+  setupVueKonva(app)
   app.mount('#app')
 }
 

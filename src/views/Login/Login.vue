@@ -18,9 +18,9 @@ const toLogin = () => {
 }
 </script>
 <template>
-  <!-- class="h-[100%] flex justify-center items-center bg-gradient-to-r from-green-400 to-blue-500" -->
   <div
     :class="prefixCls"
+    class="h-[100%] flex justify-center loginHome"
   >
     <!--  -->
 
@@ -28,14 +28,29 @@ const toLogin = () => {
       <ThemeSwitch />
       <LocaleDropdown class="<xl:text-white dark:text-white" />
     </div> -->
+    <img class="headBgc" src="@/assets/imgs/headTitle.png" />
+
     <Transition appear enter-active-class="animate__animated animate__bounceInRight">
-      <div class="h-full flex items-center m-auto w-[100%]">
-        <LoginForm v-if="isLogin" class="p-20px h-auto m-auto" @to-register="toRegister" />
-        <RegisterForm v-else class="p-20px h-auto m-auto" @to-login="toLogin" />
+      <div class="h-full flex mt-1/6 w-[100%]">
+        <LoginForm v-if="isLogin" class="p-20px mx-auto" @to-register="toRegister" />
+        <RegisterForm v-else class="p-20px m-auto" @to-login="toLogin" />
       </div>
     </Transition>
   </div>
 </template>
 
 <style scoped>
+.loginHome {
+  background: url('@/assets/imgs/loginbgc.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.headBgc {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  height: 70px;
+  width: 290px;
+  transform: translateX(-50%);
+}
 </style>

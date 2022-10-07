@@ -100,6 +100,7 @@ export const isUrl = (path: string): boolean => {
   return reg.test(path)
 }
 
+// 系统暗色模式状态
 export const isDark = (): boolean => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches
 }

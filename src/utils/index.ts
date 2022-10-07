@@ -1,3 +1,6 @@
+import type { App, Plugin } from 'vue';
+
+
 export const setCssVar = (prop:string,val:any,dom = document.documentElement) => {
     dom.style.setProperty(prop,val)
 }
@@ -19,6 +22,16 @@ export const humpToUnderline = (str: string): string => {
   })
 }
 
+export const withInstall = <T>(component: T, alias?: string) => {
+  const comp = component as any;
+  comp.install = (app: App) => {
+    app.component(comp.name || comp.displayName, component);
+    if (alias) {
+      app.config.globalProperties[alias] = component;
+    }
+  };
+  return component as T & Plugin;
+};
 
 /**
  * 查找数组对象的某个下标

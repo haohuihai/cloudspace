@@ -107,59 +107,7 @@ const handleToRegister = () => {
     font-size: 12px;
   }
 }
-a {
-  overflow: hidden;
-  position: relative;
-  padding: 10px 20px;
-  color: #03e9f4;
-  text-decoration: none;
-  /* 同样加个过渡 */
-  transition: all 0.5s;
-  &:hover {
-    color: #fff;
-    border-radius: 5px;
-    background-color: #03e9f4;
-    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
-  }
-  span:first-child {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    /* to right 就是往右边 下面的同理 */
-    background: linear-gradient(to right, transparent, #03e9f4);
-    /* 动画 名称 时长 linear是匀速运动 infinite是无限次运动 */
-    animation: move1 1s linear infinite;
-  }
-  span:nth-child(2) {
-    right: 0;
-    top: -100%;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(transparent, #03e9f4);
-    /* 这里多了个0.25s其实是延迟时间 */
-    animation: move2 1s linear 0.25s infinite;
-  }
-  span:nth-child(3) {
-    right: -100%;
-    bottom: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(to left, transparent, #03e9f4);
-    animation: move3 1s linear 0.5s infinite;
-  }
-  span:last-child {
-    left: 0;
-    bottom: -100%;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(#03e9f4, transparent);
-    animation: move4 1s linear 0.75s infinite;
-  }
-  span {
-    position: absolute;
-  }
-}
+
 .lastInput {
   width: 73%;
   align-self: flex-start;

@@ -167,7 +167,7 @@ const toPreview = () => {}
 #captcha::before,
 #captcha::after {
   position: absolute;
-  content: "";
+  content: '';
   display: block;
   width: inherit;
   height: inherit;
