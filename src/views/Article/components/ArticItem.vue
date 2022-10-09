@@ -2,19 +2,23 @@
   <div>
     <div class="article-link" v-for="(item, index) in articItem" :key="index" @click="toPreview(item)">
       <div class="article-item">
+        <img class="artic-item-right"
+          src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7de3f9db0dbc492bacd35874b648591f~tplv-k3u1fbpfcp-zoom-mark-crop-v2:0:0:120:120.awebp"
+          alt="" />
         <div class="article-item-left">
-          <div class="article-item-left-top">
-            <span>{{item.nickname}}</span><span class="dot">·</span><span>{{ item.createdAt
-            }}</span><span class="dot">·</span><span>{{ articleType.filter((it) => it.id ==
-              item.articleTypeId)[0].name }}</span>
-          </div>
+          
           <div class="title-box">
             <div class="title">{{ item.articleTitle }}</div>
             <div class="content">
               {{item.abstract}}
             </div>
           </div>
-          <div class="operate">
+          <div class="article-item-left-top">
+            <span>{{item.nickname}}</span><span class="dot">|</span><span>{{ item.createdAt
+            }}</span><span class="dot">|</span><span>{{ articleType.filter((it) => it.id ==
+              item.articleTypeId)[0].name }}</span>
+          </div>
+          <!-- <div class="operate">
             <ul>
               <li>
                 <span class="iconfont icon-dianzan"></span>
@@ -28,11 +32,9 @@
                 <span class="iconfont icon-fenxiang"></span><span class="number">{{ item.shareNum }}</span>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
-        <img class="artic-item-right"
-          src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7de3f9db0dbc492bacd35874b648591f~tplv-k3u1fbpfcp-zoom-mark-crop-v2:0:0:120:120.awebp"
-          alt="" />
+       
       </div>
     </div>
   </div>
@@ -46,6 +48,7 @@ interface Article {
 
 }
 export default defineComponent({
+  components: [ElInput],
   props: {
     articItem: {
       type: Array,
@@ -92,7 +95,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .article-link {
   cursor: pointer;
-  border-bottom: 0.1rem solid #f1f1f1;
+  
 
   &:last-child {
     border-bottom: none;
@@ -101,8 +104,8 @@ export default defineComponent({
   .article-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.8rem 1rem;
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
 
     .article-item-left {
       display: flex;
@@ -112,8 +115,8 @@ export default defineComponent({
       flex-direction: column;
 
       .article-item-left-top {
-        font-size: 1rem;
-        color: #b2bac2;
+        font-size: 13px;
+        color: #86909c;
 
         .dot {
           padding: 0 0.4rem;
@@ -154,37 +157,34 @@ export default defineComponent({
       }
 
       .title-box {
-        margin: 0.5rem 0 1rem;
         width: 100%;
-
+        margin: 5px 0;
         .title {
-          font-size: 1.4rem;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 700;
           line-height: 1.2;
-          color: #2e3135;
+          color: #1d2129;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          margin-bottom: 4px;
-
+          margin-bottom: 8px;
           &:hover {
+            color: var(--el-color-primary);
             text-decoration: underline;
           }
         }
-
         .content {
-          font-size: 15px;
+          font-size: 13px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          line-clamp: 1;
+          -webkit-line-clamp: 2;
+          line-clamp: 2;
           -webkit-box-orient: vertical;
-          color: #4e5969;
+
+          color: #86909c;
           display: block;
+          margin-bottom: 2px;
         }
       }
     }
@@ -193,9 +193,9 @@ export default defineComponent({
       flex: 0 0 auto;
       width: 5rem;
       height: 5rem;
-      margin-left: 2rem;
       background-color: #fff;
-      border-radius: 2px;
+      border-radius: 4px;
+      margin-right: 15px;
     }
   }
 }

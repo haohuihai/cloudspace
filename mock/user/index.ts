@@ -35,39 +35,31 @@ const applist: {
   desc: string
 }[] = [
   {
-    name: '视频播放',
+    name: '文章领域',
     id: '123',
     img: '',
+    path: '/article',
     desc: '一款强大的视频播放器'
   },
   {
-    name: '视频播放',
+    name: '玩玩游戏',
     id: '123',
     img: '',
+    path: '/game/index',
     desc: '一款强大的视频播放器'
   },
   {
-    name: '视频播放',
+    name: '大屏可视化',
     id: '123',
     img: '',
+    path: '/visualization',
     desc: '一款强大的视频播放器'
   },
   {
-    name: '视频播放',
+    name: '后台页面',
     id: '123',
-    img: '',
-    desc: '一款强大的视频播放器'
-  },
-  {
-    name: '视频播放',
-    id: '123',
-    img: '',
-    desc: '一款强大的视频播放器'
-  },
-  {
-    name: '视频播放',
-    id: '123',
-    img: '',
+    img: '/backmanage',
+    path: '/backmanage',
     desc: '一款强大的视频播放器'
   }
 ]

@@ -4,9 +4,9 @@
       <ElInput v-model="input" placeholder="请输入你想搜的"><template #suffix>搜索</template></ElInput>
     </div>
     <div class="container-box">
-      <ElSkeleton style="width: 240px" :loading="loading" animated v-for="i in 5" :key="i">
+      <ElSkeleton style="width: 230px" :loading="loading" animated v-for="i in 5" :key="i">
         <template #template>
-          <ElSkeletonItem variant="image" style="width: 240px; height: 240px" />
+          <ElSkeletonItem variant="image" style="width: 230px; height: 220px" />
           <div style="padding: 14px">
             <ElSkeletonItem variant="h3" class="w-60%" />
             <div class="flex justify-center h-16px items-center mt-8px">
@@ -24,6 +24,8 @@
 <script setup lang="ts">
 import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty } from 'element-plus'
 import { reactive, ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 import { Card } from './components'
 import { getAppListApi } from '@/api/common'
 interface List {
@@ -32,7 +34,7 @@ interface List {
   img: string
   desc: string
 }
-let input = ref('');
+let input = ref('')
 const loading = ref(true)
 const appList = reactive<{list: List[]}>({
   list: []
@@ -47,8 +49,11 @@ onMounted( async () => {
 const toggleCollapse = () => {
   console.log(123)
 }
-const toDetailPage = () => {
-  console.log(1111)
+const toDetailPage = (item) => {
+  console.log(item)
+  router.push({
+    path: item.path
+  })
 }
 </script>
 <style lang="less">
@@ -92,7 +97,7 @@ const toDetailPage = () => {
 }
 
 .container-box {
-  width: 70%;
+  width: 74%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

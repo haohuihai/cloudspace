@@ -40,7 +40,9 @@ const loginOut = () => {
     })
     .catch(() => {})
 }
-const toDocument = () => {}
+const goHome = () => {
+  replace('/home')
+}
 </script>
 <template>
   <ElDropdown :class="prefixCls" trigger="click">
@@ -57,7 +59,7 @@ const toDocument = () => {}
     <template #dropdown>
       <ElDropdownMenu>
         <ElDropdownItem>
-          <div @click="toDocument">{{ t('common.document') }}</div>
+          <div @click="goHome">返回首页</div>
         </ElDropdownItem>
         <ElDropdownItem divided>
           <div @click="loginOut">{{ t('common.loginOut') }}</div>

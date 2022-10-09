@@ -5,22 +5,14 @@
     </a>
     <div class="global-nav-right">
       <div class="global-top-left">
-        <ul>
-            <li>
-              首页
-            </li>
-            <li>
-              沸点
-            </li>
-
-            <li>
-              小册
-            </li>
-            <li>
-              活动
-            </li>
-          </ul>
-          <ElInput
+        <span> 首页 </span>
+        <span> 沸点 </span>
+        <span> 小册 </span>
+        <span> 活动 </span>
+        
+      </div>
+      <div class="global-top-right">
+        <ElInput
           suffix-icon="el-icon-search"
           v-model="input"
           @clear="handleClear"
@@ -29,12 +21,10 @@
           @change="handleChange"
           max="100"
         />
-      </div>
-      <div class="global-top-right">
         <ElButton type="primary" @click="btnClick">写文章</ElButton>
         <!-- <ElButton to="/publishArticle"></ElButton> -->
       </div>
-              <!-- <el-dropdown
+      <!-- <el-dropdown
                 size="medium"
                 split-button
                 type="primary"
@@ -47,8 +37,8 @@
                   <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown> -->
-              <!-- <a href='' class="iconfont icon-caret-down"></a> -->
-            <!-- <li class="loginBtn" v-if="!isLogin" @click="toLoginPage">
+      <!-- <a href='' class="iconfont icon-caret-down"></a> -->
+      <!-- <li class="loginBtn" v-if="!isLogin" @click="toLoginPage">
               登录
             </li>
 
@@ -75,6 +65,7 @@ import { defineComponent, ref, onMounted } from 'vue'
 // const { push } = useRouter()
 export default defineComponent({
   name: 'Nav',
+  components: { ElInput, ElButton },
   props: {
     isLogin: {
       type: Boolean,
@@ -94,49 +85,47 @@ export default defineComponent({
       }
     })
     const toLoginPage = () => {
-      push("login")
+      push('login')
     }
     const outLogin = () => {
       localStorage.clear()
-      push("login")
+      push('login')
     }
     const handleChangePWD = () => {}
     const uploadHeadImage = (e) => {
       let that = this
-      document
-        .getElementById("choice_p")
-        .addEventListener("change", function (e) {
-          var files = this.files
-          var reader = new FileReader()
-          reader.readAsDataURL(files[0])
-          reader.onload = async function (e) {
-            let obj = {
-              base64: this.result,
-              userId: selfUserInfo.userId,
-            }
-            let { data } = await that.$http.post("/userImg", obj)
-            if (data.status === "SUCCESS") {
-              ElMessage({
-              message: data.msg,
-              type: 'success',
-            })
-              that.$message.success(data.msg)
-            } else {
-              ElMessage.error(data.msg)
-            }
+      document.getElementById('choice_p').addEventListener('change', function (e) {
+        var files = this.files
+        var reader = new FileReader()
+        reader.readAsDataURL(files[0])
+        reader.onload = async function (e) {
+          let obj = {
+            base64: this.result,
+            userId: selfUserInfo.userId
           }
-        })
+          let { data } = await that.$http.post('/userImg', obj)
+          if (data.status === 'SUCCESS') {
+            ElMessage({
+              message: data.msg,
+              type: 'success'
+            })
+            that.$message.success(data.msg)
+          } else {
+            ElMessage.error(data.msg)
+          }
+        }
+      })
     }
     const handleClick = (command) => {
       console.log(`e`, command)
-      if (command === "a") {
+      if (command === 'a') {
         toWrite()
       } else {
-        ElMessage.error("你触发了item")
+        ElMessage.error('你触发了item')
       }
     }
     const toWrite = () => {
-      push("publicArtic")
+      push('publicArtic')
     }
     const handleClear = () => {
       console.log(`123`, 123)
@@ -160,65 +149,24 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-
 .global-top-hide {
   transform: translate3d(0, -100%, 0);
 }
 .global-nav {
   display: flex;
   align-items: center;
-  height: 6rem;
+  height: 70px;
   transition: all 0.2s;
   transform: translateZ(0);
   background: #fff;
   color: #909090;
   z-index: 20;
   justify-content: space-between;
+  padding: 0 10px;
 }
 .head-image {
   width: 70px;
   height: 41px;
-}
-.global-nav-right ul li:nth-child(2) ul li:nth-child(1) {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.global-nav-right ul li:nth-child(2) ul li:nth-child(1) a {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-  font-size: 18px;
-}
-.global-nav-right ul li:nth-child(2) ul li:nth-child(1) input {
-  border: 1px solid hsla(0, 0%, 59.2%, 0.2);
-  background-color: rgba(227, 231, 236, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 2px;
-  position: relative;
-  color: #666;
-  font-size: 1.2rem;
-  width: 14rem;
-  height: 2.8rem;
-  padding-left: 10px;
-  padding-right: 35px;
-}
-.global-nav-right .loginBtn {
-  color: #007fff;
-  background-color: #fff;
-  border: 0.1rem solid #007fff;
-  margin-right: 0;
-  height: 32px;
-  text-align: center;
-  line-height: 31px;
-  border-radius: 3px;
-  font-size: 19px;
-  width: 63px;
-  letter-spacing: 2px;
 }
 .global-nav-right {
   display: flex;
@@ -227,44 +175,40 @@ export default defineComponent({
   align-items: center;
   height: 40px;
 }
-.global-nav-right .loginBtn:hover {
-  background-color: #007fff;
-  color: #fff;
-}
-.global-nav-right ul li:nth-child(2) ul li:nth-child(2) a {
-  position: absolute;
-  right: 2px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 16px;
-}
-.global-nav-right .avator {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 .global-nav-right .notice {
   font-size: 25px;
   margin-right: 10px;
 }
 
-.global-nav-right .global-top-left ul {
+.global-top-left {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  font-size: 18px;
+  align-items: center;
   height: 41px;
+  span {
+    font-size: 18px;
+    align-self: flex-end;
+    vertical-align: middle;
+    margin: 0 10px;
+    cursor: pointer;
+  }
 }
 
-.global-nav-right .global-top-left ul li {
+.global-top-right {
+  display: flex;
+  .el-input {
+    margin-right: 10px;
+  }
+}
+
+.global-nav-right .global-top-lef span {
   margin: 0 10px;
   color: rgba(140, 140, 140, 1);
 }
-.global-nav-right .global-top-left ul li:nth-child(1){
+.global-nav-right .global-top-left span:nth-child(1) {
   color: #007fff;
 }
-.global-nav-right .global-top-left > ul li:nth-child(1):hover {
+.global-nav-right .global-top-left > span:nth-child(1):hover {
   color: #007fff;
 }
 .changepassword {
