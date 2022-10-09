@@ -399,67 +399,6 @@ watch(
         :color="appStore.getIsDark ? 'var(--el-text-color-regular)' : '#333'"
       />
     </span>
-    <ContextMenu
-      trigger="click"
-      :schema="[
-        {
-          icon: 'ant-design:sync-outlined',
-          label: t('common.reload'),
-          command: () => {
-            refreshSelectedTag(selectedTag)
-          }
-        },
-        {
-          icon: 'ant-design:close-outlined',
-          label: t('common.closeTab'),
-          disabled: !!visitedViews?.length && selectedTag?.meta.affix
-        },
-        {
-          divided: true,
-          icon: 'ant-design:vertical-right-outlined',
-          label: t('common.closeTheLeftTab'),
-          disabled: !!visitedViews?.length && selectedTag?.fullPath === visitedViews[0].fullPath,
-          command: () => {
-            closeLeftTags()
-          }
-        },
-        {
-          icon: 'ant-design:vertical-left-outlined',
-          label: t('common.closeTheRightTab'),
-          disabled:
-            !!visitedViews?.length &&
-            selectedTag?.fullPath === visitedViews[visitedViews.length - 1].fullPath,
-          command: () => {
-            closeRightTags()
-          }
-        },
-        {
-          divided: true,
-          icon: 'ant-design:tag-outlined',
-          label: t('common.closeOther'),
-          command: () => {
-            closeOthersTags()
-          }
-        },
-        {
-          icon: 'ant-design:line-outlined',
-          label: t('common.closeAll'),
-          command: () => {
-            closeAllTags()
-          }
-        }
-      ]"
-    >
-      <span
-        :class="`${prefixCls}__tool`"
-        class="w-[var(--tags-view-height)] h-[var(--tags-view-height)] text-center leading-[var(--tags-view-height)] cursor-pointer block"
-      >
-        <Icon
-          icon="ant-design:setting-outlined"
-          :color="appStore.getIsDark ? 'var(--el-text-color-regular)' : '#333'"
-        />
-      </span>
-    </ContextMenu>
   </div>
 </template>
 

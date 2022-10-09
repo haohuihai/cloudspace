@@ -40,7 +40,6 @@ export const usePermissionStore = defineStore('permission', {
       type: 'admin',
       routers?: AppCustomRouteRecordRaw[] | string[]
     ): Promise<unknown> {
-
       return new Promise<void>((resolve) => {
         let routerMap: AppRouteRecordRaw[] = []
         if (type === 'admin') {

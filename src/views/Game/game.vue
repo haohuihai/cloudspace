@@ -8,5 +8,5 @@
   </ElRow>
 </template>
 <script setup lang="ts">
-  import {ElRow, ElCol, ElCard} from 'element-plus'
+  import { ElRow, ElCol, ElCard } from 'element-plus'
 </script>

@@ -5,15 +5,11 @@ import type { RouteRecordRaw } from 'vue-router'
 import { useTitle } from '@/hooks/web/useTitle'
 import { useNProgress } from '@/hooks/web/useNProgress'
 import { usePermissionStoreWithOut } from '@/stores/modules/permission'
-// import { useDictStoreWithOut } from '@/stores/modules/dict'
 import { usePageLoading } from '@/hooks/web/usePageLoading'
-// import { getDictApi } from '@/api/common'
 
 const permissionStore = usePermissionStoreWithOut()
 
 const appStore = useAppStoreWithOut()
-
-// const dictStore = useDictStoreWithOut()
 
 const { wsCache } = useCache()
 
@@ -36,25 +32,15 @@ router.beforeEach(async (to, from, next) => {
         return
       }
 
-      // if (!dictStore.getIsSetDict) {
-      //   // 获取所有字典
-      //   const res = await getDictApi()
-      //   if (res) {
-      //     dictStore.setDictObj(res.data)
-      //     dictStore.setIsSetDict(true)
-      //   }
-      // }
       // 开发者可根据实际情况进行修改   拿缓存中的路由；放到store里面 并push了404的路由
       const roleRouters = wsCache.get('roleRouters') || []
       await permissionStore.generateRoutes('admin', roleRouters as AppCustomRouteRecordRaw[])
 
-
       // 拿store的路由   添加到可访问路由表
       permissionStore.getAddRouters.forEach((route) => {
-        router.addRoute(route as unknown as RouteRecordRaw) 
+        router.addRoute(route as unknown as RouteRecordRaw)
       })
 
-      // 
       const redirectPath = from.query.redirect || to.path
       const redirect = decodeURIComponent(redirectPath as string)
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
