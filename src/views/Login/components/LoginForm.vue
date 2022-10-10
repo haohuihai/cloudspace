@@ -29,10 +29,8 @@
               </ElFormItem>
             </ElCol>
             <ElCol :span="8" :offset="2">
-              <img
-                class="w-40 h-30px"
-                src="data:image/jpg;base64,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"
-              />
+              <img class="w-40 h-30px"
+                src="data:image/jpg;base64,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" />
             </ElCol>
           </ElRow>
           <ElRow>
@@ -43,9 +41,7 @@
             </ElCol>
             <ElCol :span="12">
               <ElFormItem class="forItemBottom" :style="{ 'text-align': 'right' }">
-                <ElButton type="primary" :style="{ height: '40px' }" class="ml-1/2 h-40px" link
-                  >忘记密码</ElButton
-                >
+                <ElButton type="primary" :style="{ height: '40px' }" class="ml-1/2 h-40px" link>忘记密码</ElButton>
               </ElFormItem>
             </ElCol>
           </ElRow>
@@ -71,12 +67,13 @@
               </ElFormItem>
             </ElCol>
             <ElCol :span="8" :offset="1">
-              <ElButton :disabled="isSend" class="w-full" @click="handleSendNumber">{{ isSend ? endTime + '  s' : sendNumberTip}}</ElButton>
+              <ElButton :disabled="isSend" class="w-full" @click="handleSendNumber">
+              {{ isSend ? endTime + ' s' : sendNumberTip}}</ElButton>
             </ElCol>
           </ElRow>
         </ElForm>
       </ElTabPane>
-      <ElTabPane label="扫码登录" name="scan"> 
+      <ElTabPane label="扫码登录" name="scan">
         <div class="QRcode">
           <!--扫码成功的样式-->
           <div class="QRcode_success" v-if="successShow">
@@ -94,16 +91,23 @@
         <p class="tips">{{ tipsText }}</p>
       </ElTabPane>
     </ElTabs>
-    <ElButton v-show="loginTypeIndex !== 'scan'" type="primary" class="w-4/5 mx-auto" :loading="loginLoding" @click="submitForm">登录</ElButton>
+    <ElButton v-show="loginTypeIndex !== 'scan'" type="primary" class="w-4/5 mx-auto" :loading="loginLoding"
+      @click="submitForm">登录</ElButton>
 
     <ElDivider content-position="center">其他方式登录</ElDivider>
     <div class="flex justify-evenly enter-x signWay">
-      <a @click="onThirdLogin('github')" title="github"><Icon size="20"  icon="bxl:github" /></a>
+      <a @click="onThirdLogin('github')" title="github">
+        <Icon size="20" icon="bxl:github" />
+      </a>
       <a @click="onThirdLogin('wechat_enterprise')" title="企业微信">
         <Icon size="20" icon="fa6-brands:weixin" />
       </a>
-      <a @click="onThirdLogin('dingtalk')" title="钉钉"><Icon size="20"  icon="ri:dingding-fill"/></a>
-      <a @click="onThirdLogin('wechat_open')" title="微信"><Icon size="20"  icon="fa6-brands:weixin"/></a>
+      <a @click="onThirdLogin('dingtalk')" title="钉钉">
+        <Icon size="20" icon="ri:dingding-fill" />
+      </a>
+      <a @click="onThirdLogin('wechat_open')" title="微信">
+        <Icon size="20" icon="fa6-brands:weixin" />
+      </a>
     </div>
   </div>
   <!-- <div class="flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
@@ -185,13 +189,6 @@ import { usePermissionStore } from '@/stores/modules/permission'
 import { useAppStore } from '@/stores/modules/app'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useCache } from '@/hooks/web/useCache'
-declare type LoginInput = {
-  account?: string
-  password?: string
-  inputCode?: string
-  nickname?: string
-  phoneNumber?: string
-}
 
 interface ScanSchema {
   socket?: string
@@ -199,11 +196,22 @@ interface ScanSchema {
   activeName?: string
 }
 
+interface LoginFormType {
+  account: string
+  password: string
+  inputCode: string
+  savePassword: boolean
+}
+
+interface RulePhoneType {
+  phone: string
+  code: string
+}
 const appStore = useAppStore()
 const permissionStore = usePermissionStore()
 const { t } = useI18n()
 const { wsCache } = useCache()
-const { currentRoute, addRoute, push } = useRouter()
+const { currentRoute, push } = useRouter()
 
 const emit = defineEmits(['to-register'])
 const successShow = ref(false)
@@ -214,13 +222,13 @@ const isPassInput = reactive<string[]>([])
 const ruleFormRef = ref<FormInstance>()
 const rulePhoneFormRef = ref<FormInstance>()
 
-const loginForm = reactive({
+const loginForm = reactive<LoginFormType>({
   account: '',
   password: '',
   inputCode: '',
   savePassword: false
 })
-const rulePhoneForm = reactive({
+const rulePhoneForm = reactive<RulePhoneType>({
   phone: '',
   code: ''
 })
@@ -273,13 +281,15 @@ const scanCodeQuery = reactive<ScanSchema>({
 const sendNumberTip = ref<string>('发送验证码')
 const isSend = ref(false)
 const endTime = ref(60)
-const timeId = ref(null)
+const timeId = ref<any>(null)
 
 const redirect = ref<string>('')
-const loginTypeList = reactive<string[]>(['邮箱', '手机', '扫码'])
+// const loginTypeList = reactive<string[]>(['邮箱', '手机', '扫码'])
 const loginTypeIndex = ref<string>('account') // account 邮箱，phone  手机  scan  扫码
 
 let loginLoding = ref<boolean>(false)
+
+// 监听当前路由变化
 watch(
   () => currentRoute.value,
   (route: RouteLocationNormalizedLoaded) => {
@@ -331,7 +341,7 @@ const submitForm = async () => {
       }
     })
   } else if (unref(loginTypeIndex) === 'phone') {
-    let formEl = ruleForPhonemRef.value
+    let formEl = rulePhoneFormRef.value
     if (!formEl) return
     await formEl.validate((valid, fields) => {
       if (valid) {
@@ -344,6 +354,7 @@ const submitForm = async () => {
   }
 }
 
+// 第三方登录
 function onThirdLogin(type) {
   // thirdModalRef.value.onThirdLogin(type);
 }
@@ -397,6 +408,7 @@ const getRole = async () => {
     // }
   }
 }
+
 const emailRegister = async () => {
   // loginForm.code = loginForm.inputCode
   // const { data: res } = await $http.post('/user/register', Qs.stringify(loginForm))
@@ -429,8 +441,6 @@ const phoneLoginHtttp = async () => {
 }
 const countDown = () => {
   isSend.value = true
-  console.log(1232121);
-  
   timeId.value = setInterval(() => {
     endTime.value--
     if (endTime.value === -1) {
@@ -440,33 +450,25 @@ const countDown = () => {
     }
   }, 1000)
 }
+
+// 注册
 const handleToRegister = () => {
   emit('to-register')
 }
 // ------------------------ 扫码登录
-// 进入扫码登录
-const getScanOperate = () => {
-  console.log(`扫码登录`)
-}
+
 // 获取二维码
 const getQRcode = () => {
   // $store.dispatch('getQRcode')
   // scanCodeQuery.timerCheck = setInterval(() => checkScanCode(), 1000)
 }
-const chooseLoginType = (index) => {
-  loginTypeIndex.value = index
-  Object.keys(loginForm).forEach((key) => {
-    loginForm[key] = ''
-  })
-  if (index === 2) {
-    getScanOperate()
-  }
-}
+
 const scanAgainScanCode = () => {
   console.log(111)
 }
 // 验证输入框是否合法
 const valitedInput = (str, value) => {
+  console.log('校验')
   // let validForm = new ValidForm()
   // if (!validForm[str](value)) {
   // isPassInput.includes(str) && isPassInput.push(str)
@@ -484,8 +486,9 @@ const valitedInput = (str, value) => {
 // }
 // 二维码失效后，用户点击二维码重新获取二维码的事件
 const AgainScanCode = () => {
-// $store.commit('AgainScanCode')
-// getQRcode()
+  console.log('二维码失效')
+  // $store.commit('AgainScanCode')
+  // getQRcode()
 }
 </script>
 <style lang="less">
@@ -498,20 +501,25 @@ const AgainScanCode = () => {
 .forItemBottom {
   margin-bottom: 0px !important;
 }
+
 .el-divider__text {
   font-size: 12px;
   color: rgb(133, 133, 133);
 }
+
 .el-tabs__nav-wrap::after {
   display: none;
 }
+
 .el-tabs__nav {
   transform: translateX(-50%) !important;
   left: 50%;
 }
+
 .displaylogin {
   display: none;
 }
+
 .signWay {
   a {
     width: 40x;
@@ -520,10 +528,12 @@ const AgainScanCode = () => {
     color: #888;
     font-size: 20px;
   }
+
   a:hover {
     color: #409eff;
   }
 }
+
 .loginType {
   .active_type {
     color: white;
@@ -652,6 +662,7 @@ const AgainScanCode = () => {
   height: 238px;
   position: relative;
   margin: 0 auto;
+
   .QRcode_overtime {
     display: flex;
     align-items: center;

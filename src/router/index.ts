@@ -41,6 +41,16 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       title: 'login',
       noTagsView: true
     }
+  },
+  {
+    path: '/canvas',
+    component: () => import('@/views/Canvas/index.vue'),
+    name: 'canvas',
+    meta: {
+      hidden: true,
+      title: 'canvas',
+      noTagsView: true
+    }
   }
 ]
 

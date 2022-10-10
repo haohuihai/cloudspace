@@ -214,5 +214,9 @@ SyntaxError: Cannot use import statement outside a module
 
 echarts + websocket的使用
 
+socket的导入使用
 
+在mian.ts里面导入了socket的使用
+游戏猜一猜中使用到了
+store socket文件里面
 

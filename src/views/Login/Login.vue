@@ -18,10 +18,7 @@ const toLogin = () => {
 }
 </script>
 <template>
-  <div
-    :class="prefixCls"
-    class="h-[100%] flex justify-center loginHome"
-  >
+  <div :class="prefixCls" class="h-[100%] flex justify-center loginHome">
     <!--  -->
 
     <!-- <div class="flex justify-end items-center space-x-10px">
@@ -45,6 +42,7 @@ const toLogin = () => {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
+
 .headBgc {
   position: absolute;
   top: 60px;

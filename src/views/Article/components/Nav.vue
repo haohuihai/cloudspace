@@ -62,7 +62,7 @@
 import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty, ElButton } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
-// const { push } = useRouter()
+const { push } = useRouter()
 export default defineComponent({
   name: 'Nav',
   components: { ElInput, ElButton },
@@ -117,7 +117,6 @@ export default defineComponent({
       })
     }
     const handleClick = (command) => {
-      console.log(`e`, command)
       if (command === 'a') {
         toWrite()
       } else {

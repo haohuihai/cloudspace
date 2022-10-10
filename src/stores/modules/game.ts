@@ -17,7 +17,6 @@ export const useDrawPanel = defineStore('game', {
       holder: '', // 游戏主持
       lines: [], // 游戏线条
       connected: false // 连接状态
-
     }
   },
   persist: {
@@ -74,8 +73,7 @@ export const useDrawPanel = defineStore('game', {
     // 某玩家退出游戏
     delFromNicknames(nickname) {
       console.log('nickname', nickname)
-      let names = this.nicknames.filter((item) => item !== nickname)
-      console.log(names)
+      const names = this.nicknames.filter((item) => item !== nickname)
       this.updateNicknames(names)
     },
     // 画线条
@@ -115,7 +113,7 @@ export const useDrawPanel = defineStore('game', {
     sendAnswerGame(inputImageName) {
       socket.emit('answer_game', inputImageName)
     },
-    sendUserLeave(context) {
+    sendUserLeave() {
       // 发送退出消息
       socket.emit('leave')
       // context.commit('updateNickname', '')
@@ -127,7 +125,7 @@ export const useDrawPanel = defineStore('game', {
       socket.emit('new_line', line)
     },
     // 终止游戏
-    sendStopGame(context) {
+    sendStopGame() {
       socket.emit('stop_game')
     },
     // 向服务器更新线条数据

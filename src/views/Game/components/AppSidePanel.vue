@@ -29,7 +29,7 @@
       <ul class="participants">
         <li v-for="(item, index) in nicknames" :key="index">
           <span>{{ item }} {{ item === nickname ? '(我)' : '' }}</span>
-          <ElTag v-if="item === holder" size="mini">主持</ElTag>
+          <ElTag v-if="item === holder" size="small">主持</ElTag>
         </li>
       </ul>
     </div>
@@ -37,20 +37,24 @@
     <ElDialog title="请设置答案" v-model="resultDialogVisible" width="30%">
       <ElInput v-model="expectImageName" placeholder="请输入您的答案" />
 
-      <span slot="footer" class="dialog-footer">
-        <ElButton @click="resultDialogVisible = false">取 消</ElButton>
-        <ElButton type="primary" @click="saveDialogHandler">确 定</ElButton>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <ElButton @click="resultDialogVisible = false">取 消</ElButton>
+          <ElButton type="primary" @click="saveDialogHandler">确 定</ElButton>
+        </span>
+      </template>
     </ElDialog>
 
     <!-- 弹出框：答题人设置答案 -->
     <ElDialog title="请填写答案" v-model="answerDialogVisible" width="30%">
       <ElInput v-model="inputImageName" placeholder="请输入您的答案" />
 
-      <span slot="footer" class="dialog-footer">
-        <ElButton @click="answerDialogVisible = false">取 消</ElButton>
-        <ElButton type="primary" @click="saveAnswerDialogHandler">确 定</ElButton>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <ElButton @click="answerDialogVisible = false">取 消</ElButton>
+          <ElButton type="primary" @click="saveAnswerDialogHandler">确 定</ElButton>
+        </span>
+      </template>
     </ElDialog>
   </ElCard>
 </template>
@@ -62,10 +66,10 @@ import { useDrawOneDraw } from '@/stores/modules/game'
 import { useRouter } from 'vue-router'
 const { replace } = useRouter()
 let drawondrawState = useDrawOneDraw()
-let resultDialogVisible = ref(false)
-let expectImageName = ref('')
-let answerDialogVisible = ref(false)
-let inputImageName = ref('')
+let resultDialogVisible = ref<boolean>(false)
+let expectImageName = ref<string>('')
+let answerDialogVisible = ref<boolean>(false)
+let inputImageName = ref<string>('')
 
 let nicknames = computed(() => {
   return drawondrawState.getNickNames
