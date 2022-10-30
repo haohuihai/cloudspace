@@ -1,20 +1,15 @@
 <template>
-  
-    <ElRow :gutter="10">
-      <ElCol :span="5" v-for="item in appList" :key="item.id" class="mb-10px">
-        <ElCard shadow="hover" :body-style="{padding: '10px'}">
-          <div class="box" @click="toDetailPage(item)" :body-style="{'paddingBottom': '0'}">
-            <img src="@/assets/imgs/1256748.png" alt="" />
-            <h1>{{item.name}}</h1>
-            <div class="card-desc">{{item.desc}}</div>
-            <!-- <div class="bottom-operate">
-              <Icon :size="18" icon="ant-design:menu-unfold-outlined" class=" left-operate" @click="e => toggleCollapse(e)" />
-              <Icon :size="18" icon="ant-design:menu-unfold-outlined" class="right-operate" @click="e => toggleCollapse(e)" />
-            </div> -->
-          </div>
-        </ElCard>
-      </ElCol>
-    </ElRow>
+  <ElRow :gutter="15">
+    <ElCol :span="5" v-for="item in appList" :key="item.id" class="mb-10px cursor-pointer">
+      <ElCard shadow="hover" :body-style="{ padding: '10px' }">
+        <div class="box" @click="toDetailPage(item)" :body-style="{ paddingBottom: '0' }">
+          <img src="@/assets/imgs/1256748.png" alt="" />
+          <h1>{{ item.name }}</h1>
+          <div class="card-desc">{{ item.desc }}</div>
+        </div>
+      </ElCard>
+    </ElCol>
+  </ElRow>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -62,21 +57,23 @@ export default defineComponent({
 
   img {
     cursor: pointer;
-    height: 145px;
+    height: 150px;
     width: 100%;
     border-radius: 4px 4px 0 0;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   h1 {
-    font-size: 16px;
-    padding: 0 10px;
+    font-size: 15px;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .card-desc {
     color: rgba(153, 153, 153, 1);
     font-size: 13px;
-    padding: 0 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: wrap;

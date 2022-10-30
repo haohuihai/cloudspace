@@ -8,7 +8,7 @@
         <div class="article-item-left">
           
           <div class="title-box">
-            <div class="title">{{ item.articleTitle }}</div>
+            <div class="title">{{ item.articleTitle }}{{index}}</div>
             <div class="content">
               {{item.abstract}}
             </div>
@@ -55,7 +55,7 @@ export default defineComponent({
       default: () => []
     }
   },
-  emits: ['toPreview'],
+  emits: ['to-preview'],
   setup(props, { slots, expose, emit }) {
     console.log('props.articItem', props.articItem)
     const articleType = ref([
@@ -81,7 +81,7 @@ export default defineComponent({
       }
     ])
   const toPreview = (item) => {
-    emit('toPreview', item)
+    emit('to-preview', item)
   }
   return {
     articleType,

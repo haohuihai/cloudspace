@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-50">
-    <div class="container">
-      <Nav :isLogin="isLogin" :selfUserInfo="selfUserInfo"></Nav>
+    <div class="container-article">
+      <Nav :isLogin="isLogin" :selfUserInfo="selfUserInfo" />
       <div class="global-nav-bottom" :class="isShowNav ? 'global-nav-bottom-hide' : ''">
         <ul>
           <li
@@ -24,11 +24,9 @@
           </li>
         </ul>
       </div>
-      <div class="mainContent">
-        <div class="main-left">
-          <keep-alive>
-            <ArticItem :articItem="articItem.list" @toPreview="toPreview"></ArticItem>
-          </keep-alive>
+      <div class="mainContent" v-loading="isMoreData">
+        <div ref="scrollDomActive">
+          <ArticItem :articItem="articItem.list" @to-preview="toPreview" />
         </div>
       </div>
     </div>
@@ -38,27 +36,28 @@
 <script lang="ts" setup>
 import { Nav, ArticItem } from './components'
 import { getArticleList } from '@/api/article'
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, ObjectDirective, onUnmounted  } from 'vue'
+const scrollDomActive = ref<ElRef>(null)
 let navBotList = ref([
   {
-    articleName: '12321',
+    articleName: '前端',
     id: '1'
   },
   {
-    articleName: '收到罚单',
+    articleName: '后端',
     id: '21'
   },
   {
-    articleName: '啊手动阀打发',
+    articleName: 'python',
     id: '31'
   }
 ])
-let isHideNavBot = ref(false)
 let page = 1
 let articItem = reactive({ list: [] })
 let isLogin = ref(false)
 let isShowNav = ref(false)
 let currentIndex = ref(0)
+let isMoreData = ref(false)
 let selfUserInfo = ref({})
 let maxType = ref([
   {
@@ -75,29 +74,54 @@ let maxType = ref([
   }
 ])
 onMounted(async () => {
+  scrollDomActive.value.addEventListener('scroll', handleScroll, true)
   const res = await getArticleList({ page: 1 })
   articItem.list = res
   console.log('res', res)
 })
+onUnmounted(() => {
+  scrollDomActive.value?.removeEventListener('scroll', handleScroll)
+})
 const chooseItem = () => {}
 const switchHotType = () => {}
 const toPreview = () => {}
+const handleScroll = (e) => {
+  if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+    isMoreData.value = true
+    setTimeout(() => {
+      isMoreData.value = false
+    }, 1000)
+  }
+}
 </script>
 
 <style scoped lang="less">
-.container {
+.container-article {
   position: relative;
   margin: 0 auto;
   max-width: 1080px;
   height: 100vh;
   .mainContent {
-    display: flex;
-    justify-content: space-between;
     background: #fff;
     margin: 0 20px;
-    .main-left {
+    border-radius: 2px;
+    div:first-child {
       width: 100%;
-      border-radius: 2px;
+      height: calc(100vh - 126px);
+      overflow-y: overlay;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.1);
+      }
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
   }
 }
@@ -196,14 +220,14 @@ const toPreview = () => {}
   transition: none;
 }
 
-.container {
+.container-article {
   position: relative;
   margin: 0 auto;
   max-width: 1080px;
 }
 
 .global-nav-bottom ul li:hover,
-.container .mainContent .fullter ul li:hover {
+.container-article .mainContent .fullter ul li:hover {
   color: #007fff;
 }
 
@@ -251,28 +275,31 @@ const toPreview = () => {}
   flex-shrink: 0;
   font-size: 16px;
   color: #71777c;
-  padding: 10px;
+  padding: 5px 10px;
   border-right: 1px #f1f1f1 solid;
+  &:first-child {
+    padding-left: 0;
+  }
 }
 @media (max-width: 1090px) {
   /* .global-nav,.mainContent{
         width: 100%;
         margin: 0 auto;
     }
-    .container .mainContent .main-left{
+    .container .mainContent {
         width: 100%;
         margin-right: 0;
     } */
-  .container .mainContent .main-left {
+  .container-article .mainContent {
     width: 84rem !important;
     margin: 0 auto;
   }
-  .container .mainContent .main-right {
+  .container-article .mainContent .main-right {
     display: none;
   }
 }
 @media screen and (min-width: 1090) {
-  .container .mainContent .main-left {
+  .container-article .mainContent {
     width: 710px;
     margin-right: 0;
   }

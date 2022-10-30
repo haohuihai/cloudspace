@@ -1,7 +1,7 @@
 <template>
   <div class="global-nav" :class="isShowNav ? 'global-top-hide' : ''">
     <a href="/">
-      <img class="head-image" src="@/assets/imgs/1256748.png" alt="111" />
+      <img class="head-image" src="@/assets/imgs/1256748.png" alt="" />
     </a>
     <div class="global-nav-right">
       <div class="global-top-left">
@@ -21,7 +21,7 @@
           @change="handleChange"
           max="100"
         />
-        <ElButton type="primary" @click="btnClick">写文章</ElButton>
+        <ElButton type="primary">写文章</ElButton>
         <!-- <ElButton to="/publishArticle"></ElButton> -->
       </div>
       <!-- <el-dropdown
@@ -60,9 +60,9 @@
 
 <script lang="ts">
 import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty, ElButton } from 'element-plus'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
-const { push } = useRouter()
+
 export default defineComponent({
   name: 'Nav',
   components: { ElInput, ElButton },
@@ -73,6 +73,7 @@ export default defineComponent({
     }
   },
   setup(props, { slots, expose, emit }) {
+    const { push } = useRouter()
     let input = ref('')
     let isShowNav = ref(false)
     let visible = ref(false)
@@ -93,7 +94,8 @@ export default defineComponent({
     }
     const handleChangePWD = () => {}
     const uploadHeadImage = (e) => {
-      let that = this
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const that = this
       document.getElementById('choice_p').addEventListener('change', function (e) {
         var files = this.files
         var reader = new FileReader()

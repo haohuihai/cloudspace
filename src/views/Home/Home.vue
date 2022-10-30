@@ -1,15 +1,23 @@
 <template>
   <div class="height-100vh">
     <div class="input-search">
-      <ElInput v-model="input" placeholder="请输入你想搜的"><template #suffix>搜索</template></ElInput>
+      <ElInput v-model="input" placeholder="请输入你想搜的">
+        <template #suffix>搜索</template>
+      </ElInput>
     </div>
     <div class="container-box">
-      <ElSkeleton style="width: 230px" :loading="loading" animated v-for="i in 5" :key="i">
+      <ElSkeleton
+        style="width: 210px; margin-right: 20px"
+        :loading="loading"
+        animated
+        v-for="i in 5"
+        :key="i"
+      >
         <template #template>
-          <ElSkeletonItem variant="image" style="width: 230px; height: 220px" />
-          <div style="padding: 14px">
+          <ElSkeletonItem variant="image" style="height: 190px" />
+          <div style="padding: 14px 0">
             <ElSkeletonItem variant="h3" class="w-60%" />
-            <div class="flex justify-center h-16px items-center mt-8px">
+            <div class="flex h-16px items-center">
               <ElSkeletonItem variant="text" class="mr-10px" />
               <ElSkeletonItem variant="text" style="width: 100%" />
             </div>
@@ -25,22 +33,22 @@
 import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty } from 'element-plus'
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-const router = useRouter()
 import { Card } from './components'
 import { getAppListApi } from '@/api/common'
+const router = useRouter()
 interface List {
   name: string
   id: string
   img: string
   desc: string
-}
+} 
 let input = ref('')
 const loading = ref(true)
 const appList = reactive<{list: List[]}>({
   list: []
 })
 
-onMounted( async () => {
+onMounted(async () => {
   const result = await getAppListApi()
   loading.value = false
   appList.list = result
@@ -100,7 +108,6 @@ const toDetailPage = (item) => {
   width: 74%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   margin: 100px auto 0;
 }
 </style>
