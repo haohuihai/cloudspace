@@ -1,0 +1,31 @@
+stages:
+  - install-build-job
+  - deploy_pages
+# 部署所需要的环境
+image: node:16.15.0
+# 缓存（默认情况下，每个pipelines和jobs中可以共享一切，从GitLab 9.0开始）
+cache: {}
+# 构建工作并且编译
+install-build-job:
+    # stages中的一个job
+  stage: install-build-job
+  # 只有在dev和master分支才触发CICD
+  only:
+    - dev
+    - master
+  # 运行指定tag的gitlab-runner
+  tags:
+    - build
+    - deploy
+  # 命令操作
+  script:
+    - npm config set registry https://registry.npm.taobao.org/
+    - npm install
+    - npm run build
+  # 在执行命令后执行的操作
+  after_script:
+    - rm -r node_modules/*
+  # 制品，即build之后的生成物
+  artifacts:
+    paths:
+      - dist/*
