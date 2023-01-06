@@ -44,3 +44,11 @@ npm run build
 ```sh
 npm run lint
 ```
+
+# 将代码同时提交到gitlab和github上面
+
+```js
+url = git@github.com:haohuihai/cloudspace.git
+url=ssh://git@101.132.124.188:8022/haohuihai/cloudspace.git
+```
+
