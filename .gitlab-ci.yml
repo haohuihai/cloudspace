@@ -1,6 +1,5 @@
 stages:
   - install-build-job
-  - deploy_pages
 # 部署所需要的环境
 image: node:16.15.0
 # 缓存（默认情况下，每个pipelines和jobs中可以共享一切，从GitLab 9.0开始）
@@ -29,3 +28,41 @@ install-build-job:
   artifacts:
     paths:
       - dist/*
+
+
+
+stages: # 分段
+  - install
+  - build
+  - deploy
+
+cache: # 缓存
+  paths:
+    - node_modules
+    - dist  # 这个缓存要加上,因为每个job在开始的时候,会把上个job新增的内存删掉,不加上的话,发布的时候,打包出来的dist文件夹在发布阶段就被删除掉了
+
+install-job:
+  only:
+    refs:
+      - master
+  tags:
+    - test
+  stage: install
+  script:
+    - npm install
+
+
+build-job:
+  tags:
+    - test
+  stage: build
+  script:
+    - npm run build
+
+deploy-job:
+  only:
+    refs:
+      - master
+  tags:
+    - test
+  stage: deploy
