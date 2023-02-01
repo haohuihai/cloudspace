@@ -38,7 +38,7 @@ build_prod_job:
     - ls
     - pwd
     - rm -rf ./dist # 删除当前文件夹下的 dist 文件夹
-    - npm run build # 打包
+    - npm run build:pro # 打包
     - ls
   tags:
     - build,deploy
