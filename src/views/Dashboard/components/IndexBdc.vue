@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <ChartGroupCard class="enter-y" :loading="loading" type="bdc" />
+    <!-- <ChartGroupCard class="enter-y" :loading="loading" type="bdc" /> -->
     <BdcTabCard class="!my-4 enter-y" :loading="loading" />
     <a-row>
       <a-col :span="24">
@@ -59,7 +59,7 @@
 <script lang="ts" setup>
   import { ref, unref } from 'vue';
   import { ElProgress } from 'element-plus';
-  import ChartGroupCard from '../components/ChartGroupCard.vue';
+  // import ChartGroupCard from '../components/ChartGroupCard.vue';
   import BdcTabCard from '../components/BdcTabCard.vue';
   import LineMulti from '/@/components/chart/LineMulti.vue';
   import HeadInfo from '/@/components/chart/HeadInfo.vue';
