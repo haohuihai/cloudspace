@@ -1,68 +1,65 @@
+image: node:16.15.1
 stages:
-  - install-build-job
-# 部署所需要的环境
-image: node:16.15.0
-# 缓存（默认情况下，每个pipelines和jobs中可以共享一切，从GitLab 9.0开始）
-cache: {}
-# 构建工作并且编译
-install-build-job:
-    # stages中的一个job
-  stage: install-build-job
-  # 只有在dev和master分支才触发CICD
-  only:
-    - dev
-    - master
-  # 运行指定tag的gitlab-runner
-  tags:
-    - build
-    - deploy
-  # 命令操作
-  script:
-    - npm config set registry https://registry.npm.taobao.org/
-    - npm install
-    - npm run build
-  # 在执行命令后执行的操作
-  after_script:
-    - rm -r node_modules/*
-  # 制品，即build之后的生成物
-  artifacts:
-    paths:
-      - dist/*
+  - install_deps
+  - build_prod
+  - deploy_prod
 
+# 拉取项目
+# variables:
+#   GIT_SUBMODULE_STRATEGY: recursive
+variables:
+  GIT_CLONE_PATH: $CI_BUILDS_DIR
 
-
-stages: # 分段
-  - install
-  - build
-  - deploy
-
-cache: # 缓存
+cache:
   paths:
-    - node_modules
-    - dist  # 这个缓存要加上,因为每个job在开始的时候,会把上个job新增的内存删掉,不加上的话,发布的时候,打包出来的dist文件夹在发布阶段就被删除掉了
+    - node_modules/
+    - dist
 
-install-job:
+# 安装构建依赖
+install_deps_job:
+  stage: install_deps
   only:
-    refs:
-      - master
-  tags:
-    - test
-  stage: install
+    - master
   script:
-    - npm install
-
-
-build-job:
+    - echo '安装构建依赖阶段'
+    - pwd
+    - npm install # 安装依赖
   tags:
-    - test
-  stage: build
-  script:
-    - npm run build
-
-deploy-job:
+    - build,deploy
+# 打包新文件
+build_prod_job:
+  stage: build_prod
+  # variables:
+  #   GIT_STRATEGY: none
   only:
-    refs:
-      - master
+    - master
+  script:
+    - echo '打包新文件阶段'
+    - ls
+    - pwd
+    - rm -rf ./dist # 删除当前文件夹下的 dist 文件夹
+    - npm run build # 打包
+    - ls
   tags:
-    - test
-  stage: deploy
+    - build,deploy
+# 登录项目部署服务器，移除旧版本项目文件，最后将打包好的文件拷贝过去
+deploy_prod_job:
+  stage: deploy_prod
+  # variables:
+  #   GIT_STRATEGY: none
+  only:
+    - master
+  script:
+    - echo '登录项目部署服务器，移除旧版本项目文件，最后将打包好的文件拷贝过去'
+    - rm -rf /home/www/wwwroot/cloudspace && mkdir -p /home/www/wwwroot/cloudspace
+    # - \cp -rf ./dist /usr/local/nginx/html
+    # - cp -rf dist/* /home/www/wwwroot/cloudspace
+    - pwd   
+    # /home/www/wwwroot/testbuid/vite-front
+    - ls
+    # - cp ./dist/ /home/www/wwwroot/cloudspace/ -r
+    - cp dist/* /home/www/wwwroot/cloudspace -rf
+  tags:
+    - build,deploy
+  # 重新触发构建
+  
