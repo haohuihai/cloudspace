@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <!-- <ChartGroupCard class="enter-y" :loading="loading" type="bdc" /> -->
-    <BdcTabCard class="!my-4 enter-y" :loading="loading" />
+    <!-- <BdcTabCard class="!my-4 enter-y" :loading="loading" /> -->
     <a-row>
       <a-col :span="24">
         <a-card :loading="loading" :class="{ 'anty-list-cust': true }" :bordered="false">
@@ -60,7 +60,7 @@
   import { ref, unref } from 'vue';
   import { ElProgress } from 'element-plus';
   // import ChartGroupCard from '../components/ChartGroupCard.vue';
-  import BdcTabCard from '../components/BdcTabCard.vue';
+  // import BdcTabCard from '../components/BdcTabCard.vue';
   import LineMulti from '/@/components/chart/LineMulti.vue';
   import HeadInfo from '/@/components/chart/HeadInfo.vue';
   import { table, table1 } from '../data';

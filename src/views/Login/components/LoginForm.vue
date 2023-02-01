@@ -77,13 +77,13 @@
         <div class="QRcode">
           <!--扫码成功的样式-->
           <div class="QRcode_success" v-if="successShow">
-            <img src="../../assets/img/login/success.png" alt="success" />
+            <!-- <img src="../../assets/img/login/success.png" alt="success" /> -->
             <p>扫码成功</p>
           </div>
           <!--二维码失效的样式-->
           <div class="QRcode_overtime" @click="AgainScanCode" v-if="overtimeShow">
             <p>二维码失效，点击重新获取</p>
-            <img src="../../assets/img/login//reload.png" alt="reload.png" />
+            <!-- <img src="../../assets/img/login//reload.png" alt="reload.png" /> -->
           </div>
           <!--真正让用户扫的二维码-->
           <img class="QRcode_img" src="@/assets/imgs/scan.png" />

@@ -7,7 +7,7 @@ import WindiCSS from 'vite-plugin-windicss'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import styleImport, { ElementPlusResolve } from 'vite-plugin-style-import'
 import PurgeIcons from 'vite-plugin-purge-icons'
-import { viteMockServe } from 'vite-plugin-mock'
+// import { viteMockServe } from 'vite-plugin-mock'
 import { createHtmlPlugin } from 'vite-plugin-html'
 const root = process.cwd()
 
@@ -47,16 +47,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         compositionOnly: true,
         include: [resolve(__dirname, 'src/locales/**')]
       }),
-      viteMockServe({
-        ignore: /^\_/,
-        mockPath: './mock/',
-        localEnabled: !isBuild,
-        prodEnabled: isBuild,
-        injectCode: `
-          import { setupProdMockServer } from '../mock/_createProductionServer'
-          setupProdMockServer()
-          `
-      }),
+      // viteMockServe({
+      //   ignore: /^\_/,
+      //   mockPath: './mock/',
+      //   localEnabled: !isBuild,
+      //   prodEnabled: isBuild,
+        // injectCode: `
+        //   import { setupProdMockServer } from '../mock/_createProductionServer'
+        //   setupProdMockServer()
+        //   `
+      // }),
       createHtmlPlugin({
         inject: {
           data: {
