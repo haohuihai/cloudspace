@@ -10,19 +10,19 @@ jobs:
     machine:  # 以虚拟机的方式运行
       enabled: true
     steps:
-      # - checkout
-      # - run: sudo npm install -g npm@6
-      # - run: npm install
-      # - save_cache:
-      #     key: v1-dependencies-{{ checksum "package.json" }}
-      #     paths:
-      #       - node_modules
-      # - run: npm run build:pro
-      # - run: echo '部署开始'
-      # - restore_cache:
-      #     keys:
-      #       - v1-dependencies-{{ checksum "package.json" }}
-      #       - v1-dependencies
+      - checkout
+      - run: sudo npm install -g npm@6
+      - run: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: npm run build:pro
+      - run: echo '部署开始'
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies
       - add_ssh_keys:
           fingerprints:
             - "06:f4:f6:4a:9d:43:0d:9e:0a:dd:15:33:27:0a:bf:3f"
