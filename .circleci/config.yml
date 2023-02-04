@@ -17,7 +17,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm run build
+      - run: npm run build:pro
       - run: echo '部署开始'
       - run: sudo apt-get update && sudo apt-get install rsync
       - restore_cache:
@@ -32,7 +32,6 @@ jobs:
       - run: pwd
       # - run: echo $REMOTE_HOSTKEY >> /home/circleci/.ssh/known_hosts
       - run: ls
-      - run: 
       # - run:
       #     name: Deploy Over SSH
       #     command: ssh $SSH_USER@$SSH_IP 
