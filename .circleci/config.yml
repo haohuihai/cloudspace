@@ -32,7 +32,7 @@ jobs:
       - run: ls
       - run:
           name: Deploy Over SSH
-          command: ssh -o StrictHostKeyChecking=no root@101.132.124.188 -vvv
+          command: ssh root@101.132.124.188 -vvv
           # scp -v /home/knowledge/aaa.ts $SSH_USER@$SSH_IP:/www/wwwroot/testbuild/
       # - deploy:
       #     name: deploy
