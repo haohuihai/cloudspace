@@ -36,7 +36,7 @@ jobs:
           # scp -v /home/knowledge/aaa.ts $SSH_USER@$SSH_IP:/www/wwwroot/testbuild/
       - deploy:
           name: deploy
-          command: scp -v  -o StrictHostKeyChecking=no /home/circleci/cloudspace/dist/* $SSH_USER@$SSH_IP:/www/wwwroot/testbuild/
+          command: scp -vr  -o StrictHostKeyChecking=no /home/circleci/cloudspace/dist/* $SSH_USER@$SSH_IP:/www/wwwroot/testbuild/
           # command: |
           #   ls
           #   pwd
