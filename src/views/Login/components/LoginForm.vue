@@ -3,7 +3,12 @@
   <div class="w-350px flex flex-col bg-light-50" :style="{ height: 'fit-content' }">
     <ElTabs v-model="loginTypeIndex" class="demo-tabs">
       <ElTabPane label="账号登录" name="account">
-        <ElForm ref="ruleFormRef" class="my-10px mx-auto w-85/100" :model="loginForm" :rules="rules">
+        <ElForm
+          ref="ruleFormRef"
+          class="my-10px mx-auto w-85/100"
+          :model="loginForm"
+          :rules="rules"
+        >
           <ElFormItem prop="account">
             <ElInput v-model="loginForm.account" placeholder="账号名/手机号/邮箱">
               <template #prefix>
@@ -29,8 +34,10 @@
               </ElFormItem>
             </ElCol>
             <ElCol :span="8" :offset="2">
-              <img class="w-40 h-30px"
-                src="data:image/jpg;base64,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" />
+              <img
+                class="w-40 h-30px"
+                src="data:image/jpg;base64,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"
+              />
             </ElCol>
           </ElRow>
           <ElRow>
@@ -41,14 +48,21 @@
             </ElCol>
             <ElCol :span="12">
               <ElFormItem class="forItemBottom" :style="{ 'text-align': 'right' }">
-                <ElButton type="primary" :style="{ height: '40px' }" class="ml-1/2 h-40px" link>忘记密码</ElButton>
+                <ElButton type="primary" :style="{ height: '40px' }" class="ml-1/2 h-40px" link
+                  >忘记密码</ElButton
+                >
               </ElFormItem>
             </ElCol>
           </ElRow>
         </ElForm>
       </ElTabPane>
       <ElTabPane label="手机登录" name="phone">
-        <ElForm ref="rulePhoneFormRef" class="my-10px mx-auto w-85/100" :model="rulePhoneForm" :rules="rulesPhone">
+        <ElForm
+          ref="rulePhoneFormRef"
+          class="my-10px mx-auto w-85/100"
+          :model="rulePhoneForm"
+          :rules="rulesPhone"
+        >
           <ElFormItem prop="phone">
             <ElInput v-model="rulePhoneForm.phone" placeholder="手机号">
               <template #prefix>
@@ -68,7 +82,8 @@
             </ElCol>
             <ElCol :span="8" :offset="1">
               <ElButton :disabled="isSend" class="w-full" @click="handleSendNumber">
-              {{ isSend ? endTime + ' s' : sendNumberTip}}</ElButton>
+                {{ isSend ? endTime + ' s' : sendNumberTip }}</ElButton
+              >
             </ElCol>
           </ElRow>
         </ElForm>
@@ -91,8 +106,14 @@
         <p class="tips">{{ tipsText }}</p>
       </ElTabPane>
     </ElTabs>
-    <ElButton v-show="loginTypeIndex !== 'scan'" type="primary" class="w-4/5 mx-auto" :loading="loginLoding"
-      @click="submitForm">登录</ElButton>
+    <ElButton
+      v-show="loginTypeIndex !== 'scan'"
+      type="primary"
+      class="w-4/5 mx-auto"
+      :loading="loginLoding"
+      @click="submitForm"
+      >登录</ElButton
+    >
 
     <ElDivider content-position="center">其他方式登录</ElDivider>
     <div class="flex justify-evenly enter-x signWay">
@@ -169,7 +190,7 @@
 <script setup lang="ts">
 import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
 import { reactive, ref, watch, unref } from 'vue'
-import type { FormInstance, FormRules  } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 import {
@@ -300,7 +321,7 @@ watch(
   }
 )
 const handleSendNumber = () => {
-  let regExp = new RegExp("^1[3578]\\d{9}$");
+  let regExp = new RegExp('^1[3578]\\d{9}$')
   // 校验手机号是否合法
   let isRight = !isSend.value && regExp.test(rulePhoneForm.phone)
 
@@ -368,6 +389,8 @@ const accountLoginHttp = async () => {
   }
   try {
     const res = await loginApi(params)
+    console.log('res', res)
+    loginLoding.value = false
     if (res) {
       wsCache.set(appStore.getUserInfo, res)
       // router.push()

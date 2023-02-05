@@ -3,13 +3,16 @@ import qs from 'qs'
 import { config } from './config'
 import { ElMessage } from 'element-plus'
 const { result_code, base_url } = config
+
 export const PATH_URL = base_url[import.meta.env.VITE_API_BASEPATH]
+
 const service: AxiosInstance = axios.create({
   baseURL: PATH_URL,
   timeout: config.request_timeout
 })
 
-service.interceptors.request.use((config: AxiosRequestConfig) => {
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
     if (
       config.method === 'post' &&
       (config.headers as any)['Content-Type'] === 'application/x-www-form-urlencoded'
@@ -46,7 +49,7 @@ service.interceptors.response.use(
     } else if (response.data.code === result_code) {
       return response.data.data
     } else {
-      ElMessage.error(response.data.message)
+      ElMessage.error(response.data.msg)
     }
   },
   (error: AxiosError) => {

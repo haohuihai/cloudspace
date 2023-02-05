@@ -220,3 +220,61 @@ socket的导入使用
 游戏猜一猜中使用到了
 store socket文件里面
 
+## import.meta.env
+参考文档https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/import.meta
+
+在该文件中默认导出
+```js
+{
+  "BASE_URL": "/",
+  "MODE": "base",
+  "DEV": true,
+  "PROD": false,
+  "SSR": false
+}
+```
+我们可以配置更多的属性
+新建文件.env.base
+
+比如：
+环境
+NODE_ENV=development
+
+接口前缀
+VITE_API_BASEPATH=base
+
+打包路径
+VITE_BASE_PATH=/
+
+标题
+VITE_APP_TITLE=MySpace
+最后打印出来为
+```js
+{
+  "VITE_USER_NODE_ENV": "development",
+  "VITE_API_BASEPATH": "/v1",
+  "VITE_BASE_PATH": "/",
+  "VITE_APP_TITLE": "MySpace",
+  "BASE_URL": "/",
+  "MODE": "base",
+  "DEV": true,
+  "PROD": false,
+  "SSR": false
+}
+```
+
+为什么是.env.base
+我们在执行项目的时候  是npm run dev
+
+而在package.json中的执行脚本是这样的
+```js
+"dev": "vite  --mode base",
+```
+
+所以给我们指定的是base环境  所以识别的为.env.base, 我们也可以自己修改，但是开发环境下可以使用这个；
+所有将默认的对象和.env.base中配置的内容进行了合并
+
+我们也可以指定 其他的  比如dev
+
+
+<hr />

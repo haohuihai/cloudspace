@@ -1,5 +1,5 @@
 {
-  "name": "vue-project",
+  "name": "cloudspace",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite  --mode base",
