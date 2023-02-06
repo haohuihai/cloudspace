@@ -2,7 +2,7 @@
 import { computed, unref, ref, watch, nextTick } from 'vue'
 import { ElIcon } from 'element-plus'
 import { propTypes } from '@/utils/propTypes'
-import Iconify from '@purge-icons/generated'
+// import Iconify from '@purge-icons/generated'
 import { useDesign } from '@/hooks/web/useDesign'
 
 const { getPrefixCls } = useDesign()

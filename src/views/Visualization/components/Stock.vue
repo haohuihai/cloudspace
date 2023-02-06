@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, computed, getCurrentInstance, onUnmounted, onMounted, reactive } from 'vue'
+import { watch, ref, onUnmounted, onMounted, reactive } from 'vue'
 import * as echarts from 'echarts'
 import { getStockData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
