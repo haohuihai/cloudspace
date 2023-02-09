@@ -18,17 +18,10 @@ const toLogin = () => {
 }
 </script>
 <template>
-  <div :class="prefixCls" class="h-[100%] flex justify-center loginHome">
-    <!--  -->
-
-    <!-- <div class="flex justify-end items-center space-x-10px">
-      <ThemeSwitch />
-      <LocaleDropdown class="<xl:text-white dark:text-white" />
-    </div> -->
+  <div :class="prefixCls" class="h-[100%] loginHome">
     <img class="headBgc" src="@/assets/imgs/headTitle.png" />
-
     <Transition appear enter-active-class="animate__animated animate__bounceInRight">
-      <div class="h-full flex mt-1/6 w-[100%]">
+      <div class="w-[100%]">
         <LoginForm v-if="isLogin" class="p-20px mx-auto" @to-register="toRegister" />
         <RegisterForm v-else class="p-20px m-auto" @to-login="toLogin" />
       </div>
@@ -41,14 +34,12 @@ const toLogin = () => {
   background: url('@/assets/imgs/loginbgc.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  overflow: auto;
 }
 
 .headBgc {
-  position: absolute;
-  top: 60px;
-  left: 50%;
   height: 70px;
   width: 290px;
-  transform: translateX(-50%);
+  margin: 50px auto 80px;
 }
 </style>

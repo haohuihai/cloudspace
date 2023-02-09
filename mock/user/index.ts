@@ -32,33 +32,34 @@ const applist: {
   name: string
   id: string
   img: string
+  path: string
   desc: string
 }[] = [
   {
     name: '文章领域',
-    id: '123',
-    img: '',
+    id: '1',
+    img: './img/tupian.png',
     path: '/article',
     desc: '一款强大的视频播放器'
   },
   {
     name: '玩玩游戏',
-    id: '123',
-    img: '',
+    id: '12',
+    img: './img/jiaowuxitong.png',
     path: '/game/index',
     desc: '一款强大的视频播放器'
   },
   {
     name: '大屏可视化',
     id: '123',
-    img: '',
+    img: './img/tieba.png',
     path: '/visualization',
     desc: '一款强大的视频播放器'
   },
   {
     name: '后台页面',
-    id: '123',
-    img: '/backmanage',
+    id: '1234',
+    img: './img/google_plus5.png',
     path: '/backmanage',
     desc: '一款强大的视频播放器'
   }
@@ -94,7 +95,7 @@ export default [
     method: 'post',
     timeout,
     response: ({ body }) => {
-      console.log(body);
+      console.log(body)
       const data = body
       let hasUser = false
       for (const user of List) {
@@ -127,7 +128,7 @@ export default [
     }
   },
   {
-    url: '/user/appList',
+    url: '/v1/user/appList',
     method: 'get',
     timeout,
     response: () => {

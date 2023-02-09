@@ -4,7 +4,7 @@ import { MockMethod } from 'vite-plugin-mock'
 const { result_code } = config
 
 const timeout = 1000
- 
+
 const adminList = [
   {
     path: '/backmanage',
@@ -534,7 +534,7 @@ const adminList = [
 export default [
   // 列表接口
   {
-    url: '/role/list',
+    url: '/v1/role/list',
     method: 'get',
     timeout,
     response: ({ query }) => {

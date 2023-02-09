@@ -97,7 +97,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         //   rewrite: (path) => path.replace(/^\/api/, '')
         // },
         '/v1': {
-          target: 'http://10.102.220.205:10000',
+          target: 'http://192.168.59.137:10000',
           changeOrigin: true,
           rewrite: (path) => path.replace('/v1', '')
         },

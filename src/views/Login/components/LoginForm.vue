@@ -5,7 +5,7 @@
       <ElTabPane label="账号登录" name="account">
         <ElForm
           ref="ruleFormRef"
-          class="my-10px mx-auto w-85/100"
+          class="my-10px mx-auto w-90/100"
           :model="loginForm"
           :rules="rules"
         >
@@ -131,61 +131,6 @@
       </a>
     </div>
   </div>
-  <!-- <div class="flex flex-col items-center w-470px p-10 shadow-2xl min-w-100 min-h-380px relative">
-    <div class="loginType w-full flex justify-between text-white text-sm mb-4">
-      <span :class="{ active_type: loginTypeIndex === index }" @click="chooseLoginType(index)"
-        v-for="(item, index) in loginTypeList" :key="index" class="cursor-pointer text-gray-600 hover:text-white">{{
-            item
-        }}</span>
-    </div>
-    <template v-if="loginTypeIndex === 0">
-      <div class="login_box mt-6">
-        <input type="text" required v-model="loginForm.account" /><label>邮箱/手机/昵称</label>
-      </div>
-      <div class="login_box">
-        <input type="password" @blur="valitedInput('isPassword', loginForm.password)" v-model="loginForm.password"
-          required />
-        <label>密码</label>
-      </div>
-      <a href="javascript:void(0)" @click="handleLogin">
-        登录
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </a>
-    </template>
-    <template v-if="loginTypeIndex === 1">
-      <div class="login_box mt-6" v-if="loginTypeIndex === 1">
-        <input type="text" required @blur="valitedInput('isPhonenumber', loginForm.phoneNumber)"
-          v-model="loginForm.phoneNumber" /><label>手机</label>
-      </div>
-      <div class="login_box lastInput">
-        <input type="password" v-model="loginForm.inputCode" required /><label>验证码</label>
-        <span class="absolute top-10px -right-2/5 text-base px-4px bg-light-50 cursor-pointer rounded-2px"
-          @click="handleSendNumber">{{
-              isSend ? endTime + 's' : sendNumberTip
-          }}</span>
-      </div>
-    </template>
-    <template v-if="loginTypeIndex === 2">
-      <div class="QRcode">
-        <div class="QRcode_success" v-if="successShow">
-          <img src="@/assets/img/login/success.png" alt="success" />
-          <p>扫码成功</p>
-        </div>
-        <div class="QRcode_overtime" @click="scanAgainScanCode" v-if="overtimeShow">
-          <p>二维码失效，点击重新获取</p>
-          <img src="@/assets/img/login/reload.png" alt="reload.png" />
-        </div>
-      </div>
-      <p class="tips">{{ tipsText }}</p>
-    </template>
-    <div class="absolute bottom-40px flex justify-between w-[80%] left-10">
-      <span class="cursor-pointer text-light-50" @click="handleToRegister"> 去注册</span>
-      <span class="cursor-pointer text-light-50">忘记密码</span>
-    </div>
-  </div> -->
 </template>
 <script setup lang="ts">
 import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
@@ -399,13 +344,6 @@ const accountLoginHttp = async () => {
   } finally {
     // loading.value = false
   }
-  // if (res.status === 'fail') return // $message.error(res.msg)
-  // console.log(`res`, res)
-  // window.localStorage.setItem('userInfo', JSON.stringify(res.result))
-  // window.localStorage.setItem('token', res.result.token)
-  // $message.success("邮箱登录成功")
-
-  // $router.push('/')
 }
 // 获取权限/路由
 const getRole = async () => {
@@ -545,8 +483,7 @@ const AgainScanCode = () => {
 
 .signWay {
   a {
-    width: 40x;
-    height: 40px;
+    height: 25px;
     border-radius: 50%;
     color: #888;
     font-size: 20px;

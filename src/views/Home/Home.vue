@@ -1,12 +1,14 @@
 <template>
-  <div class="height-100vh">
+  <div class="height-100vh backgroundImg">
     <div class="input-search">
-      <ElInput v-model="input" placeholder="请输入你想搜的">
-        <template #suffix>搜索</template>
-      </ElInput>
+      <ElInput v-model="input" placeholder="请输入你想搜的" />
     </div>
     <div class="container-box">
-      <ElSkeleton
+      <div v-for="item in appList.list" :key="item.id" class="box" @click="toDetailPage(item)">
+        <img class="icon" :src="item.img" />
+        <p class="url">{{ item.name }}</p>
+      </div>
+      <!-- <ElSkeleton
         style="width: 210px; margin-right: 20px"
         :loading="loading"
         animated
@@ -23,9 +25,9 @@
             </div>
           </div>
         </template>
-      </ElSkeleton>
-      <Card :appList="appList.list" @to-detail="toDetailPage" v-if="!!appList.list.length" />
-      <ElEmpty v-if="!loading && !appList.list.length" :image-size="200" />
+      </ElSkeleton> -->
+      <!-- <Card :appList="appList.list" @to-detail="toDetailPage" v-if="!!appList.list.length" /> -->
+      <!-- <ElEmpty v-if="!loading && !appList.list.length" :image-size="200" /> -->
     </div>
   </div>
 </template>
@@ -41,10 +43,10 @@ interface List {
   id: string
   img: string
   desc: string
-} 
+}
 let input = ref('')
 const loading = ref(true)
-const appList = reactive<{list: List[]}>({
+const appList = reactive<{ list: List[] }>({
   list: []
 })
 
@@ -65,41 +67,35 @@ const toDetailPage = (item) => {
 }
 </script>
 <style lang="less">
+.backgroundImg {
+  height: 100vh;
+  background-image: url(./img/iTab-0.jfif);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 .input-search {
   width: 100vw;
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 100px;
 
   .el-input {
-    width: 55%;
+    width: 30%;
     border-radius: 0px 4px 4px 0px;
 
     .el-input__wrapper {
       padding-right: 0;
-
-      .el-input__suffix {
-        width: 90px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        color: #fff;
-        border-radius: 0px 4px 4px 0px;
-        background: rgba(42, 130, 228, 1);
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.8;
-        }
-
-        &:active {
-          background: rgb(16, 95, 185);
-        }
-
-        .el-input__suffix-inner {
-          width: 100%;
-        }
-      }
+      height: 40px;
+      background: #fff;
+      border: none;
+      outline: 0;
+      font-size: 16px;
+      color: #4a4266;
+      padding: 0 20px;
+      border-radius: 50px;
+    }
+    .is-focus {
+      box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
     }
   }
 }
@@ -109,5 +105,67 @@ const toDetailPage = (item) => {
   display: flex;
   flex-wrap: wrap;
   margin: 100px auto 0;
+}
+.box {
+  -webkit-animation: fadeInDown 1s;
+  animation: fadeInDown 1s;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  border: 0;
+  margin: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+.box a {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+    -ms-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.url {
+  color: #fff;
+  height: 1.5em;
+  line-height: 1.5em;
+  width: 60px;
+  font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  padding-top: 3px;
+  padding-bottom: 8px;
+}
+.icon {
+  width: 3em;
+  height: 3em;
+  max-width: 60px;
+  display: inline-block;
 }
 </style>
