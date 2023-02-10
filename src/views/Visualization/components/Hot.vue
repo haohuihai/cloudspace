@@ -46,10 +46,10 @@ const getData = async () => {
   updateChart()
 }
 const updateChart = () => {
-  const legendData = allData[currentIndex.value].children.map(item => {
+  const legendData = allData[currentIndex.value].children.map((item) => {
     return item.name
   })
-  const seriesData = allData[currentIndex.value].children.map(item => {
+  const seriesData = allData[currentIndex.value].children.map((item) => {
     return {
       name: item.name,
       value: item.value,
@@ -83,18 +83,18 @@ const initChart = () => {
     },
     tooltip: {
       show: true,
-      formatter: arg => {
+      formatter: (arg) => {
         // console.log(arg)
         const thirdCategory = arg.data.children
         // 计算出所有三级分类的数值总和
         let total = 0
-        thirdCategory.forEach(item => {
+        thirdCategory.forEach((item) => {
           total += item.value
         })
         let retStr = ''
-        thirdCategory.forEach(item => {
+        thirdCategory.forEach((item) => {
           retStr += `
-          ${item.name}:${parseInt(item.value / total * 100) + '%'}
+          ${item.name}:${parseInt((item.value / total) * 100) + '%'}
           <br/>
           `
         })
@@ -121,14 +121,14 @@ const initChart = () => {
 
   option && chartInstance.setOption(option)
 }
-const toLeft  = ()  =>{
+const toLeft = () => {
   currentIndex.value--
   if (currentIndex.value < 0) {
     currentIndex.value = allData.length - 1
   }
   updateChart()
 }
-const toRight =  () => {
+const toRight = () => {
   currentIndex.value++
   if (currentIndex.value > allData.length - 1) {
     currentIndex.value = 0
@@ -149,7 +149,6 @@ let catName = computed(() => {
     return allData[currentIndex.value].name
   }
 })
-
 
 const screenAdapter = () => {
   let chartDom = document.getElementById('hot_ref')
@@ -179,13 +178,15 @@ const screenAdapter = () => {
   chartInstance.setOption(adapterOption)
   chartInstance.resize()
 }
-watch(() => useVision.getVisionTheme,
+watch(
+  () => useVision.getVisionTheme,
   () => {
     chartInstance.dispose() // 销毁当前的图表
     initChart() // 重新以最新的主题名称初始化图表对象
     screenAdapter() // 完成屏幕的适配
     updateChart() // 更新图表的展示
-})
+  }
+)
 </script>
 
 <style lang="less" scoped>

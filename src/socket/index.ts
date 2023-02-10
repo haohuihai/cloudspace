@@ -7,7 +7,7 @@ const socket = io()
 // 创建连接
 // 进行连接监听
 // socket.on('connect', () => {
-  
+
 // })
 connectGame(socket)
 //  // 监听socke的连接，为了控制按钮

@@ -12,7 +12,7 @@ import './assets/main.css'
 // 引入element-plus
 import { setupElementPlus } from '@/plugins/elementPlus'
 
-// 引入vueknova 
+// 引入vueknova
 
 import { setupVueKonva } from '@/plugins/konva'
 // 引入动画

@@ -51,7 +51,7 @@ export default class SocketService {
       }, 500 * this.connectRetryCount)
     }
     // 得到服务端发送过来的数据
-    this.ws.onmessage = msg => {
+    this.ws.onmessage = (msg) => {
       console.log('从服务端获取到了数据')
       // 真正服务端发送过来的原始数据时在msg中的data字段
       // console.log(msg.data)
@@ -73,17 +73,17 @@ export default class SocketService {
   }
 
   // 回调函数的注册
-  registerCallBack (socketType, callBack) {
+  registerCallBack(socketType, callBack) {
     this.callBackMapping[socketType] = callBack
   }
 
   // 取消某一个回调函数
-  unRegisterCallBack (socketType) {
+  unRegisterCallBack(socketType) {
     this.callBackMapping[socketType] = null
   }
 
   // 发送数据的方法
-  send (data) {
+  send(data) {
     // 判断此时此刻有没有连接成功
     if (this.connected) {
       this.sendRetryCount = 0

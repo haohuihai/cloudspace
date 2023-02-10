@@ -11,10 +11,10 @@
   </ElCard>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import { ElCard, ElTabs, ElTabPane } from 'element-plus';
-  import VisitAnalysis from './VisitAnalysis.vue';
-  import VisitAnalysisBar from './VisitAnalysisBar.vue';
+import { ref } from 'vue'
+import { ElCard, ElTabs, ElTabPane } from 'element-plus'
+import VisitAnalysis from './VisitAnalysis.vue'
+import VisitAnalysisBar from './VisitAnalysisBar.vue'
 
-  const activeKey = ref('tab1');
+const activeKey = ref('tab1')
 </script>

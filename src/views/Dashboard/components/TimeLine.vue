@@ -20,8 +20,8 @@
   </ElCard>
 </template>
 <script lang="ts" setup>
-import { CountTo } from '/@/components/CountTo/index'
-import { Icon } from '/@/components/Icon'
+import { CountTo } from '@/components/CountTo/index'
+import { Icon } from '@/components/Icon'
 import { ElTimeline, ElTimelineItem, ElCard } from 'element-plus'
 
 import { activities } from '../data'

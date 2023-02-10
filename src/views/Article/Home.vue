@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import { Nav, ArticItem } from './components'
 import { getArticleList } from '@/api/article'
-import { onMounted, ref, reactive, ObjectDirective, onUnmounted  } from 'vue'
+import { onMounted, ref, reactive, ObjectDirective, onUnmounted } from 'vue'
 const scrollDomActive = ref<ElRef>(null)
 let navBotList = ref([
   {

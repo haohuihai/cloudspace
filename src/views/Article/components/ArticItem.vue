@@ -1,22 +1,29 @@
 <template>
   <div>
-    <div class="article-link" v-for="(item, index) in articItem" :key="index" @click="toPreview(item)">
+    <div
+      class="article-link"
+      v-for="(item, index) in articItem"
+      :key="index"
+      @click="toPreview(item)"
+    >
       <div class="article-item">
-        <img class="artic-item-right"
+        <img
+          class="artic-item-right"
           src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7de3f9db0dbc492bacd35874b648591f~tplv-k3u1fbpfcp-zoom-mark-crop-v2:0:0:120:120.awebp"
-          alt="" />
+          alt=""
+        />
         <div class="article-item-left">
-          
           <div class="title-box">
-            <div class="title">{{ item.articleTitle }}{{index}}</div>
+            <div class="title">{{ item.articleTitle }}{{ index }}</div>
             <div class="content">
-              {{item.abstract}}
+              {{ item.abstract }}
             </div>
           </div>
           <div class="article-item-left-top">
-            <span>{{item.nickname}}</span><span class="dot">|</span><span>{{ item.createdAt
-            }}</span><span class="dot">|</span><span>{{ articleType.filter((it) => it.id ==
-              item.articleTypeId)[0].name }}</span>
+            <span>{{ item.nickname }}</span
+            ><span class="dot">|</span><span>{{ item.createdAt }}</span
+            ><span class="dot">|</span
+            ><span>{{ articleType.filter((it) => it.id == item.articleTypeId)[0].name }}</span>
           </div>
           <!-- <div class="operate">
             <ul>
@@ -34,7 +41,6 @@
             </ul>
           </div> -->
         </div>
-       
       </div>
     </div>
   </div>
@@ -44,9 +50,7 @@
 import { ElInput } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
-interface Article {
-
-}
+interface Article {}
 export default defineComponent({
   components: [ElInput],
   props: {
@@ -80,22 +84,20 @@ export default defineComponent({
         name: '智能'
       }
     ])
-  const toPreview = (item) => {
-    emit('to-preview', item)
+    const toPreview = (item) => {
+      emit('to-preview', item)
+    }
+    return {
+      articleType,
+      toPreview
+    }
   }
-  return {
-    articleType,
-    toPreview
-  }
-}
-
 })
 </script>
 
 <style lang="less" scoped>
 .article-link {
   cursor: pointer;
-  
 
   &:last-child {
     border-bottom: none;

@@ -10,16 +10,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue';
-  import GrowCard from './GrowCard.vue';
-  import SiteAnalysis from './SiteAnalysis.vue';
-  import VisitSource from './VisitSource.vue';
-  import VisitRadar from './VisitRadar.vue';
-  import SalesProductPie from './SalesProductPie.vue';
+import { ref } from 'vue'
+import GrowCard from './GrowCard.vue'
+import SiteAnalysis from './SiteAnalysis.vue'
+import VisitSource from './VisitSource.vue'
+import VisitRadar from './VisitRadar.vue'
+import SalesProductPie from './SalesProductPie.vue'
 
-  const loading = ref(true);
+const loading = ref(true)
 
-  setTimeout(() => {
-    loading.value = false;
-  }, 500);
+setTimeout(() => {
+  loading.value = false
+}, 500)
 </script>

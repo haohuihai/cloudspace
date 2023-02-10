@@ -1124,7 +1124,7 @@ const changeSize = (chartName) => {
   //   chartName: chartName,
   //   value: targetValue
   // })
-  recvData({chartName: chartName, value: targetValue})
+  recvData({ chartName: chartName, value: targetValue })
 }
 // 接收到全屏数据之后的处理
 const recvData = (data) => {

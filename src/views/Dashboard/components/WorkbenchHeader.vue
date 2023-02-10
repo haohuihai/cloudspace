@@ -1,5 +1,5 @@
 <template>
-  <ElCard class="lg:flex p-20px" :body-style="{padding: '0',display: 'flex', width: '100%'}">
+  <ElCard class="lg:flex p-20px" :body-style="{ padding: '0', display: 'flex', width: '100%' }">
     <ElAvatar :src="userinfo.avatar || headerImg" :size="72" class="!mx-auto !block" />
     <div class="md:ml-6 flex flex-col justify-center md:mt-0 mt-2">
       <h1 class="md:text-lg text-md">早安, {{ userinfo.realname }}, 开始您一天的工作吧！</h1>
@@ -22,11 +22,11 @@
     </div>
   </ElCard>
 </template>
-<script lang="ts" setup>
-import { computed, reactive } from 'vue';
-import { ElAvatar, ElCard } from 'element-plus';
+<script setup lang="ts">
+import { computed, reactive } from 'vue'
+import { ElAvatar, ElCard } from 'element-plus'
 // import { useUserStore } from '@/store/modules/user';
-import headerImg from '@/assets/imgs/avatar.jpg';
+import headerImg from '@/assets/imgs/avatar.jpg'
 
 let userinfo = reactive({
   avatar: '',

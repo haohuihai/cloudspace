@@ -66,9 +66,8 @@ export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRe
   }
   return res
 }
- 
-export const pathResolve = (parentPath: string, path: string) => {
 
+export const pathResolve = (parentPath: string, path: string) => {
   if (isUrl(path)) return path
   const childPath = path.startsWith('/') || !path ? path : `/${path}`
   return `${parentPath}${childPath}`.replace(/\/\//g, '/')

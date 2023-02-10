@@ -47,7 +47,7 @@ export default defineComponent({
           ></div>
         ) : undefined}
         {renderLayout()}
-         <Setting></Setting>
+        <Setting></Setting>
       </section>
     )
   }

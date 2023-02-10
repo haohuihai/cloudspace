@@ -9,7 +9,7 @@
 import { onMounted, reactive, ref, onUnmounted, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
-import { getSellerData } from '@/api/vision'
+import { getSellerData } from '@/api/vision/index'
 let useVision = useVisionStore()
 let chartInstance = reactive(null)
 let allData = reactive([]) // 服务器返回的数据
@@ -46,7 +46,7 @@ const initChart = () => {
   console.log(useVision.getVisionTheme)
 
   chartInstance = echarts.init(seller_ref.value, useVision.getVisionTheme)
-  
+
   window.addEventListener('resize', screenAdapter)
   screenAdapter()
   const initOption = {

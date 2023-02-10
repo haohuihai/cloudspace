@@ -1,6 +1,13 @@
-import * as echarts from 'echarts/core';
+import * as echarts from 'echarts/core'
 
-import { BarChart, LineChart, PieChart, MapChart, PictorialBarChart, RadarChart } from 'echarts/charts';
+import {
+  BarChart,
+  LineChart,
+  PieChart,
+  MapChart,
+  PictorialBarChart,
+  RadarChart
+} from 'echarts/charts'
 
 import {
   TitleComponent,
@@ -16,12 +23,12 @@ import {
   VisualMapComponent,
   TimelineComponent,
   CalendarComponent,
-  GraphicComponent,
-} from 'echarts/components';
+  GraphicComponent
+} from 'echarts/components'
 
 // TODO 如果想换成SVG渲染，就导出SVGRenderer，
 //  并且放到 echarts.use 里，注释掉 CanvasRenderer
-import { /*SVGRenderer*/ CanvasRenderer } from 'echarts/renderers';
+import { /*SVGRenderer*/ CanvasRenderer } from 'echarts/renderers'
 
 echarts.use([
   LegendComponent,
@@ -45,7 +52,7 @@ echarts.use([
   VisualMapComponent,
   TimelineComponent,
   CalendarComponent,
-  GraphicComponent,
-]);
+  GraphicComponent
+])
 
-export default echarts;
+export default echarts

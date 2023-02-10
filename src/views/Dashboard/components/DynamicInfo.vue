@@ -12,7 +12,7 @@
       <div class="flex-1">
         <div class="h-30px leading-30px"> {{ item.name }} <span v-html="item.desc"></span> </div>
         <div>{{ item.date }}</div>
-        <ElDivider style="marginTop: 10px; marginBottom: 10px"/>
+        <ElDivider style="margintop: 10px; marginbottom: 10px" />
       </div>
     </div>
   </ElCard>

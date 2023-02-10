@@ -21,7 +21,16 @@
 </template>
 
 <script setup lang="ts">
-import { watch, defineExpose, ref, computed, getCurrentInstance, onUnmounted, onMounted, reactive } from 'vue'
+import {
+  watch,
+  defineExpose,
+  ref,
+  computed,
+  getCurrentInstance,
+  onUnmounted,
+  onMounted,
+  reactive
+} from 'vue'
 import * as echarts from 'echarts'
 import { getTrendData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
@@ -158,8 +167,8 @@ const updateChart = () => {
   })
 }
 const screenAdapter = () => {
-  console.log(1111111);
-  
+  console.log(1111111)
+
   titleFontSize.value = (trend_ref.value.offsetWidth / 100) * 3.6
 
   const adapterOption = {

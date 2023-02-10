@@ -1,5 +1,5 @@
 <template>
-  <ElCard v-bind="$attrs" :body-style="{padding: '0'}">
+  <ElCard v-bind="$attrs" :body-style="{ padding: '0' }">
     <template #header>快捷导航</template>
     <ElRow>
       <ElCol :span="8" v-for="item in navItems" :key="item.title">
@@ -14,7 +14,6 @@
   </ElCard>
 </template>
 <script lang="ts" setup>
-  import { ElCard, ElRow,  ElCol} from 'element-plus';
-  import { navItems } from '../data';
-
+import { ElCard, ElRow, ElCol } from 'element-plus'
+import { navItems } from '../data'
 </script>

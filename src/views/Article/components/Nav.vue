@@ -9,7 +9,6 @@
         <span> 沸点 </span>
         <span> 小册 </span>
         <span> 活动 </span>
-        
       </div>
       <div class="global-top-right">
         <ElInput

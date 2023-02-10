@@ -9,11 +9,11 @@
         :canExpan="false"
       >
         <template #header class="pt-10px pb-10px">
-        <div class="card-header flex justify-between">
-          <span>{{ item.title }}</span>
-          <ElTag :color="item.color">{{ item.action }}</ElTag>
-        </div>
-      </template>
+          <div class="card-header flex justify-between">
+            <span>{{ item.title }}</span>
+            <ElTag :color="item.color">{{ item.action }}</ElTag>
+          </div>
+        </template>
         <div class="py-4 px-4 flex justify-between">
           <CountTo prefix="$" :startVal="1" :endVal="item.value" class="text-2xl" />
           <Icon :icon="item.icon" :size="40" />
@@ -28,15 +28,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-  import { CountTo } from '/@/components/CountTo/index';
-  import { Icon } from '/@/components/Icon';
-  import { ElTag, ElCard } from 'element-plus';
+import { CountTo } from '@/components/CountTo/index'
+import { Icon } from '@/components/Icon'
+import { ElTag, ElCard } from 'element-plus'
 
-  import { growCardList } from '../data';
+import { growCardList } from '../data'
 
-  defineProps({
-    loading: {
-      type: Boolean,
-    },
-  });
+defineProps({
+  loading: {
+    type: Boolean
+  }
+})
 </script>

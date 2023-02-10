@@ -3,7 +3,7 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, ref, Ref, reactive } from 'vue'
-// import { useECharts } from '/@/hooks/web/useECharts';
+// import { useECharts } from '@/hooks/web/useECharts';
 import * as echarts from 'echarts'
 import { basicProps } from './props'
 defineProps({
@@ -12,11 +12,11 @@ defineProps({
 const chartRef = ref<HTMLDivElement | null>(null)
 
 let chartInstance = reactive<any>(null)
-  
-  onMounted(() => {
-    chartInstance = echarts.init(chartRef.value as Ref<HTMLDivElement>)
-    
-    chartInstance.setOption({
+
+onMounted(() => {
+  chartInstance = echarts.init(chartRef.value as Ref<HTMLDivElement>)
+
+  chartInstance.setOption({
     tooltip: {
       trigger: 'axis',
       axisPointer: {

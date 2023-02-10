@@ -1,7 +1,7 @@
 <template>
   <ElRow justify="space-between">
     <ElCol :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
-      <ElCard shadow="never" :body-style="{ padding: '0', border: 'none'}">
+      <ElCard shadow="never" :body-style="{ padding: '0', border: 'none' }">
         <template #header>
           <div class="flex justify-between">
             <span>项目</span>

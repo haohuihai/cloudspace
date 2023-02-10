@@ -10,7 +10,6 @@ const theme = {
     themeSrc: 'qiehuan_dark.png',
     // 页面顶部的边框图片
     headerBorderSrc: 'header_border_dark.png'
-
   },
   vintage: {
     // 背景颜色
@@ -26,7 +25,7 @@ const theme = {
   }
 }
 
-export function getThemeValue (themeName) {
+export function getThemeValue(themeName) {
   console.log(themeName)
   return theme[themeName]
 }

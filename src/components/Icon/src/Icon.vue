@@ -52,7 +52,7 @@ watch(
 </script>
 
 <template>
-  <ElIcon style="height: auto;width: auto;" :class="prefixCls" :size="size" :color="color">
+  <ElIcon style="height: auto; width: auto" :class="prefixCls" :size="size" :color="color">
     <span ref="elRef" :class="$attrs.class" :style="getIconifyStyle">
       <span class="iconify" :data-icon="symbolId"></span>
     </span>

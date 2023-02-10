@@ -69,7 +69,6 @@ const connectGame = (socket) => {
     }
     // 排除上述 已经被人猜中，答案错误的情况，剩下的就是答案正确的情况
     ElMessage.error(`玩家 ${nickname} 猜中了正确的答案: ${answer}`)
-
   })
   // 监听线的绘制
   socket.on('starting_line', (line) => {
