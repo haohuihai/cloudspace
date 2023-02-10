@@ -17,7 +17,7 @@
     </div>
   </ElCard>
 </template>
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ElCard, ElButton, ElDivider } from 'element-plus'
 import { dynamicInfoItems } from '../data'
 import { Icon } from '@/components/Icon'

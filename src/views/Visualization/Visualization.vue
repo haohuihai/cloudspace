@@ -17,7 +17,7 @@
       <section class="screen-left">
         <div id="left-top" :class="[fullScreenStatus.trend ? 'fullscreen' : '']">
           <!-- 销量趋势图表 -->
-          <Trend ref="trend_ref"></Trend>
+          <Trend ref="trend_ref" />
           <div class="resize">
             <!-- icon-compress-alt -->
             <span
@@ -31,7 +31,7 @@
         </div>
         <div id="left-bottom" :class="[fullScreenStatus.seller ? 'fullscreen' : '']">
           <!-- 商家销售金额图表 -->
-          <Seller ref="seller_ref"></Seller>
+          <Seller ref="seller_ref" />
           <div class="resize">
             <!-- icon-compress-alt -->
             <span
@@ -47,7 +47,7 @@
       <section class="screen-middle">
         <div id="middle-top" :class="[fullScreenStatus.map ? 'fullscreen' : '']">
           <!-- 商家分布图表 -->
-          <Map ref="map_ref"></Map>
+          <Map ref="map_ref" />
           <div class="resize_ref">
             <!-- icon-compress-alt -->
             <span
@@ -58,7 +58,7 @@
         </div>
         <div id="middle-bottom" :class="[fullScreenStatus.rank ? 'fullscreen' : '']">
           <!-- 地区销量排行图表 -->
-          <Rank ref="rank_ref"></Rank>
+          <Rank ref="rank_ref" />
           <div class="resize">
             <!-- icon-compress-alt -->
             <span
@@ -71,7 +71,7 @@
       <section class="screen-right">
         <div id="right-top" :class="[fullScreenStatus.hot ? 'fullscreen' : '']">
           <!-- 热销商品占比图表 -->
-          <Hot ref="hot_ref"></Hot>
+          <Hot ref="hot_ref" />
           <div class="resize">
             <!-- icon-compress-alt -->
             <span
@@ -82,7 +82,7 @@
         </div>
         <div id="right-bottom" :class="[fullScreenStatus.stock ? 'fullscreen' : '']">
           <!-- 库存销量分析图表 -->
-          <Stock ref="stock_ref"></Stock>
+          <Stock ref="stock_ref" />
           <div class="resize">
             <!-- icon-compress-alt -->
             <span

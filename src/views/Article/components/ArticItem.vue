@@ -25,21 +25,6 @@
             ><span class="dot">|</span
             ><span>{{ articleType.filter((it) => it.id == item.articleTypeId)[0].name }}</span>
           </div>
-          <!-- <div class="operate">
-            <ul>
-              <li>
-                <span class="iconfont icon-dianzan"></span>
-                <span class="number">{{ item.likesNum }}</span>
-              </li>
-              <li>
-                <i class="el-icon-view"></i>
-                <span class="number">{{ item.previewNumber }}</span>
-              </li>
-              <li>
-                <span class="iconfont icon-fenxiang"></span><span class="number">{{ item.shareNum }}</span>
-              </li>
-            </ul>
-          </div> -->
         </div>
       </div>
     </div>
@@ -47,12 +32,10 @@
 </template>
 
 <script lang="ts">
-import { ElInput } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
 interface Article {}
 export default defineComponent({
-  components: [ElInput],
   props: {
     articItem: {
       type: Array,
