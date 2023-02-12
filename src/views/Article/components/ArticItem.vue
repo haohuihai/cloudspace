@@ -14,16 +14,16 @@
         />
         <div class="article-item-left">
           <div class="title-box">
-            <div class="title">{{ item.articleTitle }}{{ index }}</div>
+            <div class="title">{{ item.article_title }}</div>
             <div class="content">
               {{ item.abstract }}
             </div>
           </div>
           <div class="article-item-left-top">
             <span>{{ item.nickname }}</span
-            ><span class="dot">|</span><span>{{ item.createdAt }}</span
+            ><span class="dot">|</span><span>{{ item.created_at }}</span
             ><span class="dot">|</span
-            ><span>{{ articleType.filter((it) => it.id == item.articleTypeId)[0].name }}</span>
+            ><span>{{ articleType.filter((it) => it.id == item.article_type_id)[0].name }}</span>
           </div>
         </div>
       </div>
@@ -33,18 +33,27 @@
 
 <script lang="ts">
 import { useRouter, useRoute } from 'vue-router'
-import { defineComponent, ref, onMounted } from 'vue'
-interface Article {}
+import { defineComponent, ref, onMounted, PropType } from 'vue'
+interface Article {
+  user_id: number
+  id: number
+  likes_num: number
+  nickname: string
+  article_title: string
+  created_at: string
+  abstract: string
+  article_type_id: string
+  preview_number: string
+}
 export default defineComponent({
   props: {
     articItem: {
-      type: Array,
+      type: Array as PropType<Article[]>,
       default: () => []
     }
   },
   emits: ['to-preview'],
   setup(props, { slots, expose, emit }) {
-    console.log('props.articItem', props.articItem)
     const articleType = ref([
       {
         id: '1',

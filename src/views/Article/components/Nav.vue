@@ -20,45 +20,14 @@
           @change="handleChange"
           max="100"
         />
-        <ElButton type="primary">写文章</ElButton>
-        <!-- <ElButton to="/publishArticle"></ElButton> -->
+        <ElButton type="primary" @click="toWrite">写文章</ElButton>
       </div>
-      <!-- <el-dropdown
-                size="medium"
-                split-button
-                type="primary"
-                @command="handleClick"
-              >
-                更多菜单
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="a">写文章</el-dropdown-item>
-                  <el-dropdown-item command="b">狮子头</el-dropdown-item>
-                  <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown> -->
-      <!-- <a href='' class="iconfont icon-caret-down"></a> -->
-      <!-- <li class="loginBtn" v-if="!isLogin" @click="toLoginPage">
-              登录
-            </li>
-
-            <li v-else class="avator">
-              <a class="iconfont el-icon-bell notice"></a>
-              <el-popover placement="bottom" width="200" trigger="click">
-                <div>
-                  <input id="choice_p" size="small" type="file" />
-                </div>
-                <div class="changepassword" @click="handleChangePWD">
-                  修改密码
-                </div>
-                <div class="output" @click="outLogin">退出登录</div>
-              </el-popover>
-            </li> -->
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty, ElButton } from 'element-plus'
+import { ElInput, ElButton } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { defineComponent, ref, onMounted } from 'vue'
 
@@ -73,74 +42,25 @@ export default defineComponent({
   },
   setup(props, { slots, expose, emit }) {
     const { push } = useRouter()
-    let input = ref('')
+    let input = ref<string>('')
     let isShowNav = ref(false)
     let visible = ref(false)
-    let photoObj = ref('')
-    let photo = ref('')
     let fileList = ref([])
-    onMounted(() => {
-      if (props.isLogin) {
-        uploadHeadImage()
-      }
-    })
-    const toLoginPage = () => {
-      push('login')
-    }
-    const outLogin = () => {
-      localStorage.clear()
-      push('login')
-    }
-    const handleChangePWD = () => {}
-    const uploadHeadImage = (e) => {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const that = this
-      document.getElementById('choice_p').addEventListener('change', function (e) {
-        var files = this.files
-        var reader = new FileReader()
-        reader.readAsDataURL(files[0])
-        reader.onload = async function (e) {
-          let obj = {
-            base64: this.result,
-            userId: selfUserInfo.userId
-          }
-          let { data } = await that.$http.post('/userImg', obj)
-          if (data.status === 'SUCCESS') {
-            ElMessage({
-              message: data.msg,
-              type: 'success'
-            })
-            that.$message.success(data.msg)
-          } else {
-            ElMessage.error(data.msg)
-          }
-        }
-      })
-    }
-    const handleClick = (command) => {
-      if (command === 'a') {
-        toWrite()
-      } else {
-        ElMessage.error('你触发了item')
-      }
-    }
+    onMounted(() => {})
     const toWrite = () => {
-      push('publicArtic')
+      console.log(123)
+      push('/article/publish')
     }
     const handleClear = () => {
       console.log(`123`, 123)
     }
     const handleChange = () => {}
-    const handleRemove = (file) => {
-      console.log(file)
-    }
     return {
       input,
       visible,
-      photoObj,
-      photo,
       fileList,
       isShowNav,
+      toWrite,
       handleClear,
       handleChange
     }
@@ -210,47 +130,5 @@ export default defineComponent({
 }
 .global-nav-right .global-top-left > span:nth-child(1):hover {
   color: #007fff;
-}
-.changepassword {
-  margin-top: 10px;
-  width: 70px;
-  height: 30px;
-  line-height: 30px;
-  cursor: pointer;
-  background-color: #409eff;
-  color: #fff;
-  border-radius: 4px;
-  text-align: center;
-}
-.changepassword:hover {
-  opacity: 0.5;
-}
-.output {
-  margin-top: 10px;
-  width: 70px;
-  height: 30px;
-  line-height: 30px;
-  cursor: pointer;
-  background-color: #409eff;
-  color: #fff;
-  border-radius: 4px;
-  text-align: center;
-}
-.output:hover {
-  opacity: 0.5;
-}
-.el-dropdown {
-  vertical-align: top;
-}
-.el-dropdown + .el-dropdown {
-  margin-left: 15px;
-}
-.el-icon-arrow-down {
-  font-size: 12px;
-}
-
-li {
-  cursor: pointer;
-  list-style: none;
 }
 </style>

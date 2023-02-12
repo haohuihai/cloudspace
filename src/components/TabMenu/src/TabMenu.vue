@@ -73,6 +73,8 @@ export default defineComponent({
 
     // tab点击事件
     const tabClick = (item: AppRouteRecordRaw) => {
+      console.log('tabClick')
+
       if (isUrl(item.path)) {
         window.open(item.path)
         return

@@ -69,7 +69,7 @@ const toDetailPage = (item) => {
 <style lang="less">
 .backgroundImg {
   height: 100vh;
-  background-image: url(./img/iTab-0.jfif);
+  background-image: url('@/assets/home/iTab-0.jfif');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -107,8 +107,8 @@ const toDetailPage = (item) => {
   margin: 100px auto 0;
 }
 .box {
-  -webkit-animation: fadeInDown 1s;
-  animation: fadeInDown 1s;
+  -webkit-animation: fadeInDown 0.2s;
+  animation: fadeInDown 0.2s;
   position: relative;
   display: inline-block;
   width: 60px;

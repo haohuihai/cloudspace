@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts'
-import { onMounted, onUnmounted, reactive, ref, computed, watch } from 'vue'
+import { onMounted, onUnmounted, defineExpose, reactive, ref, computed, watch } from 'vue'
 import { getHotData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
 import { useVisionStore } from '@/stores/modules/vision'
@@ -187,6 +187,9 @@ watch(
     updateChart() // 更新图表的展示
   }
 )
+defineExpose({
+  screenAdapter
+})
 </script>
 
 <style lang="less" scoped>

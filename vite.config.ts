@@ -91,15 +91,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: 4000,
       proxy: {
         // 选项写法
-        // '/api': {
-        //   target: 'http://127.0.0.1:8000',
+        // '/v1/api': {
+        //   target: 'http://10.102.220.67:4000',
         //   changeOrigin: true,
-        //   rewrite: (path) => path.replace(/^\/api/, '')
+        //   rewrite: (path) => path.replace('/v1/api', '')
         // },
-        '/v1': {
-          target: 'http://192.168.59.137:10000',
+        '^/v1/api': {
+          target: 'http://10.102.220.67:10000',
           changeOrigin: true,
-          rewrite: (path) => path.replace('/v1', '')
+          rewrite: (path) => path.replace('/v1/api', '')
         },
         '/socket.io': {
           target: 'http://localhost:3000',

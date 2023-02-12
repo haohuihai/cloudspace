@@ -35,6 +35,9 @@ export const useAppStore = defineStore('app', {
     getSize(): boolean {
       return this.size
     },
+    getLockScreen(): boolean {
+      return this.lockScreen
+    },
     getLocale(): boolean {
       return this.locale
     },
@@ -82,6 +85,9 @@ export const useAppStore = defineStore('app', {
     },
     getFooter(): boolean {
       return this.footer
+    },
+    getNotice(): boolean {
+      return this.notify
     }
   },
   actions: {
@@ -105,6 +111,12 @@ export const useAppStore = defineStore('app', {
     },
     setSize(size: boolean) {
       this.size = size
+    },
+    setLockScreen(lock: boolean) {
+      this.lockScreen = lock
+    },
+    setNotice(notice: boolean) {
+      this.notify = notice
     },
     setLocale(locale: boolean) {
       this.locale = locale

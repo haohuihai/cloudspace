@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, reactive, ref, watch } from 'vue'
+import { onMounted, defineExpose, onUnmounted, computed, reactive, ref, watch } from 'vue'
 import * as echarts from 'echarts'
 import { useVisionStore } from '@/stores/modules/vision'
 import { getRankData } from '@/api/vision'
@@ -177,6 +177,9 @@ watch(
     updateChart() // 更新图表的展示
   }
 )
+defineExpose({
+  screenAdapter
+})
 </script>
 
 <style lang="less" scoped>

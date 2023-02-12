@@ -15,11 +15,13 @@ const toggleFullScreen = () => {
 </script>
 
 <template>
-  <div :class="prefixCls" @click="toggleFullscreen">
-    <Icon
-      :size="18"
-      :icon="isFullscreen ? 'zmdi:fullscreen-exit' : 'zmdi:fullscreen'"
-      :color="color"
-    />
+  <div :class="prefixCls" @click="toggleFullScreen">
+    <ElTooltip content="全屏">
+      <Icon
+        :size="18"
+        :icon="isFullscreen ? 'zmdi:fullscreen-exit' : 'zmdi:fullscreen'"
+        :color="color"
+      />
+    </ElTooltip>
   </div>
 </template>

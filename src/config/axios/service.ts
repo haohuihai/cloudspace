@@ -2,9 +2,10 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 import qs from 'qs'
 import { config } from './config'
 import { ElMessage } from 'element-plus'
-const { result_code, base_url } = config
+const { result_code, base_url, request_img } = config
 
 export const PATH_URL = base_url[import.meta.env.VITE_API_BASEPATH]
+export const REQUEST_IMG = request_img[import.meta.env.VITE_API_BASEPATH]
 
 const service: AxiosInstance = axios.create({
   baseURL: PATH_URL,

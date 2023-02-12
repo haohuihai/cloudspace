@@ -48,7 +48,7 @@
         <div id="middle-top" :class="[fullScreenStatus.map ? 'fullscreen' : '']">
           <!-- 商家分布图表 -->
           <Map ref="map_ref" />
-          <div class="resize_ref">
+          <div class="resize">
             <!-- icon-compress-alt -->
             <span
               @click="changeSize('map')"
@@ -1136,7 +1136,29 @@ const recvData = (data) => {
   const targetValue = data.value
   fullScreenStatus[chartName] = targetValue
   nextTick(() => {
-    trend_ref.value.screenAdapter()
+    switch (chartName) {
+      case 'trend':
+        trend_ref.value.screenAdapter()
+        break
+      case 'seller':
+        seller_ref.value.screenAdapter()
+        break
+      case 'map':
+        map_ref.value.screenAdapter()
+        break
+      case 'rank':
+        rank_ref.value.screenAdapter()
+        break
+      case 'hot':
+        hot_ref.value.screenAdapter()
+        break
+        break
+      case 'stock':
+        stock_ref.value.screenAdapter()
+        break
+      default:
+        break
+    }
   })
 }
 const handleChangeTheme = () => {

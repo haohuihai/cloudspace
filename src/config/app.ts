@@ -28,9 +28,11 @@ export interface AppState {
   hamburger: boolean
   screenfull: boolean
   size: boolean
+  lockScreen: boolean
   locale: boolean
   tagsView: boolean
   tagsViewIcon: boolean
+  notify: boolean
   logo: boolean
   fixedHeader: boolean
   greyMode: boolean
@@ -59,7 +61,9 @@ export const appModules: AppState = {
   uniqueOpened: false, // 是否只保持一个子菜单的展开
   hamburger: true, // 折叠图标
   screenfull: true, // 全屏图标
+  notify: true,
   size: true, // 尺寸图标
+  lockScreen: true,
   locale: true, // 多语言图标
   tagsView: true, // 标签页
   tagsViewIcon: true, // 是否显示标签图标

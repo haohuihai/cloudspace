@@ -1,6 +1,6 @@
 import { config } from '@/config/axios/config'
 import { MockMethod } from 'vite-plugin-mock'
-
+import { Layout, getParentLayout } from '@/utils/routerHelper'
 const { result_code } = config
 
 const timeout = 1000
@@ -37,11 +37,40 @@ const adminList = [
     ]
   },
   {
+    path: '/home',
+    component: 'views/Home/Home',
+    name: 'Home',
+    meta: {
+      title: '首页',
+      hidden: true
+    }
+  },
+  {
+    path: '/visualization',
+    component: 'views/Visualization/Visualization',
+    name: 'Visiual',
+    meta: {
+      title: '可视化',
+      hidden: true
+    }
+  },
+  {
+    path: '/canvas',
+    component: 'views/Canvas/index',
+    name: 'canvas',
+    meta: {
+      hidden: true,
+      title: 'canvas',
+      noTagsView: true
+    }
+  },
+  {
     path: '/article',
     name: 'Article',
     meta: {
       title: '文章列表',
-      hidden: true
+      hidden: true,
+      alwaysShow: true
     },
     children: [
       {
@@ -63,7 +92,7 @@ const adminList = [
         }
       },
       {
-        path: 'preview',
+        path: 'preview/:id',
         component: 'views/Article/Preview',
         name: '预览文章',
         meta: {
@@ -76,13 +105,17 @@ const adminList = [
   {
     path: '/game',
     name: 'Game',
+    meta: {
+      title: 'GameList',
+      hidden: true
+    },
     children: [
       {
         path: 'index',
         component: 'views/Game/game',
-        name: '游戏列表',
+        name: 'GameList',
         meta: {
-          title: 'router.Article',
+          title: 'router.gamelist',
           noCache: true
         }
       },
@@ -91,7 +124,7 @@ const adminList = [
         component: 'views/Game/DrawAndDraw/DrawOneDraw',
         name: '猜一猜',
         meta: {
-          title: 'router.Article',
+          title: 'router.guess',
           noCache: true
         }
       },
@@ -100,7 +133,7 @@ const adminList = [
         component: 'views/Game/DrawAndDraw/IntoBefore',
         name: '登录游戏',
         meta: {
-          title: 'router.Article',
+          title: 'router.logingame',
           noCache: true
         }
       }

@@ -189,9 +189,9 @@ const ruleFormRef = ref<FormInstance>()
 const rulePhoneFormRef = ref<FormInstance>()
 
 const loginForm = reactive<LoginFormType>({
-  account: '',
-  password: '',
-  inputCode: '',
+  account: 'admin',
+  password: 'admin',
+  inputCode: '123',
   savePassword: false
 })
 const rulePhoneForm = reactive<RulePhoneType>({
@@ -357,13 +357,15 @@ const getRole = async () => {
     push({ path: '/home' })
     loginLoding.value = false
     // try {
-    //   await permissionStore.generateRoutes('admin', routers).catch(() => {})
-    //   permissionStore.getAddRouters.forEach((route) => {
-    //     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-    //   })
-    //   permissionStore.setIsAddRouters(true)
+    // await permissionStore.generateRoutes('admin', constantRouterMap).catch(() => {})
+    // permissionStore.getAddRouters.forEach((route) => {
+    //   addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+    // })
+    // permissionStore.setIsAddRouters(true)
+    // push({ path: '/home' })
 
-    //   push({ path: redirect.value || permissionStore.addRouters[0].path })
+    // push({ path: redirect.value || permissionStore.addRouters[0].path })
+    //   push({ path: '/home' })
     // } catch (e) {
     //   console.log(e)
     // }

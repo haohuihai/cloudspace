@@ -2,7 +2,8 @@
 import { defineComponent, computed } from 'vue'
 import { Collapse } from '@/components/Collapse'
 import { LocaleDropdown } from '@/components/LocaleDropdown'
-// import { SizeDropdown } from '@/components/SizeDropdown'
+import { Notify } from '@/components/Notify'
+import { LockScreen } from '@/components/LockScreen'
 import { UserInfo } from '@/components/UserInfo'
 import { Screenfull } from '@/components/Screenfull'
 import { Breadcrumb } from '@/components/Breadcrumb'
@@ -24,8 +25,11 @@ const hamburger = computed(() => appStore.getHamburger)
 // 全屏图标
 const screenfull = computed(() => appStore.getScreenfull)
 
+// 锁屏图标
+const lockscreen = computed(() => appStore.getLockScreen)
+
 // 尺寸图标
-const size = computed(() => appStore.getSize)
+const notice = computed(() => appStore.getNotice)
 
 // 布局
 const layout = computed(() => appStore.getLayout)
@@ -54,11 +58,12 @@ export default defineComponent({
           </div>
         ) : undefined}
         <div class="h-full flex items-center">
+          {notice.value && <Notify class="hover-tigger" color="var(--top-header-text-color)" />}
           {screenfull.value ? (
             <Screenfull class="hover-tigger" color="var(--top-header-text-color)"></Screenfull>
           ) : undefined}
-          {false && size.value ? (
-            <SizeDropdown class="hover-tigger" color="var(--top-header-text-color)"></SizeDropdown>
+          {lockscreen.value ? (
+            <LockScreen class="hover-tigger" color="var(--top-header-text-color)"></LockScreen>
           ) : undefined}
           {locale.value ? (
             <LocaleDropdown

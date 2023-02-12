@@ -36,7 +36,12 @@
 <script lang="ts" setup>
 import { Nav, ArticItem } from './components'
 import { getArticleList } from '@/api/article'
+import { useRouter } from 'vue-router'
+
 import { onMounted, ref, reactive, ObjectDirective, onUnmounted } from 'vue'
+
+const { push } = useRouter()
+
 const scrollDomActive = ref<ElRef>(null)
 let navBotList = ref([
   {
@@ -76,7 +81,8 @@ let maxType = ref([
 onMounted(async () => {
   scrollDomActive.value.addEventListener('scroll', handleScroll, true)
   const res = await getArticleList({ page: 1 })
-  articItem.list = res
+  console.log(res)
+  articItem.list = res.data
   console.log('res', res)
 })
 onUnmounted(() => {
@@ -84,7 +90,11 @@ onUnmounted(() => {
 })
 const chooseItem = () => {}
 const switchHotType = () => {}
-const toPreview = () => {}
+const toPreview = (item) => {
+  push({
+    path: `/article/preview/${item.id}`
+  })
+}
 const handleScroll = (e) => {
   if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
     isMoreData.value = true

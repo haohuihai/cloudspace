@@ -4,7 +4,7 @@ interface RoleParams {
   roleName: string
 }
 export const loginApi = (data: UserType): Promise<IResponse<UserType>> => {
-  return request.post({ url: '/user/login', data })
+  return request.post({ url: '/api/user/login', data })
 }
 export const getAdminRoleApi = (
   params: RoleParams

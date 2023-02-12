@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, watch, onUnmounted, ref, computed } from 'vue'
+import { onMounted, reactive, defineExpose, watch, onUnmounted, ref, computed } from 'vue'
 import * as echarts from 'echarts'
 import { getProvinceMapInfo } from '@/utils/map_utils'
 import { getChinaMap, getProvince, getMapType } from '@/api/vision'
@@ -146,6 +146,9 @@ watch(
     updateChart() // 更新图表的展示
   }
 )
+defineExpose({
+  screenAdapter
+})
 </script>
 
 <style lang="less" scoped>

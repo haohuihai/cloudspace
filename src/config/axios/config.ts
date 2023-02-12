@@ -5,6 +5,12 @@ const config: {
     pro: string
     test: string
   }
+  request_img: {
+    base: string
+    dev: string
+    pro: string
+    test: string
+  }
   result_code: number | string
   default_headers: AxiosHeaders
   request_timeout: number
@@ -25,7 +31,12 @@ const config: {
     // 打包测试环境接口前缀
     test: ''
   },
-
+  request_img: {
+    base: 'http://10.102.220.67:10000',
+    dev: 'http://10.102.220.67:10000',
+    pro: 'http://10.102.220.67:10000',
+    test: ''
+  },
   /**
    * 接口成功返回状态码
    */

@@ -5,33 +5,33 @@ import { Layout, getParentLayout } from '@/utils/routerHelper'
 
 // 这里的路由可以是默认路由
 export const constantRouterMap: AppRouteRecordRaw[] = [
-  {
-    path: '/backmanage',
-    component: Layout,
-    redirect: '/backmanage/analysis',
-    name: 'Root',
-    meta: {
-      hidden: true
-    }
-  },
-  {
-    path: '/home',
-    component: () => import('@/views/Home/Home.vue'),
-    name: 'Home',
-    meta: {
-      title: '首页',
-      hidden: true
-    }
-  },
-  {
-    path: '/visualization',
-    component: () => import('@/views/Visualization/Visualization.vue'),
-    name: 'Visiual',
-    meta: {
-      title: '可视化',
-      hidden: true
-    }
-  },
+  // {
+  //   path: '/backmanage',
+  //   component: Layout,
+  //   redirect: '/backmanage/analysis',
+  //   name: 'Root',
+  //   meta: {
+  //     hidden: true
+  //   }
+  // }
+  // {
+  //   path: '/home',
+  //   component: () => import('@/views/Home/Home.vue'),
+  //   name: 'Home',
+  //   meta: {
+  //     title: '首页',
+  //     hidden: true
+  //   }
+  // },
+  // {
+  //   path: '/visualization',
+  //   component: () => import('@/views/Visualization/Visualization.vue'),
+  //   name: 'Visiual',
+  //   meta: {
+  //     title: '可视化',
+  //     hidden: true
+  //   }
+  // },
   {
     path: '/login',
     component: () => import('@/views/Login/Login.vue'),
@@ -41,17 +41,17 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       title: 'login',
       noTagsView: true
     }
-  },
-  {
-    path: '/canvas',
-    component: () => import('@/views/Canvas/index.vue'),
-    name: 'canvas',
-    meta: {
-      hidden: true,
-      title: 'canvas',
-      noTagsView: true
-    }
   }
+  // {
+  //   path: '/canvas',
+  //   component: () => import('@/views/Canvas/index.vue'),
+  //   name: 'canvas',
+  //   meta: {
+  //     hidden: true,
+  //     title: 'canvas',
+  //     noTagsView: true
+  //   }
+  // }
 ]
 
 const router = createRouter({

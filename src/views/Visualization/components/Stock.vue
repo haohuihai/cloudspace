@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref, onUnmounted, onMounted, reactive } from 'vue'
+import { watch, ref, onUnmounted, onMounted, reactive, defineExpose } from 'vue'
 import * as echarts from 'echarts'
 import { getStockData } from '@/api/vision'
 import { getThemeValue } from '@/utils/theme_utils'
@@ -198,6 +198,9 @@ watch(
     updateChart() // 更新图表的展示
   }
 )
+defineExpose({
+  screenAdapter
+})
 </script>
 
 <style lang="less" scoped>

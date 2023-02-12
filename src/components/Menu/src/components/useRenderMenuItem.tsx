@@ -25,6 +25,9 @@ export const useRenderMenuItem = (
           (!onlyOneChild?.children || onlyOneChild?.noShowingChildren) &&
           !meta?.alwaysShow
         ) {
+          {
+            console.log('v', v)
+          }
           return (
             <ElMenuItem index={onlyOneChild ? pathResolve(fullPath, onlyOneChild.path) : fullPath}>
               {{
