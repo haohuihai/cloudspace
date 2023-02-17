@@ -142,7 +142,11 @@ export default {
     role: '角色管理',
     document: '文档',
     inputPassword: '密码输入框',
-    sticky: '黏性'
+    sticky: '黏性',
+    mainlist: '通讯录',
+    chat: '聊天',
+    common: '通用组件',
+    custom: '自定义'
   },
   permission: {
     hasPermission: '请设置操作权限值'

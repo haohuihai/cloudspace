@@ -142,7 +142,11 @@ export default {
     role: 'Role management',
     document: 'Document',
     inputPassword: 'InputPassword',
-    sticky: 'Sticky'
+    sticky: 'Sticky',
+    chat: 'Chat',
+    mainlist: 'Mainlist',
+    common: 'Currency',
+    custom: 'CustomComponents'
   },
   permission: {
     hasPermission: 'Please set the operation permission value'

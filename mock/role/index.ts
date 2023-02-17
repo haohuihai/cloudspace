@@ -37,6 +37,81 @@ const adminList = [
     ]
   },
   {
+    path: '/chat',
+    component: '#',
+    name: 'Chat',
+    meta: {
+      title: 'router.mainlist',
+      icon: 'fa-solid:address-card',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'chat',
+        fullPath: '/chat/chat',
+        component: 'views/Chat/chat',
+        name: 'ChatList',
+        meta: {
+          icon: 'majesticons:chat-2-text',
+          title: 'router.chat',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/component',
+    component: '#',
+    name: 'Component',
+    meta: {
+      title: 'router.component',
+      icon: 'fluent-mdl2:web-components',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'common',
+        fullPath: '/component/common',
+        component: 'views/Component/common',
+        name: 'Currency',
+        meta: {
+          icon: 'carbon:assembly-cluster',
+          title: 'router.common',
+          noCache: true
+        }
+      },
+      {
+        path: 'custom',
+        fullPath: '/component/custom',
+        component: 'views/Component/custom',
+        name: 'Custom',
+        meta: {
+          icon: 'mdi:assembly',
+          title: 'router.custom',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/webrtc',
+    component: 'views/Webrtc/webrtc',
+    name: 'Webrtc',
+    meta: {
+      title: '音视频',
+      hidden: true
+    }
+  },
+  {
+    path: '/clouddisk',
+    component: 'views/CloudDisk/cloudDisk',
+    name: 'CloudDisk',
+    meta: {
+      title: '云盘',
+      hidden: true
+    }
+  },
+  {
     path: '/home',
     component: 'views/Home/Home',
     name: 'Home',
@@ -47,12 +122,23 @@ const adminList = [
   },
   {
     path: '/visualization',
-    component: 'views/Visualization/Visualization',
+    component: 'views/Visualization/Home',
     name: 'Visiual',
     meta: {
       title: '可视化',
       hidden: true
-    }
+    },
+    children: [
+      {
+        path: 'shopping',
+        component: 'views/Visualization/shopping',
+        name: 'shopping',
+        meta: {
+          title: 'router.shopping',
+          noCache: true
+        }
+      }
+    ]
   },
   {
     path: '/canvas',

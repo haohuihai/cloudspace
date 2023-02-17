@@ -181,7 +181,7 @@ const moveToTarget = (currentTag: RouteLocationNormalizedLoaded) => {
     // the tag's offsetLeft before of prevTag
     const beforePrevTagOffsetLeft = prevTag.offsetLeft - 4
 
-    if (afterNextTagOffsetLeft > unref(scrollLeftNumber) + wrap$!.offsetWidth) {
+    if (wrap$! && afterNextTagOffsetLeft > unref(scrollLeftNumber) + wrap$!.offsetWidth) {
       const { start } = useScrollTo({
         el: wrap$!,
         position: 'scrollLeft',

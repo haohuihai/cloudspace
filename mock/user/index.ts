@@ -62,6 +62,20 @@ const applist: {
     img: 'src/assets/home/google_plus5.png',
     path: '/backmanage/analysis',
     desc: '一款强大的视频播放器'
+  },
+  {
+    name: '云盘',
+    id: '12341',
+    img: 'src/assets/home/google_plus5.png',
+    path: '/clouddisk',
+    desc: '一款强大的视频播放器'
+  },
+  {
+    name: '会议',
+    id: '1234',
+    img: 'src/assets/home/google_plus5.png',
+    path: '/webrtc',
+    desc: '一款强大的视频播放器'
   }
 ]
 export default [
