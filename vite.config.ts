@@ -97,12 +97,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         //   rewrite: (path) => path.replace('/v1/api', '')
         // },
         '^/v1/api': {
-          target: 'http://10.102.220.67:10000',
+          target: 'http://192.168.45.58:10000',
           changeOrigin: true,
           rewrite: (path) => path.replace('/v1/api', '')
         },
         '/socket.io': {
-          target: 'http://localhost:3000',
+          target: 'http://192.168.45.58:9080',
           changeOrigin: true
         }
       },

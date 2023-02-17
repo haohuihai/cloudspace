@@ -34,6 +34,7 @@ import '@purge-icons/generated'
 // 引入markdown插件
 import { setupVueMarkdownEditor } from '@/plugins/mdEditor'
 
+import '@/socket'
 // import SocketService from '@/utils/socket_service'
 
 // 引入socket
