@@ -1,7 +1,7 @@
 <template>
   <div class="visualBox">
     <ElRow :gutter="20">
-      <ElCol v-for="(o, index) in 4" :key="o" :span="3">
+      <ElCol v-for="(o, index) in 4" :key="o" :span="3" @click="toEcharts">
         <ElCard :body-style="{ padding: '0px' }" shadow="hover">
           <img
             src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
@@ -18,9 +18,16 @@
 </template>
 <script setup lang="ts">
 import { ElRow, ElCol, ElCard, ElButton } from 'element-plus'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
+const { push } = useRouter()
+
 const currentDate = ref(new Date())
+
+function toEcharts() {
+  push('traffic')
+}
 </script>
 <style lang="less">
 .visualBox {

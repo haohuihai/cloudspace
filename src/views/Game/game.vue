@@ -4,6 +4,9 @@
       <ElCard>
         <router-link to="/game/drawInto">猜一猜</router-link>
       </ElCard>
+      <ElCard>
+        <router-link to="/game/drawInto">贪吃蛇</router-link>
+      </ElCard>
     </ElCol>
   </ElRow>
 </template>

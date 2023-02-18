@@ -137,6 +137,15 @@ const adminList = [
           title: 'router.shopping',
           noCache: true
         }
+      },
+      {
+        path: 'traffic',
+        component: 'views/Visualization/traffic',
+        name: 'traffic',
+        meta: {
+          title: 'router.traffic',
+          noCache: true
+        }
       }
     ]
   },

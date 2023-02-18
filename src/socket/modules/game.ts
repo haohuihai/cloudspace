@@ -1,9 +1,8 @@
 import { useDrawOneDraw } from '@/stores/modules/game'
 import { ElNotification, ElMessage } from 'element-plus'
-
+const drawOneDraw = useDrawOneDraw()
 const connectGame = (socket) => {
-  const drawOneDraw = useDrawOneDraw()
-
+  drawOneDraw.updateConnected(true)
   // 此时用户进入房间获取到房间的信息， 用户列表， 是否是房主等
   socket.on('room_info', ({ nicknames, holder, lines }) => {
     // 获取都谁进入了房间
@@ -18,14 +17,7 @@ const connectGame = (socket) => {
     // 进入房间的昵称 nickname
     drawOneDraw.addToNicknames(nickname)
   })
-  // 监听socke的连接，为了控制按钮
-  socket.on('connect', () => {
-    drawOneDraw.updateConnected(true)
-  })
-  // 监听socket的断开
-  socket.on('disconnect', () => {
-    drawOneDraw.updateConnected(false)
-  })
+
   // 返回游戏已经开始了
   socket.on('already_started', (holder) => {
     drawOneDraw.updateHolder(holder) // 这里是为了更新游戏主持，
@@ -91,6 +83,10 @@ const connectGame = (socket) => {
         message: '主持人离开了游戏！'
       })
     }
+  })
+  // 断开连接
+  socket.on('disconnect', () => {
+    drawOneDraw.updateConnected(false)
   })
 }
 
