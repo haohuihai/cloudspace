@@ -17,8 +17,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm run build:pro
+      - run: echo '删除dist目录'
+      - run: ls
+      - run: rm -rf /home/circleci/cloudspace/dist
       - run: echo '部署开始'
+      - run: npm run build:pro
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -36,6 +39,7 @@ jobs:
           # scp -v /home/knowledge/aaa.ts $SSH_USER@$SSH_IP:/www/wwwroot/testbuild/
       - deploy:
           name: deploy
+          command: rm -rf $SSH_USER@$SSH_IP:/www/wwwroot/cloudspace/*
           command: scp -vr  -o StrictHostKeyChecking=no /home/circleci/cloudspace/dist/* $SSH_USER@$SSH_IP:/www/wwwroot/cloudspace/
           # command: |
           #   ls
