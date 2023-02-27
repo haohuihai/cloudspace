@@ -9,11 +9,20 @@ import { setupI18n } from '@/plugins/vueI18n'
 // 引入全局样式
 import '@/styles/index.less'
 import './assets/main.css'
+
+// 引入字体的文件
+import '@/assets/font/iconfont.css'
+// 引入全局的样式文件
+import '@/styles/global.less'
+
 // 引入element-plus
 import { setupElementPlus } from '@/plugins/elementPlus'
 
-// 引入vueknova
+// 引入rem字体配置文件
 
+import '@/utils/rem'
+
+// 引入vueknova
 import { setupVueKonva } from '@/plugins/konva'
 // 引入动画
 import '@/plugins/animate.css'
@@ -23,10 +32,7 @@ import { setupGlobCom } from '@/components'
 import { setupPermission } from './directives'
 // 引入状态管理
 import { setupStore } from '@/stores'
-// 引入字体的文件
-import '@/assets/font/iconfont.css'
-// 引入全局的样式文件
-import '@/styles/global.less'
+
 
 import './permission'
 
@@ -37,7 +43,6 @@ import { setupVueMarkdownEditor } from '@/plugins/mdEditor'
 import '@/socket'
 // import SocketService from '@/utils/socket_service'
 
-// 引入socket
 
 // import '@/socket'
 // 创建实例

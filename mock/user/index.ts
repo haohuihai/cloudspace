@@ -53,7 +53,7 @@ const applist: {
     name: '大屏可视化',
     id: '123',
     img: 'src/assets/home/tieba.png',
-    path: '/visualization',
+    path: '/visualization/home',
     desc: '一款强大的视频播放器'
   },
   {

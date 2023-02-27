@@ -3,8 +3,8 @@ import { store } from '../index'
 import socket from '@/socket'
 export interface GameState {
   nickname: string
-  nicknames: []
-  holder: ''
+  nicknames: String[]
+  holder: string
   lines: []
   connected: boolean
 }
@@ -35,7 +35,7 @@ export const useDrawPanel = defineStore('game', {
     isGameHolder(state): boolean {
       return state.nickname === state.holder
     },
-    getNickNames(state): [] {
+    getNickNames(state): string[] {
       return state.nicknames
     },
     getNickname(state): string {
@@ -59,7 +59,7 @@ export const useDrawPanel = defineStore('game', {
       this.lines = lines || []
     },
     // 通知谁进入房间
-    addToNicknames(nickname) {
+    addToNicknames(nickname: String) {
       // 判断是否在房间，不在房间则进行通知，这里只追加到列表后面了，
       // **** 可以有更好的通知效果，比如弹窗
       if (!this.nicknames.includes(nickname)) {

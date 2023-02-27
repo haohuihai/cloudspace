@@ -122,13 +122,21 @@ const adminList = [
   },
   {
     path: '/visualization',
-    component: 'views/Visualization/Home',
     name: 'Visiual',
     meta: {
       title: '可视化',
       hidden: true
     },
     children: [
+      {
+        path: 'home',
+        component: 'views/Visualization/Home',
+        name: 'home',
+        meta: {
+          title: 'router.home',
+          noCache: true
+        }
+      },
       {
         path: 'shopping',
         component: 'views/Visualization/shopping',
@@ -140,7 +148,7 @@ const adminList = [
       },
       {
         path: 'traffic',
-        component: 'views/Visualization/traffic',
+        component: 'views/Visualization/Traffic/Traffic',
         name: 'traffic',
         meta: {
           title: 'router.traffic',

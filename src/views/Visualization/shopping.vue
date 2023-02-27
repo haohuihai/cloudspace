@@ -112,8 +112,8 @@ import Trend from './components/Trend.vue'
 import { useVisionStore } from '@/stores/modules/vision'
 import { getThemeValue } from '@/utils/theme_utils'
 
-import logoImgDark from '@/assets/imgs/logo_dark.png'
-import logoImgLight from '@/assets/imgs/logo_light2.png'
+import logoImgDark from '@/assets/imgs/logo.png'
+import logoImgLight from '@/assets/imgs/logo.png'
 
 import headerBorderDark from '@/assets/imgs/header_border_dark.png'
 import headerBorderLight from '@/assets/imgs/header_border_light.png'
@@ -1269,17 +1269,18 @@ const containerStyle = computed(() => {
   .datetime {
     font-size: 15px;
     margin-left: 10px;
+    color: #fff;
   }
 
   .logo {
     position: absolute;
     left: 0px;
     top: 50%;
-    transform: translateY(-80%);
+    transform: translateY(-50%);
 
     img {
-      height: 35px;
-      width: 128px;
+      height: 45px;
+      width: 45px;
     }
   }
 }

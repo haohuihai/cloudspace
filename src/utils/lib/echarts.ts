@@ -3,6 +3,7 @@ import * as echarts from 'echarts/core'
 import {
   BarChart,
   LineChart,
+  LinesChart,
   PieChart,
   MapChart,
   PictorialBarChart,
@@ -40,6 +41,7 @@ echarts.use([
   ParallelComponent,
   BarChart,
   LineChart,
+  LinesChart,
   PieChart,
   MapChart,
   RadarChart,
