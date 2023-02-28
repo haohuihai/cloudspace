@@ -38,42 +38,42 @@ const applist: {
   {
     name: '文章领域',
     id: '1',
-    img: 'src/assets/home/tupian.png',
+    img: '/src/assets/home/tupian.png',
     path: '/article',
     desc: '一款强大的视频播放器'
   },
   {
     name: '玩玩游戏',
     id: '12',
-    img: 'src/assets/home/jiaowuxitong.png',
+    img: '/src/assets/home/jiaowuxitong.png',
     path: '/game/index',
     desc: '一款强大的视频播放器'
   },
   {
     name: '大屏可视化',
     id: '123',
-    img: 'src/assets/home/tieba.png',
+    img: '/src/assets/home/tieba.png',
     path: '/visualization/home',
     desc: '一款强大的视频播放器'
   },
   {
     name: '后台页面',
     id: '1234',
-    img: 'src/assets/home/google_plus5.png',
+    img: '/src/assets/home/google_plus5.png',
     path: '/backmanage/analysis',
     desc: '一款强大的视频播放器'
   },
   {
     name: '云盘',
     id: '12341',
-    img: 'src/assets/home/google_plus5.png',
+    img: '/src/assets/home/google_plus5.png',
     path: '/clouddisk',
     desc: '一款强大的视频播放器'
   },
   {
     name: '会议',
     id: '1234',
-    img: 'src/assets/home/google_plus5.png',
+    img: '/src/assets/home/google_plus5.png',
     path: '/webrtc',
     desc: '一款强大的视频播放器'
   }
