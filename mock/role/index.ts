@@ -37,16 +37,6 @@ const adminList = [
     ]
   },
   {
-    path: '/login',
-    component: 'views/Login/Login',
-    name: 'login',
-    meta: {
-      hidden: true,
-      title: 'login',
-      noTagsView: true
-    }
-  },
-  {
     path: '/chat',
     component: '#',
     name: 'Chat',
