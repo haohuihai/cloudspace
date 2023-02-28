@@ -32,16 +32,16 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   //     hidden: true
   //   }
   // },
-  {
-    path: '/login',
-    component: () => import('@/views/Login/Login.vue'),
-    name: 'login',
-    meta: {
-      hidden: true,
-      title: 'login',
-      noTagsView: true
-    }
-  }
+  // {
+  //   path: '/login',
+  //   component: () => import('@/views/Login/Login.vue'),
+  //   name: 'login',
+  //   meta: {
+  //     hidden: true,
+  //     title: 'login',
+  //     noTagsView: true
+  //   }
+  // }
   // {
   //   path: '/canvas',
   //   component: () => import('@/views/Canvas/index.vue'),
