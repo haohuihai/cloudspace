@@ -93,7 +93,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         '/api': {
           target: 'http://10.102.221.44:10000',
           changeOrigin: true,
-          rewrite: (path) => path.replace('/api', '')
         },
         '/socket.io': {
           target: 'ws://10.102.221.44:9080',
