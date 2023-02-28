@@ -90,16 +90,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     server: {
       port: 4000,
       proxy: {
-        // 选项写法
-        // '/v1/api': {
-        //   target: 'http://10.102.220.67:4000',
-        //   changeOrigin: true,
-        //   rewrite: (path) => path.replace('/v1/api', '')
-        // },
-        '^/v1/api': {
+        '/api': {
           target: 'http://10.102.221.44:10000',
           changeOrigin: true,
-          rewrite: (path) => path.replace('/v1/api', '')
+          rewrite: (path) => path.replace('/api', '')
         },
         '/socket.io': {
           target: 'ws://10.102.221.44:9080',

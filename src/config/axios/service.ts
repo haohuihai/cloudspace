@@ -20,6 +20,11 @@ service.interceptors.request.use(
     ) {
       config.data = qs.stringify(config.data)
     }
+
+    // 区分mock和后端代理
+    if (config.url?.includes('/mock')) {
+      config.baseURL = ''
+    }
     // get参数编码
     if (config.method === 'get' && config.params) {
       let url = config.url as string

@@ -670,7 +670,7 @@ const adminList = [
 export default [
   // 列表接口
   {
-    url: '/v1/role/list',
+    url: '/mock/role/list',
     method: 'get',
     timeout,
     response: ({ query }) => {
