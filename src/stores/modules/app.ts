@@ -14,6 +14,9 @@ export const useAppStore = defineStore('app', {
     enabled: true
   },
   getters: {
+    getChatVisiable(): boolean {
+      return this.chatVisible
+    },
     getBreadcrumb(): boolean {
       return this.breadcrumb
     },
@@ -120,6 +123,10 @@ export const useAppStore = defineStore('app', {
     },
     setLocale(locale: boolean) {
       this.locale = locale
+    },
+    setChatVisible(visible: boolean) {
+      console.log(visible)
+      this.chatVisible = visible
     },
     setTagsView(tagsView: boolean) {
       this.tagsView = tagsView

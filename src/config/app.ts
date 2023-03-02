@@ -23,6 +23,7 @@ export type ThemeTypes = {
 export interface AppState {
   breadcrumb: boolean
   breadcrumbIcon: boolean
+  chatVisible: boolean
   collapse: boolean
   uniqueOpened: boolean
   hamburger: boolean
@@ -54,7 +55,7 @@ export const appModules: AppState = {
   mobile: false, // 是否是移动端
   title: import.meta.env.VITE_APP_TITLE, // 标题
   pageLoading: false, // 路由跳转loading
-
+  chatVisible: false, // 是否显示聊天弹框
   breadcrumb: true, // 面包屑
   breadcrumbIcon: true, // 面包屑图标
   collapse: false, // 折叠菜单

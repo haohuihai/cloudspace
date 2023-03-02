@@ -29,6 +29,8 @@
       <!-- <Card :appList="appList.list" @to-detail="toDetailPage" v-if="!!appList.list.length" /> -->
       <!-- <ElEmpty v-if="!loading && !appList.list.length" :image-size="200" /> -->
     </div>
+    <Chat />
+    <ChatModal />
   </div>
 </template>
 <script setup lang="ts">
@@ -36,6 +38,8 @@ import { ElInput, ElSkeleton, ElSkeletonItem, ElEmpty } from 'element-plus'
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Card } from './components'
+import { Chat } from '@/components/Chat'
+import { ChatModal } from '@/components/ChatModal'
 import { getAppListApi } from '@/api/common'
 const router = useRouter()
 interface List {

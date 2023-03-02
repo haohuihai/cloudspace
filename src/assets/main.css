@@ -30,6 +30,12 @@ a,
   border-radius: 10px;
   background: #ededed;
 }
+.single-line-text {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* @media (min-width: 1024px) {
   body {
     display: flex;
