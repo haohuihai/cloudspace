@@ -56,10 +56,41 @@
             </ElTabs>
           </div>
           <div class="chat_right flex-1">
-            <div class="content_top"></div>
+            <div class="content_top flex flex-col" ref="messageRef">
+              <!-- 其他用户 -->
+              <div v-for="item in messageList.messages" :key="item.messageId">
+                <div
+                  class="flex"
+                  :class="[item.senderId === currentUser ? 'chat_item_right' : 'chat_item_left']"
+                >
+                  <ElAvatar />
+                  <div
+                    class="chat_contents"
+                    :class="[item.senderId === currentUser ? 'chat_mycontent' : 'chat_itcontent']"
+                    >{{ item.content }}</div
+                  >
+                </div>
+              </div>
+            </div>
+
             <div class="content_bottom">
-              <div class="content_bottom_top"></div>
-              <div class="content_bottom_bottom"> </div>
+              <div class="content_bottom_top">
+                <div class="chat_tools">
+                  <Icon icon="bi:emoji-smile" size="20" class="emoji_icon" />
+                  <Icon icon="ph:image-square-fill" size="24" class="image_icon" />
+                </div>
+              </div>
+              <div class="content_bottom_bottom">
+                <ElInput
+                  v-model="textareaValue"
+                  resize="none"
+                  :autosize="{ minRows: 2, maxRows: 4 }"
+                  type="textarea"
+                  placeholder="请输入要发送的内容..."
+                  @keydown="handleKeydown"
+                  @keyup="handleSendMessage"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -68,21 +99,50 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
-import { ElDialog, ElAvatar, ElTabs, ElTabPane } from 'element-plus'
+import { defineComponent, computed, ref, reactive, onMounted } from 'vue'
+import { ElDialog, ElAvatar, ElTabs, ElTabPane, ElInput, ElMessage } from 'element-plus'
 
 import { useDesign } from '@/hooks/web/useDesign'
 import { useAppStore } from '@/stores/modules/app'
-
+import { useCache } from '@/hooks/web/useCache'
+const { wsCache } = useCache()
 const { getPrefixCls } = useDesign()
 
 const prefixCls = getPrefixCls('chat-modal')
 const appStore = useAppStore()
-
+const userInfo = wsCache.get(appStore.getUserInfo)
 export default defineComponent({
-  components: { ElDialog, ElAvatar, ElTabPane, ElTabs },
+  components: { ElDialog, ElAvatar, ElTabPane, ElTabs, ElInput },
   setup() {
     const editableTabsValue = ref('chat')
+    const currentUser = ref('123222')
+    const messageRef = ref<HTMLElement | null>(null)
+    const messageList = reactive({
+      messages: [
+        {
+          messageId: '33c3693b-dbb0-4bc9-99c6-fa77b9eb763f',
+          name: 'Juanita',
+          password: '123',
+          avatar: '/static/images/Avatar-4.png',
+          email: 'Juanita@goeasy.io',
+          content: '你好啊',
+          phone: '138xxxxxxxx',
+          senderId: '123222'
+        },
+        {
+          messageId: '33c3693b-dbb0-4bc9-99c6-fa77b9eb763f',
+          name: 'Juanita',
+          password: '123',
+          avatar: '/static/images/Avatar-4.png',
+          email: 'Juanita@goeasy.io',
+          phone: '138xxxxxxxx',
+          senderId: '444444',
+          content: '我很好啊'
+        }
+      ]
+    })
+
+    const textareaValue = ref('')
     const editableTabs = ref([
       {
         title: '聊天',
@@ -104,13 +164,61 @@ export default defineComponent({
     function tabChange(name: string) {
       console.log('name', name)
     }
+
+    // 回车事件
+    function handleSendMessage(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault() // 阻止浏览器默认换行操作
+        sendMessage() // 发送文本
+        return false
+      }
+    }
+    // 发送文本事件
+    function sendMessage() {
+      console.log('userInfo', userInfo)
+      if (!textareaValue.value.trim()) {
+        ElMessage.error('请输入内容')
+        return
+      }
+      messageList.messages.push({
+        messageId: '33c3693b-dbb0-4bc9' + messageList.messages.length + 'adsdfd',
+        name: 'Juanita',
+        password: '123',
+        avatar: '/static/images/Avatar-4.png',
+        email: 'Juanita@goeasy.io',
+        phone: '138xxxxxxxx',
+        senderId: '123222',
+        content: textareaValue.value
+      })
+      textareaValue.value = ''
+      scrollToBottom()
+    }
+    // 按下enter时禁止
+    function handleKeydown(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault()
+      }
+    }
+    onMounted(() => {
+      // 当界面挂载出来后就会自动执行
+      console.log(messageRef.value)
+    })
+    // 滚动到底部
+    function scrollToBottom() {
+      console.log(messageRef)
+    }
     return {
       prefixCls,
       visible,
       handleCloseChat,
       editableTabsValue,
       editableTabs,
-      tabChange
+      currentUser,
+      tabChange,
+      textareaValue,
+      messageList,
+      handleSendMessage,
+      handleKeydown
     }
   }
 })
@@ -160,6 +268,7 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-right: 4px;
         span:nth-child(1) {
           color: #000;
           display: inline-block;
@@ -178,22 +287,103 @@ export default defineComponent({
     }
   }
   .chat_right {
-    padding: 5px;
+    padding: 5px 0;
     display: flex;
     flex-direction: column;
   }
   .content_top {
     flex: 1;
     width: 100%;
-    background: blue;
+    overflow-y: overlay;
+    overflow-anchor: none;
+    &::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width: 2px !important; /*高宽分别对应横竖滚动条的尺寸*/
+      height: 1px;
+    }
+  }
+  .chat_item_left,
+  .chat_item_right {
+    margin: 6px 0;
+    padding: 0 15px;
+  }
+  .chat_contents {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin: 0 14px;
+    border-radius: 8px;
+    max-width: calc(100% - 110px);
+    word-break: break-word;
+    font-size: 14px;
+    min-height: 28px;
+  }
+  .chat_mycontent {
+    background: #2683f5;
+    color: #fff;
+    &::after {
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: -9px;
+      top: 11px;
+      content: '';
+      border-left: solid 10px #2683f5;
+      border-top: solid 10px transparent;
+      border-bottom: solid 10px transparent;
+    }
+  }
+  .chat_itcontent {
+    float: left;
+    background: #eee;
+    color: #000;
+    &:before {
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: -9px;
+      top: 9px;
+      content: '';
+      border-right: solid 10px #eee;
+      border-top: solid 10px transparent;
+      border-bottom: solid 10px transparent;
+    }
+  }
+  .chat_item_left {
+  }
+  .chat_item_right {
+    display: flex;
+    align-self: self-end;
+    flex-direction: row-reverse;
+    width: 100%;
   }
   .content_bottom {
-    height: 100px;
+    height: 150px;
     width: 100%;
-    background: red;
     .content_bottom_top {
+      .chat_tools {
+        border-bottom: 1px solid #f5f0f0;
+        border-top: 1px solid #f5f0f0;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        padding: 0px 3px;
+        :deep(.el-icon) {
+          height: 100% !important;
+          width: 35px !important;
+          &:hover {
+            cursor: pointer;
+            background: #f7f5f5;
+          }
+        }
+      }
     }
     .content_bottom_bottom {
+      :deep(.el-textarea__inner) {
+        height: 100%;
+        box-shadow: none;
+      }
     }
   }
 }

@@ -15,7 +15,6 @@ function pathResolve(dir: string) {
   return resolve(root, '.', dir)
 }
 
-// https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   let env = {} as any
   const isBuild = command === 'build'
@@ -91,11 +90,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: 4000,
       proxy: {
         '/api': {
-          target: 'http://10.102.221.44:10000',
+          target: 'http://10.102.220.188:10000',
           changeOrigin: true,
         },
         '/socket.io': {
-          target: 'ws://10.102.221.44:9080',
+          target: 'ws://10.102.220.188:9080',
           changeOrigin: true
         }
       },

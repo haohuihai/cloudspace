@@ -78,7 +78,6 @@ export const useDrawPanel = defineStore('game', {
     },
     // 画线条
     drawNewLine(newLine) {
-      console.log(newLine)
       this.lines.push(newLine)
     },
     // 鼠标滑动.更新线条

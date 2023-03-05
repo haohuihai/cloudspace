@@ -109,6 +109,9 @@ export const useAppStore = defineStore('app', {
     setHamburger(hamburger: boolean) {
       this.hamburger = hamburger
     },
+    setUserInfo(userInfo: any) {
+      this.userInfo = userInfo
+    },
     setScreenfull(screenfull: boolean) {
       this.screenfull = screenfull
     },
@@ -125,7 +128,6 @@ export const useAppStore = defineStore('app', {
       this.locale = locale
     },
     setChatVisible(visible: boolean) {
-      console.log(visible)
       this.chatVisible = visible
     },
     setTagsView(tagsView: boolean) {

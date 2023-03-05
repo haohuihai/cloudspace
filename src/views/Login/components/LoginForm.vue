@@ -91,19 +91,23 @@
       <ElTabPane label="扫码登录" name="scan">
         <div class="QRcode">
           <!--扫码成功的样式-->
-          <div class="QRcode_success" v-if="successShow">
-            <!-- <img src="../../assets/img/login/success.png" alt="success" /> -->
+          <div class="QRcode_success" v-if="isScanCodeSuccess">
+            <img src="@/assets/login/success.png" alt="成功" />
             <p>扫码成功</p>
           </div>
           <!--二维码失效的样式-->
           <div class="QRcode_overtime" @click="AgainScanCode" v-if="overtimeShow">
             <p>二维码失效，点击重新获取</p>
-            <!-- <img src="../../assets/img/login//reload.png" alt="reload.png" /> -->
+            <img src="@/assets/login/reload.png" alt="失效" />
           </div>
           <!--真正让用户扫的二维码-->
-          <img class="QRcode_img" src="@/assets/imgs/scan.png" />
+          <img class="QRcode_img" :src="QRImage" v-if="QRImage" />
+          <img class="QRcode_img" src="@/assets/imgs/login_loading.gif" v-else />
         </div>
-        <p class="tips">{{ tipsText }}</p>
+        <p class="tips" v-if="isScanCodeSuccess">扫码成功，请在手机上确认</p>
+        <p class="tips" v-else-if="overtimeShow">二维码已失效，请重新获取</p>
+        <p class="tips" v-else-if="QRImage">等待用户扫码</p>
+        <p class="tips" v-else>正在加载</p>
       </ElTabPane>
     </ElTabs>
     <ElButton
@@ -153,12 +157,13 @@ import {
 } from 'element-plus'
 import { usePermissionStore } from '@/stores/modules/permission'
 import { useAppStore } from '@/stores/modules/app'
+import { useLoginWithout } from '@/stores/modules/login'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useCache } from '@/hooks/web/useCache'
+import { computed } from 'vue'
 
 interface ScanSchema {
   socket?: string
-  timerCheck?: string
   activeName?: string
 }
 
@@ -174,6 +179,7 @@ interface RulePhoneType {
   code: string
 }
 const appStore = useAppStore()
+const loginStore = useLoginWithout()
 const permissionStore = usePermissionStore()
 const { t } = useI18n()
 const { wsCache } = useCache()
@@ -181,7 +187,6 @@ const { currentRoute, push } = useRouter()
 
 const emit = defineEmits(['to-register'])
 const successShow = ref(false)
-const overtimeShow = ref(false)
 const tipsText = ref('等待用户扫码')
 const isPassInput = reactive<string[]>([])
 
@@ -237,10 +242,9 @@ const rules = reactive<FormRules>({
     }
   ]
 })
-
+let timerCheck = ref(null)
 const scanCodeQuery = reactive<ScanSchema>({
   socket: '',
-  timerCheck: '',
   activeName: 'ScanCode'
 })
 
@@ -311,7 +315,7 @@ const submitForm = async () => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
       if (valid) {
-        // phoneLoginHtttp()
+        phoneLoginHtttp()
         console.log('手机登录!', loginForm)
       } else {
         console.log('error submit!', fields)
@@ -322,12 +326,10 @@ const submitForm = async () => {
 
 // 第三方登录
 function onThirdLogin(type) {
-  // thirdModalRef.value.onThirdLogin(type);
+  ElMessage.info('功能正在开发中...')
 }
 
 const accountLoginHttp = async () => {
-  // await loginApi(params);
-  // const { data: res } = await $http.post('/user/login1', Qs.stringify(loginForm))
   let params = {
     username: loginForm.account || 'admin',
     password: loginForm.password || 'admin'
@@ -335,14 +337,12 @@ const accountLoginHttp = async () => {
   try {
     const res = await loginApi(params)
     console.log('res', res)
-    loginLoding.value = false
     if (res) {
       wsCache.set(appStore.getUserInfo, res)
-      // router.push()
       getRole()
     }
   } finally {
-    // loading.value = false
+    loginLoding.value = false
   }
 }
 // 获取权限/路由
@@ -355,23 +355,10 @@ const getRole = async () => {
     const routers = res || []
     wsCache.set('roleRouters', routers)
     push({ path: '/home' })
-    loginLoding.value = false
-    // try {
-    // await permissionStore.generateRoutes('admin', constantRouterMap).catch(() => {})
-    // permissionStore.getAddRouters.forEach((route) => {
-    //   addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-    // })
-    // permissionStore.setIsAddRouters(true)
-    // push({ path: '/home' })
-
-    // push({ path: redirect.value || permissionStore.addRouters[0].path })
-    //   push({ path: '/home' })
-    // } catch (e) {
-    //   console.log(e)
-    // }
   }
 }
 
+// 邮箱注册
 const emailRegister = async () => {
   // loginForm.code = loginForm.inputCode
   // const { data: res } = await $http.post('/user/register', Qs.stringify(loginForm))
@@ -414,7 +401,20 @@ const countDown = () => {
   }, 1000)
 }
 
-// 注册
+watch(loginTypeIndex, (value) => {
+  console.log(value)
+  if (value === 'scan') {
+    getQRcode()
+  }
+})
+const QRImage = computed(() => {
+  return loginStore.getQRimage
+})
+
+const isScanCodeSuccess = computed(() => {
+  return loginStore.getCodeStatus
+})
+// 注册功能
 const handleToRegister = () => {
   emit('to-register')
 }
@@ -422,8 +422,9 @@ const handleToRegister = () => {
 
 // 获取二维码
 const getQRcode = () => {
-  // $store.dispatch('getQRcode')
-  // scanCodeQuery.timerCheck = setInterval(() => checkScanCode(), 1000)
+  loginStore.httpQRcode()
+  // 轮询检查二维码是否失效
+  // timerCheck.value = setInterval(() => checkScanCode(), 1000)
 }
 
 const scanAgainScanCode = () => {
@@ -440,18 +441,29 @@ const valitedInput = (str, value) => {
   // isPassInput.includes(str) && isPassInput.splice(isPassInput.indexOf(str), 1)
   // }
 }
-// const checkScanCode = () => {
-// 扫码成功
-// if ($store.state.successShow || $store.state.overtimeShow) {
-// clearInterval(timerCheck) // 扫码成功，清除定时器，不再询问服务器
-// }
-// $store.dispatch('checkScanCode', $store.state.uuid)
-// }
+
+// 检查二维码的状态
+const checkScanCode = () => {
+  // 扫码成功
+  // if ($store.state.successShow || $store.state.overtimeShow) {
+  //   clearInterval(timerCheck.value) // 扫码成功，清除定时器，不再询问服务器
+  // }
+  console.log('检查中')
+  if (1) {
+    clearInterval(timerCheck.value)
+  }
+  loginStore.checkScanStatus(loginStore.QRId)
+}
+
+// 二维码是否超时
+const overtimeShow = computed(() => {
+  return loginStore.getCodeOvertime
+})
 // 二维码失效后，用户点击二维码重新获取二维码的事件
 const AgainScanCode = () => {
   console.log('二维码失效')
-  // $store.commit('AgainScanCode')
-  // getQRcode()
+  loginStore.resetQRcode()
+  getQRcode()
 }
 </script>
 <style lang="less">
@@ -664,6 +676,10 @@ const AgainScanCode = () => {
     text-align: center;
     z-index: 3;
     font-size: 18px;
+    img {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   .QRcode_img {
@@ -682,6 +698,7 @@ const AgainScanCode = () => {
   font-size: 13px;
   margin: 0;
   padding: 0;
+  margin-top: 10px;
 }
 
 // }

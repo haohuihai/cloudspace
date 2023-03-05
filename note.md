@@ -196,7 +196,7 @@ SyntaxError: Cannot use import statement outside a module
 
 ```json
 {
-	code: '0000',
+	code: 200,
     data: []
 }
 ```
@@ -205,7 +205,7 @@ SyntaxError: Cannot use import statement outside a module
 
 ```json
 {
-    code: '0001',
+    code: 400,
     message: '一些说明'
 }
 ```
@@ -275,6 +275,5 @@ VITE_APP_TITLE=MySpace
 所有将默认的对象和.env.base中配置的内容进行了合并
 
 我们也可以指定 其他的  比如dev
-
 
 <hr />

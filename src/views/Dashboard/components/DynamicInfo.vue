@@ -21,7 +21,7 @@
 import { ElCard, ElButton, ElDivider } from 'element-plus'
 import { dynamicInfoItems } from '../data'
 import { Icon } from '@/components/Icon'
-import headerImg from '@/assets/imgs/avatar.jpg'
+import headerImg from '@/assets/imgs/avatar.jpeg'
 // const ListItem = List.Item;
 // const ListItemMeta = List.Item.Meta;
 </script>

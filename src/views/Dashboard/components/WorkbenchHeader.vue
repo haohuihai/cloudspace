@@ -26,7 +26,7 @@
 import { computed, reactive } from 'vue'
 import { ElAvatar, ElCard } from 'element-plus'
 // import { useUserStore } from '@/store/modules/user';
-import headerImg from '@/assets/imgs/avatar.jpg'
+import headerImg from '@/assets/imgs/avatar.jpeg'
 
 let userinfo = reactive({
   avatar: '',
