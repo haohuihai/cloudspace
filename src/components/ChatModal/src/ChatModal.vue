@@ -104,12 +104,18 @@ import { ElDialog, ElAvatar, ElTabs, ElTabPane, ElInput, ElMessage } from 'eleme
 
 import { useDesign } from '@/hooks/web/useDesign'
 import { useAppStore } from '@/stores/modules/app'
+import { useChatStore } from '@/stores/modules/chat'
 import { useCache } from '@/hooks/web/useCache'
+
+import { randomString } from '@/utils/utils.js'
+
 const { wsCache } = useCache()
 const { getPrefixCls } = useDesign()
 
 const prefixCls = getPrefixCls('chat-modal')
 const appStore = useAppStore()
+const chatStore = useChatStore()
+
 const userInfo = wsCache.get(appStore.getUserInfo)
 export default defineComponent({
   components: { ElDialog, ElAvatar, ElTabPane, ElTabs, ElInput },
@@ -175,6 +181,8 @@ export default defineComponent({
     }
     // 发送文本事件
     function sendMessage() {
+      // 每次生成随机的messageId,
+
       console.log('userInfo', userInfo)
       if (!textareaValue.value.trim()) {
         ElMessage.error('请输入内容')
@@ -190,6 +198,17 @@ export default defineComponent({
         senderId: '123222',
         content: textareaValue.value
       })
+
+      const aaa = randomString(true, 18, 32)
+
+      console.log('aaa', aaa)
+      chatStore.sendMessage({
+        myUserId: userInfo.userId,
+        heUserId: 2,
+        id: chatStore.getSocketId,
+        content: textareaValue.value,
+        messageId: aaa
+      })
       textareaValue.value = ''
       scrollToBottom()
     }
@@ -201,12 +220,9 @@ export default defineComponent({
     }
     onMounted(() => {
       // 当界面挂载出来后就会自动执行
-      console.log(messageRef.value)
     })
     // 滚动到底部
-    function scrollToBottom() {
-      console.log(messageRef)
-    }
+    function scrollToBottom() {}
     return {
       prefixCls,
       visible,

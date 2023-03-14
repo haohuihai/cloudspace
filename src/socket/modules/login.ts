@@ -5,6 +5,8 @@ const loginStore = useLoginWithout()
 const connectLogin = (socket) => {
   // 监听服务器传的二维码等信息
   socket.on('login_sendQRcode', (data) => {
+    console.log('data', data)
+
     loginStore.setQRimage(data.QRcode)
     loginStore.setQRId(data.QRId)
     ElNotification.error('连接成功')

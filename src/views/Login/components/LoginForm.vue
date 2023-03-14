@@ -34,10 +34,7 @@
               </ElFormItem>
             </ElCol>
             <ElCol :span="8" :offset="2">
-              <img
-                class="w-40 h-30px"
-                src="data:image/jpg;base64,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"
-              />
+              <span @click="getImageCode" class="w-40 h-30px" v-html="imageCodeSvg"></span>
             </ElCol>
           </ElRow>
           <ElRow>
@@ -137,8 +134,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
-import { reactive, ref, watch, unref } from 'vue'
+import {
+  loginApi,
+  getTestRoleApi,
+  getAdminRoleApi,
+  getPhoneCode,
+  phoneLoginApi,
+  getImageCodeApi
+} from '@/api/login'
+import { reactive, ref, watch, unref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
@@ -192,15 +196,16 @@ const isPassInput = reactive<string[]>([])
 
 const ruleFormRef = ref<FormInstance>()
 const rulePhoneFormRef = ref<FormInstance>()
+const imageCodeSvg = ref<any>(null)
 
 const loginForm = reactive<LoginFormType>({
   account: 'admin',
   password: 'admin',
-  inputCode: '123',
+  inputCode: '',
   savePassword: false
 })
 const rulePhoneForm = reactive<RulePhoneType>({
-  phone: '',
+  phone: '17602220823',
   code: ''
 })
 const rulesPhone = reactive<FormRules>({
@@ -258,7 +263,9 @@ const redirect = ref<string>('')
 const loginTypeIndex = ref<string>('account') // account 邮箱，phone  手机  scan  扫码
 
 let loginLoding = ref<boolean>(false)
-
+onMounted(() => {
+  getImageCode()
+})
 // 监听当前路由变化
 watch(
   () => currentRoute.value,
@@ -269,18 +276,26 @@ watch(
     immediate: true
   }
 )
-const handleSendNumber = () => {
+
+// 获取图像验证吗
+const getImageCode = async () => {
+  const result = await getImageCodeApi()
+  imageCodeSvg.value = result
+}
+
+// 发送验证吗
+const handleSendNumber = async () => {
   let regExp = new RegExp('^1[3578]\\d{9}$')
   // 校验手机号是否合法
   let isRight = !isSend.value && regExp.test(rulePhoneForm.phone)
 
   if (isRight) {
     if (loginTypeIndex.value === 'phone') {
-      // const { data: res } = await $http.post('/user/code', Qs.stringify(loginForm))
-      // if (res.status === 'fail') return // $message.success(res.msg)
-      // $message.success("验证码发送成功")
       countDown()
-      // 手机登录
+      const result = await getPhoneCode({
+        phoneNumber: rulePhoneForm.phone
+      })
+      ElMessage.success(`验证码为：${result}`)
     } else {
       // const { data: res } = await $http.get('/user/sendSMS', {
       // params: {
@@ -296,16 +311,17 @@ const handleSendNumber = () => {
     ElMessage.error('请输入正确的手机格式')
   }
 }
+
+// 登录
 const submitForm = async () => {
-  console.log(unref(loginTypeIndex))
   if (unref(loginTypeIndex) === 'account') {
     let formEl = ruleFormRef.value
+
     if (!formEl) return
     await formEl.validate((valid, fields) => {
       if (valid) {
         loginLoding.value = true
         accountLoginHttp()
-        // console.log('账号密码!', loginForm)
       } else {
         console.log('error submit!', fields)
       }
@@ -315,8 +331,7 @@ const submitForm = async () => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
       if (valid) {
-        phoneLoginHtttp()
-        console.log('手机登录!', loginForm)
+        phoneLogin()
       } else {
         console.log('error submit!', fields)
       }
@@ -336,7 +351,6 @@ const accountLoginHttp = async () => {
   }
   try {
     const res = await loginApi(params)
-    console.log('res', res)
     if (res) {
       wsCache.set(appStore.getUserInfo, res)
       getRole()
@@ -371,23 +385,14 @@ const emailRegister = async () => {
   // countDown()
   // }
 }
-const phoneLoginHtttp = async () => {
-  const res = { status: 'fail' }
-  // const { data: res } = await $http.get('/user/phoneLogin', {
-  //   params: {
-  //     phoneNumber: loginForm.phoneNumber,
-  //     inputCode: loginForm.inputCode
-  //   }
-  // })
-  if (res.status === 'fail') return // $message.error(res.msg)
-
-  // $message.success("登录成功")
-  // localStorage.setItem('userInfo', JSON.stringify(res.result))
-  // localStorage.setItem('token', res.result.token)
-  // if (timeId) {
-  //   countDown()
-  // }
-  // $router.push('/')
+const phoneLogin = async () => {
+  const result = await phoneLoginApi({
+    loginInput: rulePhoneForm.phone,
+    code: rulePhoneForm.code,
+    type: 'phone'
+  })
+  wsCache.set(appStore.getUserInfo, result)
+  getRole()
 }
 const countDown = () => {
   isSend.value = true
@@ -461,7 +466,6 @@ const overtimeShow = computed(() => {
 })
 // 二维码失效后，用户点击二维码重新获取二维码的事件
 const AgainScanCode = () => {
-  console.log('二维码失效')
   loginStore.resetQRcode()
   getQRcode()
 }
@@ -676,6 +680,7 @@ const AgainScanCode = () => {
     text-align: center;
     z-index: 3;
     font-size: 18px;
+
     img {
       width: 40px;
       height: 40px;

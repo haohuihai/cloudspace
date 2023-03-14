@@ -32,6 +32,8 @@ export const useLogin = defineStore('login', {
       socket.emit('login_getQRcode')
     },
     setQRimage(image: string) {
+      console.log(image)
+
       this.QRimage = image
     },
     setQRId(id: string) {
