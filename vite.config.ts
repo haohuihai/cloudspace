@@ -90,11 +90,11 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       port: 4000,
       proxy: {
         '/api': {
-          target: 'http://10.102.220.188:10000',
+          target: 'http://192.168.45.80:10000',
           changeOrigin: true,
         },
         '/socket.io': {
-          target: 'ws://10.102.220.188:9080',
+          target: 'ws://192.168.45.80:9080',
           changeOrigin: true
         }
       },

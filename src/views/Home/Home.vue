@@ -1,7 +1,7 @@
 <template>
   <div class="height-100vh backgroundImg">
     <div class="input-search">
-      <ElInput v-model="input" placeholder="请输入你想搜的" />
+      <ElInput v-model="inputKeyword" placeholder="请输入你想搜的" @input="handleSearch" />
     </div>
     <div class="container-box">
       <div v-for="item in appList.list" :key="item.id" class="box" @click="toDetailPage(item)">
@@ -48,7 +48,7 @@ interface List {
   img: string
   desc: string
 }
-let input = ref('')
+let inputKeyword = ref('')
 const loading = ref(true)
 const appList = reactive<{ list: List[] }>({
   list: []
@@ -59,6 +59,13 @@ onMounted(async () => {
   loading.value = false
   appList.list = result
 })
+
+const handleSearch = async () => {
+  console.log(inputKeyword.value)
+  const result = await getAppListApi({name: inputKeyword.value})
+  loading.value = false
+  appList.list = result
+}
 
 const toggleCollapse = () => {
   console.log(123)

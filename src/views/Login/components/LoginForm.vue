@@ -191,8 +191,6 @@ const { currentRoute, push } = useRouter()
 
 const emit = defineEmits(['to-register'])
 const successShow = ref(false)
-const tipsText = ref('等待用户扫码')
-const isPassInput = reactive<string[]>([])
 
 const ruleFormRef = ref<FormInstance>()
 const rulePhoneFormRef = ref<FormInstance>()
@@ -347,7 +345,8 @@ function onThirdLogin(type) {
 const accountLoginHttp = async () => {
   let params = {
     username: loginForm.account || 'admin',
-    password: loginForm.password || 'admin'
+    password: loginForm.password || 'admin',
+    validate: loginForm.inputCode
   }
   try {
     const res = await loginApi(params)
@@ -434,17 +433,6 @@ const getQRcode = () => {
 
 const scanAgainScanCode = () => {
   console.log(111)
-}
-// 验证输入框是否合法
-const valitedInput = (str, value) => {
-  console.log('校验')
-  // let validForm = new ValidForm()
-  // if (!validForm[str](value)) {
-  // isPassInput.includes(str) && isPassInput.push(str)
-  // $message.error("输入格式错误")
-  // } else {
-  // isPassInput.includes(str) && isPassInput.splice(isPassInput.indexOf(str), 1)
-  // }
 }
 
 // 检查二维码的状态

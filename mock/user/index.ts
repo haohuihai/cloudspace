@@ -145,10 +145,11 @@ export default [
     url: '/mock/user/appList',
     method: 'get',
     timeout,
-    response: () => {
+    response: ({ query }) => {
+      const data = query.name ? applist.filter((item) => item.name.includes(query.name)) : applist
       return {
         code: result_code,
-        data: applist
+        data: data
       }
     }
   }
