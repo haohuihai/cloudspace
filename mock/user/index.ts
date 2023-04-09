@@ -142,7 +142,7 @@ export default [
     }
   },
   {
-    url: '/mock/user/appList',
+    url: '/user/appList',
     method: 'get',
     timeout,
     response: ({ query }) => {

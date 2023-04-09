@@ -262,7 +262,7 @@ const loginTypeIndex = ref<string>('account') // account 邮箱，phone  手机 
 
 let loginLoding = ref<boolean>(false)
 onMounted(() => {
-  getImageCode()
+  // getImageCode()
 })
 // 监听当前路由变化
 watch(
@@ -367,7 +367,7 @@ const getRole = async () => {
   if (res) {
     const routers = res || []
     wsCache.set('roleRouters', routers)
-    push({ path: '/home' })
+    push({ path: '/backmanage/analysis' })
   }
 }
 

@@ -18,5 +18,5 @@ export const getImageCodeApi = (data: UserType): Promise<IResponse<UserType>> =>
 export const getAdminRoleApi = (
   params: RoleParams
 ): Promise<IResponse<AppCustomRouteRecordRaw[]>> => {
-  return request.get({ url: '/mock/role/list', params })
+  return request.get({ url: '/role/list', params })
 }

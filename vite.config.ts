@@ -89,14 +89,15 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     server: {
       port: 4000,
       proxy: {
-        '/api': {
-          target: 'http://192.168.45.80:10000',
-          changeOrigin: true,
-        },
-        '/socket.io': {
-          target: 'ws://192.168.45.80:9080',
-          changeOrigin: true
-        }
+
+        // '/api': {
+        //   target: 'http://10.102.220.155:10000',
+        //   changeOrigin: true,
+        // },
+        // '/socket.io': {
+        //   target: 'ws://10.102.220.155:9080',
+        //   changeOrigin: true
+        // }
       },
       hmr: {
         overlay: false

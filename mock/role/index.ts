@@ -103,15 +103,6 @@ const adminList = [
     }
   },
   {
-    path: '/clouddisk',
-    component: 'views/CloudDisk/cloudDisk',
-    name: 'CloudDisk',
-    meta: {
-      title: '云盘',
-      hidden: true
-    }
-  },
-  {
     path: '/home',
     component: 'views/Home/Home',
     name: 'Home',
@@ -166,44 +157,6 @@ const adminList = [
       title: 'canvas',
       noTagsView: true
     }
-  },
-  {
-    path: '/article',
-    name: 'Article',
-    meta: {
-      title: '文章列表',
-      hidden: true,
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: '',
-        component: 'views/Article/Home',
-        name: '文章列表',
-        meta: {
-          title: 'router.Article',
-          noCache: true
-        }
-      },
-      {
-        path: 'publish',
-        component: 'views/Article/Publish',
-        name: '写文章',
-        meta: {
-          title: 'router.Publish',
-          noCache: true
-        }
-      },
-      {
-        path: 'preview/:id',
-        component: 'views/Article/Preview',
-        name: '预览文章',
-        meta: {
-          title: 'router.Preview',
-          noCache: true
-        }
-      }
-    ]
   },
   {
     path: '/game',
@@ -670,7 +623,7 @@ const adminList = [
 export default [
   // 列表接口
   {
-    url: '/mock/role/list',
+    url: '/role/list',
     method: 'get',
     timeout,
     response: ({ query }) => {

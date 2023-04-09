@@ -49,8 +49,6 @@ import '@/socket'
 const setupAll = async () => {
   const app = createApp(App)
   await setupI18n(app)
-  // app.config.globalProperties.$socket = SocketService
-  app.config.globalProperties.$echarts = window.echarts
   setupStore(app)
   setupRouter(app)
   setupElementPlus(app)

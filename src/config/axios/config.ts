@@ -20,13 +20,13 @@ const config: {
    */
   base_url: {
     // 开发环境接口前缀
-    base: '/api',
+    base: '/',
 
     // 打包开发环境接口前缀
-    dev: '/api',
+    dev: '/',
 
     // 打包生产环境接口前缀
-    pro: '/api',
+    pro: '/',
 
     // 打包测试环境接口前缀
     test: ''
