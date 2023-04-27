@@ -37,29 +37,6 @@ const adminList = [
     ]
   },
   {
-    path: '/chat',
-    component: '#',
-    name: 'Chat',
-    meta: {
-      title: 'router.mainlist',
-      icon: 'fa-solid:address-card',
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: 'chat',
-        fullPath: '/chat/chat',
-        component: 'views/Chat/chat',
-        name: 'ChatList',
-        meta: {
-          icon: 'majesticons:chat-2-text',
-          title: 'router.chat',
-          noCache: true
-        }
-      }
-    ]
-  },
-  {
     path: '/component',
     component: '#',
     name: 'Component',
@@ -92,24 +69,6 @@ const adminList = [
         }
       }
     ]
-  },
-  {
-    path: '/webrtc',
-    component: 'views/Webrtc/webrtc',
-    name: 'Webrtc',
-    meta: {
-      title: '音视频',
-      hidden: true
-    }
-  },
-  {
-    path: '/home',
-    component: 'views/Home/Home',
-    name: 'Home',
-    meta: {
-      title: '首页',
-      hidden: true
-    }
   },
   {
     path: '/visualization',
@@ -147,16 +106,6 @@ const adminList = [
         }
       }
     ]
-  },
-  {
-    path: '/canvas',
-    component: 'views/Canvas/index',
-    name: 'canvas',
-    meta: {
-      hidden: true,
-      title: 'canvas',
-      noTagsView: true
-    }
   },
   {
     path: '/game',

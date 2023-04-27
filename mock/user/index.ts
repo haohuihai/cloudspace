@@ -1,6 +1,7 @@
 import { config } from '@/config/axios/config'
 import { MockMethod } from 'vite-plugin-mock'
-
+import Mock from 'mockjs'
+import { Random } from 'mockjs'
 const { result_code } = config
 
 const timeout = 1000
@@ -150,6 +151,19 @@ export default [
       return {
         code: result_code,
         data: data
+      }
+    }
+  },
+  {
+    url: '/login/getQRImage',
+    method: 'get',
+    response: ({ query }) => {
+      const image = Random.image('200x100', '#ffcc33', '#FFF', 'png', '!')
+      console.log('image', image)
+
+      return {
+        code: result_code,
+        data: image
       }
     }
   }

@@ -140,7 +140,8 @@ import {
   getAdminRoleApi,
   getPhoneCode,
   phoneLoginApi,
-  getImageCodeApi
+  getImageCodeApi,
+  getImageQRimage
 } from '@/api/login'
 import { reactive, ref, watch, unref, onMounted } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -262,7 +263,7 @@ const loginTypeIndex = ref<string>('account') // account 邮箱，phone  手机 
 
 let loginLoding = ref<boolean>(false)
 onMounted(() => {
-  // getImageCode()
+  getImageQRimage()
 })
 // 监听当前路由变化
 watch(
@@ -277,7 +278,9 @@ watch(
 
 // 获取图像验证吗
 const getImageCode = async () => {
-  const result = await getImageCodeApi()
+  const result = await getImageQRimage()
+  console.log('result', result)
+
   imageCodeSvg.value = result
 }
 
@@ -312,6 +315,7 @@ const handleSendNumber = async () => {
 
 // 登录
 const submitForm = async () => {
+  getImageCode()
   if (unref(loginTypeIndex) === 'account') {
     let formEl = ruleFormRef.value
 
