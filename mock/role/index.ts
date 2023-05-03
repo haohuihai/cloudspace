@@ -7,9 +7,10 @@ const timeout = 1000
 
 const adminList = [
   {
-    path: '/backmanage',
+    path: '/dashboard',
     component: '#',
     name: 'Dashboard',
+    redirect: '/dashboard/analysis',
     meta: {
       title: 'router.dashboard',
       icon: 'ant-design:dashboard-filled',

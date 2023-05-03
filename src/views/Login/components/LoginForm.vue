@@ -371,7 +371,7 @@ const getRole = async () => {
   if (res) {
     const routers = res || []
     wsCache.set('roleRouters', routers)
-    push({ path: '/backmanage/analysis' })
+    push({ path: '/dashboard' })
   }
 }
 

@@ -25,7 +25,7 @@ router.beforeEach(async (to, from, next) => {
   console.log(wsCache.get(appStore.getUserInfo))
   if (wsCache.get(appStore.getUserInfo)) {
     if (to.path === '/login') {
-      next({ path: '/home' })
+      next({ path: '/dashboard' })
     } else {
       // 判断是否已经将路由添加到store里面
       if (permissionStore.getIsAddRouters) {
