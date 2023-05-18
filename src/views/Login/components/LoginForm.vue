@@ -34,7 +34,7 @@
               </ElFormItem>
             </ElCol>
             <ElCol :span="8" :offset="2">
-              <span @click="getImageCode" class="w-40 h-30px" v-html="imageCodeSvg"></span>
+              <img @click="getImageCode" class="w-40 h-30px" :src="imageCodeSvg" />
             </ElCol>
           </ElRow>
           <ElRow>
@@ -162,7 +162,7 @@ import {
 } from 'element-plus'
 import { usePermissionStore } from '@/stores/modules/permission'
 import { useAppStore } from '@/stores/modules/app'
-import { useLoginWithout } from '@/stores/modules/login'
+import { useLoginWithout, setNewCode, getCode } from '@/stores/modules/login'
 import { useI18n } from '@/hooks/web/useI18n'
 import { useCache } from '@/hooks/web/useCache'
 import { computed } from 'vue'
@@ -263,7 +263,12 @@ const loginTypeIndex = ref<string>('account') // account 邮箱，phone  手机 
 
 let loginLoding = ref<boolean>(false)
 onMounted(() => {
-  getImageQRimage()
+  getImageCode()
+  // 监听是否记住密码
+  if (wsCache.get(appStore.userPassword)) {
+    var pwd = GetCookie(usr)
+    loginForm.password = wsCache.get(appStore.userPassword)
+  }
 })
 // 监听当前路由变化
 watch(
@@ -275,10 +280,30 @@ watch(
     immediate: true
   }
 )
-
+const randomString = (e) => {
+  e = e || 32
+  let t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678',
+    a = t.length,
+    n = ''
+  for (let i = 0; i < e; i++) {
+    n += t.charAt(Math.floor(Math.random() * a))
+  }
+  return n
+}
+function randomNum(n) {
+  var res = ''
+  for (var i = 0; i < n; i++) {
+    res += Math.floor(Math.random() * 10)
+  }
+  return res
+}
 // 获取图像验证吗
 const getImageCode = async () => {
-  const result = await getImageQRimage()
+  let code = randomString(4)
+  loginStore.setNewCode(code)
+  const result = await getImageQRimage({
+    code
+  })
   console.log('result', result)
 
   imageCodeSvg.value = result
@@ -293,9 +318,13 @@ const handleSendNumber = async () => {
   if (isRight) {
     if (loginTypeIndex.value === 'phone') {
       countDown()
+      let phoneCode = randomNum(4)
+
       const result = await getPhoneCode({
-        phoneNumber: rulePhoneForm.phone
+        phoneNumber: rulePhoneForm.phone,
+        phoneCode
       })
+      loginStore.setPhoneCode(result)
       ElMessage.success(`验证码为：${result}`)
     } else {
       // const { data: res } = await $http.get('/user/sendSMS', {
@@ -315,8 +344,13 @@ const handleSendNumber = async () => {
 
 // 登录
 const submitForm = async () => {
-  getImageCode()
+  console.log(loginStore.getCode)
+
   if (unref(loginTypeIndex) === 'account') {
+    if (loginForm.inputCode.toLowerCase() !== loginStore.getCode.toLowerCase()) {
+      ElMessage.error('验证码输入错误')
+      return
+    }
     let formEl = ruleFormRef.value
 
     if (!formEl) return
@@ -329,6 +363,10 @@ const submitForm = async () => {
       }
     })
   } else if (unref(loginTypeIndex) === 'phone') {
+    if (loginStore.getPhoneCode != rulePhoneForm.code) {
+      ElMessage.error('手机验证码输入错误')
+      return
+    }
     let formEl = rulePhoneFormRef.value
     if (!formEl) return
     await formEl.validate((valid, fields) => {
@@ -355,12 +393,56 @@ const accountLoginHttp = async () => {
   try {
     const res = await loginApi(params)
     if (res) {
+      if (loginForm.savePassword) {
+        // var expdate = new Date()
+        // expdate.setTime(expdate.getTime() + 14 * (24 * 60 * 60 * 1000))
+        //将用户名和密码写入到Cookie
+        // SetCookie(loginForm.account, loginForm.password, expdate)
+      }
       wsCache.set(appStore.getUserInfo, res)
       getRole()
     }
   } finally {
     loginLoding.value = false
   }
+}
+//写入到Cookie
+function SetCookie(name, value, expires) {
+  var argv = SetCookie.arguments
+  //本例中length = 3
+  var argc = SetCookie.arguments.length
+  var expires = argc > 2 ? argv[2] : null
+  var path = argc > 3 ? argv[3] : null
+  var domain = argc > 4 ? argv[4] : null
+  var secure = argc > 5 ? argv[5] : false
+  document.cookie =
+    name +
+    '=' +
+    escape(value) +
+    (expires == null ? '' : '; expires=' + expires.toGMTString()) +
+    (path == null ? '' : '; path=' + path) +
+    (domain == null ? '' : '; domain=' + domain) +
+    (secure == true ? '; secure' : '')
+}
+//取Cookie的值
+function GetCookie(name) {
+  var arg = name + '='
+  var alen = arg.length
+  var clen = document.cookie.length
+  var i = 0
+  while (i < clen) {
+    var j = i + alen
+    //alert(j);
+    if (document.cookie.substring(i, j) == arg) return getCookieVal(j)
+    i = document.cookie.indexOf(' ', i) + 1
+    if (i == 0) break
+  }
+  return null
+}
+function getCookieVal(offset) {
+  var endstr = document.cookie.indexOf(';', offset)
+  if (endstr == -1) endstr = document.cookie.length
+  return unescape(document.cookie.substring(offset, endstr))
 }
 // 获取权限/路由
 const getRole = async () => {
@@ -391,9 +473,14 @@ const emailRegister = async () => {
 const phoneLogin = async () => {
   const result = await phoneLoginApi({
     loginInput: rulePhoneForm.phone,
-    code: rulePhoneForm.code,
     type: 'phone'
   })
+  console.log(result)
+
+  if (result.code !== 200) {
+    ElMessage.error(result.message)
+    return
+  }
   wsCache.set(appStore.getUserInfo, result)
   getRole()
 }

@@ -9,6 +9,7 @@ const timeout = 1000
 const List: {
   username: string
   password: string
+  phone: string
   role: string
   roleId: string
   permissions: string | string[]
@@ -17,6 +18,7 @@ const List: {
     username: 'admin',
     password: 'admin',
     role: 'admin',
+    phone: '13132321234',
     roleId: '1',
     permissions: ['*.*.*']
   },
@@ -24,6 +26,7 @@ const List: {
     username: 'test',
     password: 'test',
     role: 'test',
+    phone: '13132321234',
     roleId: '2',
     permissions: ['example:dialog:create', 'example:dialog:delete']
   }
@@ -104,7 +107,31 @@ export default [
       }
     }
   },
-  // 登录接口
+  {
+    url: '/user/phoneLogin',
+    method: 'post',
+    timeout,
+    response: ({ body }) => {
+      const data = body
+      let hasUser = false
+      for (const user of List) {
+        if (user.phone === data.loginInput) {
+          hasUser = true
+          return {
+            code: result_code,
+            data: user
+          }
+        }
+      }
+      if (!hasUser) {
+        return {
+          code: '500',
+          message: '手机号不存在'
+        }
+      }
+    }
+  },
+  // 登录接口   账号登陆
   {
     url: '/user/login',
     method: 'post',
@@ -143,6 +170,17 @@ export default [
     }
   },
   {
+    url: '/user/getPhoneCode',
+    method: 'post',
+    timeout,
+    response: ({ body }) => {
+      return {
+        code: result_code,
+        data: body.phoneCode
+      }
+    }
+  },
+  {
     url: '/user/appList',
     method: 'get',
     timeout,
@@ -158,8 +196,7 @@ export default [
     url: '/login/getQRImage',
     method: 'get',
     response: ({ query }) => {
-      const image = Random.image('200x100', '#ffcc33', '#FFF', 'png', '!')
-      console.log('image', image)
+      const image = Random.image('200x100', '#ffcc33', '#FFF', 'png', query.code)
 
       return {
         code: result_code,

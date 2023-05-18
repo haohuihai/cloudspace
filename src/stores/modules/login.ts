@@ -6,6 +6,8 @@ interface LoginState {
   QRId: string
   isSuccessStatus: boolean
   isOverTime: boolean
+  code: string
+  phoneCode: string
 }
 export const useLogin = defineStore('login', {
   state: (): LoginState => {
@@ -13,7 +15,9 @@ export const useLogin = defineStore('login', {
       QRimage: '',
       QRId: '',
       isOverTime: false,
-      isSuccessStatus: false
+      isSuccessStatus: false,
+      code: '',
+      phoneCode: ''
     }
   },
   getters: {
@@ -25,6 +29,12 @@ export const useLogin = defineStore('login', {
     },
     getCodeOvertime(): boolean {
       return this.isOverTime
+    },
+    getCode(): string {
+      return this.code
+    },
+    getPhoneCode(): string {
+      return this.phoneCode
     }
   },
   actions: {
@@ -44,6 +54,12 @@ export const useLogin = defineStore('login', {
     },
     setCodeStatus(flag: boolean) {
       this.isSuccessStatus = flag
+    },
+    setNewCode(code: string) {
+      this.code = code
+    },
+    setPhoneCode(code: string) {
+      this.phoneCode = code
     },
     setCodeOvertime(flag: boolean) {
       this.isOverTime = flag

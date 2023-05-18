@@ -15,8 +15,8 @@ export const phoneLoginApi = (data: UserType): Promise<IResponse<UserType>> => {
 export const getImageCodeApi = (data: UserType): Promise<IResponse<UserType>> => {
   return request.get({ url: '/ImageCode' })
 }
-export const getImageQRimage = (data: UserType): Promise<IResponse<UserType>> => {
-  return request.get({ url: '/login/getQRImage' })
+export const getImageQRimage = (params: UserType): Promise<IResponse<UserType>> => {
+  return request.get({ url: '/login/getQRImage', params })
 }
 export const getAdminRoleApi = (
   params: RoleParams

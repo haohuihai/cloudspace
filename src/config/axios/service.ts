@@ -49,13 +49,14 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   (response: AxiosResponse<any>) => {
+    console.log(response.data)
     if (response.config.responseType === 'blob') {
       // 如果是文件流，直接过
       return response
     } else if (response.data.code === result_code) {
       return response.data.data
     } else {
-      ElMessage.error(response.data.msg)
+      ElMessage.error(response.data.message)
     }
   },
   (error: AxiosError) => {
