@@ -38,39 +38,49 @@ const adminList = [
     ]
   },
   {
-    path: '/component',
-    component: '#',
-    name: 'Component',
+    path: '/test',
+    name: 'Dashboard',
     meta: {
-      title: 'router.component',
-      icon: 'fluent-mdl2:web-components',
+      title: 'router.dashboard',
+      icon: 'ant-design:dashboard-filled',
       alwaysShow: true
     },
-    children: [
-      {
-        path: 'common',
-        fullPath: '/component/common',
-        component: 'views/Component/common',
-        name: 'Currency',
-        meta: {
-          icon: 'carbon:assembly-cluster',
-          title: 'router.common',
-          noCache: true
-        }
-      },
-      {
-        path: 'custom',
-        fullPath: '/component/custom',
-        component: 'views/Component/custom',
-        name: 'Custom',
-        meta: {
-          icon: 'mdi:assembly',
-          title: 'router.custom',
-          noCache: true
-        }
-      }
-    ]
+    component: 'views/Test/test'
   },
+  // {
+  //   path: '/component',
+  //   component: '#',
+  //   name: 'Component',
+  //   meta: {
+  //     title: 'router.component',
+  //     icon: 'fluent-mdl2:web-components',
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: 'common',
+  //       fullPath: '/component/common',
+  //       component: 'views/Component/common',
+  //       name: 'Currency',
+  //       meta: {
+  //         icon: 'carbon:assembly-cluster',
+  //         title: 'router.common',
+  //         noCache: true
+  //       }
+  //     },
+  //     {
+  //       path: 'custom',
+  //       fullPath: '/component/custom',
+  //       component: 'views/Component/custom',
+  //       name: 'Custom',
+  //       meta: {
+  //         icon: 'mdi:assembly',
+  //         title: 'router.custom',
+  //         noCache: true
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: '/visualization',
     name: 'Visiual',
@@ -216,56 +226,156 @@ const adminList = [
   //   ]
   // },
   {
-    path: '/components',
+    path: '/components/form',
+    redirect: 'form',
     component: '#',
-    redirect: '/components/icon',
     name: 'ComponentsDemo',
     meta: {
-      title: 'router.component',
+      title: 'router.form',
       icon: 'bx:bxs-component',
       alwaysShow: true
     },
     children: [
       {
-        path: 'form',
-        component: '##',
-        name: 'Form',
+        path: 'base-form',
+        component: 'views/Components/Form/BaseForm/BaseForm',
+        name: 'BaseForm',
         meta: {
-          title: 'router.form',
-          alwaysShow: true
-        },
-        children: [
-          {
-            path: 'default-form',
-            component: 'views/Components/Form/DefaultForm',
-            name: 'DefaultForm',
-            meta: {
-              title: 'router.defaultForm'
-            }
-          },
-          {
-            path: 'use-form',
-            component: 'views/Components/Form/UseFormDemo',
-            name: 'UseForm',
-            meta: {
-              title: 'UseForm'
-            }
-          },
-          {
-            path: 'ref-form',
-            component: 'views/Components/Form/RefForm',
-            name: 'RefForm',
-            meta: {
-              title: 'RefForm'
-            }
-          }
-        ]
+          title: 'router.baseForm',
+          noCache: true
+        }
+      },
+      {
+        path: 'distribution-form',
+        component: 'views/Components/Form/Distribution/Distribution',
+        name: 'Distribution',
+        meta: {
+          title: 'router.distributionForm',
+          noCache: true
+        }
+      },
+      {
+        path: 'high-form',
+        component: 'views/Components/Form/HighForm/HighForm',
+        name: 'highForm',
+        meta: {
+          title: 'router.highForm',
+          noCache: true
+        }
+      },
+      {
+        path: 'calendar',
+        component: 'views/Components/Form/Calendar/Calendar',
+        name: 'calendar',
+        meta: {
+          title: 'router.calendar'
+        }
       }
     ]
   },
   {
-    path: 'table',
-    component: '##',
+    path: '/components/list',
+    component: '#',
+    redirect: 'timeLine',
+    name: 'ComponentsList',
+    meta: {
+      title: 'router.list',
+      icon: 'bx:bxs-component',
+      alwaysShow: true
+    },
+
+    children: [
+      {
+        path: 'timeLine',
+        component: 'views/Components/List/TimeLine/TimeLine',
+        name: 'TimeLine',
+        meta: {
+          title: 'router.timeLine'
+        }
+      },
+      {
+        path: 'lazyLoad',
+        component: 'views/Components/List/LazyLoad/LazyLoad',
+        name: 'LazyLoad',
+        meta: {
+          title: 'router.lazyLoad'
+        }
+      },
+      {
+        path: 'skeleton',
+        component: 'views/Components/List/Skeleton/Skeleton',
+        name: 'Skeleton',
+        meta: {
+          title: 'router.skeleton'
+        }
+      },
+      {
+        path: 'descriptionList',
+        component: 'views/Components/List/DescriptionList/DescriptionList',
+        name: 'DescriptionList',
+        meta: {
+          title: 'router.descriptionList'
+        }
+      },
+      {
+        path: 'virtualList',
+        component: 'views/Components/List/VirtualList/VirtualList',
+        name: 'virtualList',
+        meta: {
+          title: 'router.virtualList'
+        }
+      }
+    ]
+  },
+  {
+    path: '/components/upload',
+    component: '#',
+    redirect: 'upload',
+    name: 'ComponentsUpload',
+    meta: {
+      title: 'router.upload',
+      icon: 'bx:bxs-component',
+      alwaysShow: true
+    },
+
+    children: [
+      {
+        path: 'baseUpload',
+        component: 'views/Components/Upload/BaseUpload/BaseUpload',
+        name: 'BaseUpload',
+        meta: {
+          title: 'router.baseUpload'
+        }
+      },
+      {
+        path: 'splitUpload',
+        component: 'views/Components/Upload/SplitUpload/SplitUpload',
+        name: 'SplitUpload',
+        meta: {
+          title: 'router.splitUpload'
+        }
+      },
+      {
+        path: 'batchUpload',
+        component: 'views/Components/Upload/BatchUpload/BatchUpload',
+        name: 'BatchUpload',
+        meta: {
+          title: 'router.batchUpload'
+        }
+      },
+      {
+        path: 'complexUpload',
+        component: 'views/Components/Upload/ComplexUpload/ComplexUpload',
+        name: 'ComplexUpload',
+        meta: {
+          title: 'router.complexUpload'
+        }
+      }
+    ]
+  },
+  {
+    path: '/table',
+    component: '#',
     name: 'TableDemo',
     meta: {
       title: 'router.table',
@@ -274,34 +384,27 @@ const adminList = [
     children: [
       {
         path: 'default-table',
-        component: 'views/Components/Table/DefaultTable',
+        component: 'views/Components/Table/DefaultTable/DefaultTable',
         name: 'DefaultTable',
         meta: {
           title: 'router.defaultTable'
         }
       },
       {
-        path: 'use-table',
-        component: 'views/Components/Table/UseTableDemo',
-        name: 'UseTable',
+        path: 'complex-table',
+        component: 'views/Components/Table/ComplexTable/ComplexTable',
+        name: 'ComplexTable',
         meta: {
-          title: 'UseTable'
-        }
-      },
-      {
-        path: 'ref-table',
-        component: 'views/Components/Table/RefTable',
-        name: 'RefTable',
-        meta: {
-          title: 'RefTable'
+          title: 'router.complexTable'
         }
       }
     ]
   },
   {
-    path: 'editor-demo',
-    component: '##',
-    name: 'EditorDemo',
+    path: '/editor-comp',
+    component: '#',
+    redirect: 'editor',
+    name: 'EditorComp',
     meta: {
       title: 'router.editor',
       alwaysShow: true
@@ -309,139 +412,233 @@ const adminList = [
     children: [
       {
         path: 'editor',
-        component: 'views/Components/Editor/Editor',
+        component: 'views/Components/Editor/Editor/Editor',
         name: 'Editor',
         meta: {
-          title: 'router.richText'
+          title: 'router.markdown'
+        }
+      },
+      {
+        path: 'flowChart',
+        component: 'views/Components/Editor/FlowChart/FlowChart',
+        name: 'FlowChart',
+        meta: {
+          title: 'router.flowChart'
         }
       }
     ]
   },
   {
-    path: 'search',
-    component: 'views/Components/Search',
-    name: 'Search',
-    meta: {
-      title: 'router.search'
-    }
-  },
-  {
-    path: 'descriptions',
-    component: 'views/Components/Descriptions',
-    name: 'Descriptions',
-    meta: {
-      title: 'router.descriptions'
-    }
-  },
-  {
-    path: 'image-viewer',
-    component: 'views/Components/ImageViewer',
-    name: 'ImageViewer',
-    meta: {
-      title: 'router.imageViewer'
-    }
-  },
-  {
-    path: 'dialog',
-    component: 'views/Components/Dialog',
-    name: 'Dialog',
-    meta: {
-      title: 'router.dialog'
-    }
-  },
-  {
-    path: 'icon',
-    component: 'views/Components/Icon',
-    name: 'Icon',
-    meta: {
-      title: 'router.icon'
-    }
-  },
-  {
-    path: 'echart',
-    component: 'views/Components/Echart',
-    name: 'Echart',
-    meta: {
-      title: 'router.echart'
-    }
-  },
-  {
-    path: 'count-to',
-    component: 'views/Components/CountTo',
-    name: 'CountTo',
-    meta: {
-      title: 'router.countTo'
-    }
-  },
-  {
-    path: 'qrcode',
-    component: 'views/Components/Qrcode',
-    name: 'Qrcode',
-    meta: {
-      title: 'router.qrcode'
-    }
-  },
-  {
-    path: 'highlight',
-    component: 'views/Components/Highlight',
-    name: 'Highlight',
-    meta: {
-      title: 'router.highlight'
-    }
-  },
-  {
-    path: 'infotip',
-    component: 'views/Components/Infotip',
-    name: 'Infotip',
-    meta: {
-      title: 'router.infotip'
-    }
-  },
-  {
-    path: 'input-password',
-    component: 'views/Components/InputPassword',
-    name: 'InputPassword',
-    meta: {
-      title: 'router.inputPassword'
-    }
-  },
-  {
-    path: 'sticky',
-    component: 'views/Components/Sticky',
-    name: 'Sticky',
-    meta: {
-      title: 'router.sticky'
-    }
-  },
-  {
-    path: '/hooks',
+    path: '/tree',
     component: '#',
-    redirect: '/hooks/useWatermark',
-    name: 'Hooks',
+    name: 'Editor',
     meta: {
-      title: 'hooks',
-      icon: 'ic:outline-webhook',
+      title: 'router.treeComp',
       alwaysShow: true
     },
     children: [
       {
-        path: 'useWatermark',
-        component: 'views/hooks/useWatermark',
-        name: 'UseWatermark',
+        path: 'simpleTree',
+        component: 'views/Components/Tree/SimpleTree/SimpleTree',
+        name: 'SimpleTree',
         meta: {
-          title: 'useWatermark'
+          title: 'router.simpleTree'
         }
       },
       {
-        path: 'useCrudSchemas',
-        component: 'views/hooks/useCrudSchemas',
-        name: 'UseCrudSchemas',
+        path: 'complexTree',
+        component: 'views/Components/Tree/ComplexTree/ComplexTree',
+        name: 'ComplexTree',
         meta: {
-          title: 'useCrudSchemas'
+          title: 'router.complexTree'
         }
       }
     ]
   },
+  {
+    path: '/utilityComp',
+    component: '#',
+    name: 'UtilityComp',
+    meta: {
+      title: 'router.utilityComp',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: 'croppingImg',
+        component: 'views/Components/UtilityComp/CroppingImg/CroppingImg',
+        name: 'CroppingImg',
+        meta: {
+          title: 'router.croppingImg'
+        }
+      },
+      {
+        path: 'qrcode',
+        component: 'views/Components/UtilityComp/Qrcode/Qrcode',
+        name: 'qrcode',
+        meta: {
+          title: 'router.qrcode'
+        }
+      },
+      {
+        path: 'previewImg',
+        component: 'views/Components/UtilityComp/PreviewImg/PreviewImg',
+        name: 'PreviewImg',
+        meta: {
+          title: 'router.previewImg'
+        }
+      },
+      {
+        path: 'carousel',
+        component: 'views/Components/UtilityComp/Carousel/Carousel',
+        name: 'Carousel',
+        meta: {
+          title: 'router.carousel'
+        }
+      },
+      {
+        path: 'previewPDF',
+        component: 'views/Components/UtilityComp/PreviewPDF/PreviewPDF',
+        name: 'PreviewPDF',
+        meta: {
+          title: 'router.previewPDF'
+        }
+      },
+      {
+        path: 'watermark',
+        component: 'views/Components/UtilityComp/Watermark/Watermark',
+        name: 'Watermark',
+        meta: {
+          title: 'router.watermark'
+        }
+      },
+      {
+        path: 'previewExcel',
+        component: 'views/Components/UtilityComp/PreviewExcel/PreviewExcel',
+        name: 'PreviewExcel',
+        meta: {
+          title: 'router.previewExcel'
+        }
+      },
+      {
+        path: 'verification',
+        component: 'views/Components/UtilityComp/Verification/Verification',
+        name: 'Verification',
+        meta: {
+          title: 'router.verification'
+        }
+      },
+      {
+        path: 'guide-Page',
+        component: 'views/Components/UtilityComp/GuidePage/GuidePage',
+        name: 'GuidePage',
+        meta: {
+          title: 'router.guidePage'
+        }
+      }
+      // {
+      //   path: 'dialog',
+      //   component: 'views/Components/Dialog',
+      //   name: 'Dialog',
+      //   meta: {
+      //     title: 'router.dialog'
+      //   }
+      // },
+      // {
+      //   path: 'icon',
+      //   component: 'views/Components/Icon',
+      //   name: 'Icon',
+      //   meta: {
+      //     title: 'router.icon'
+      //   }
+      // },
+      // {
+      //   path: 'echart',
+      //   component: 'views/Components/Echart',
+      //   name: 'Echart',
+      //   meta: {
+      //     title: 'router.echart'
+      //   }
+      // },
+      // {
+      //   path: 'count-to',
+      //   component: 'views/Components/CountTo',
+      //   name: 'CountTo',
+      //   meta: {
+      //     title: 'router.countTo'
+      //   }
+      // },
+      // {
+      //   path: 'qrcode',
+      //   component: 'views/Components/Qrcode',
+      //   name: 'Qrcode',
+      //   meta: {
+      //     title: 'router.qrcode'
+      //   }
+      // },
+      // {
+      //   path: 'highlight',
+      //   component: 'views/Components/Highlight',
+      //   name: 'Highlight',
+      //   meta: {
+      //     title: 'router.highlight'
+      //   }
+      // },
+      // {
+      //   path: 'infotip',
+      //   component: 'views/Components/Infotip',
+      //   name: 'Infotip',
+      //   meta: {
+      //     title: 'router.infotip'
+      //   }
+      // },
+      // {
+      //   path: 'input-password',
+      //   component: 'views/Components/InputPassword',
+      //   name: 'InputPassword',
+      //   meta: {
+      //     title: 'router.inputPassword'
+      //   }
+      // },
+      // {
+      //   path: 'sticky',
+      //   component: 'views/Components/Sticky',
+      //   name: 'Sticky',
+      //   meta: {
+      //     title: 'router.sticky'
+      //   }
+      // }
+    ]
+  },
+  // {
+  //   path: '/hooks',
+  //   component: '#',
+  //   redirect: '/hooks/useWatermark',
+  //   name: 'Hooks',
+  //   meta: {
+  //     title: 'hooks',
+  //     icon: 'ic:outline-webhook',
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: 'useWatermark',
+  //       component: 'views/hooks/useWatermark',
+  //       name: 'UseWatermark',
+  //       meta: {
+  //         title: 'useWatermark'
+  //       }
+  //     },
+  //     {
+  //       path: 'useCrudSchemas',
+  //       component: 'views/hooks/useCrudSchemas',
+  //       name: 'UseCrudSchemas',
+  //       meta: {
+  //         title: 'useCrudSchemas'
+  //       }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/level',
   //   component: '#',

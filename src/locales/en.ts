@@ -169,7 +169,7 @@ export default {
     utilityComp: 'Utility Comp',
     croppingImg: 'Cropping',
     previewImg: 'Preview Img',
-    Carousel: 'Carousel',
+    carousel: 'Carousel',
     previewPDF: 'Preview PDF',
     previewExcel: 'Preview Excel',
     verification: 'Verification',
