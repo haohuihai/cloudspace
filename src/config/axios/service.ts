@@ -53,11 +53,13 @@ service.interceptors.response.use(
     if (response.config.responseType === 'blob') {
       // 如果是文件流，直接过
       return response
-    } else if (response.data.code === result_code) {
-      return response.data.data
-    } else {
-      ElMessage.error(response.data.message)
+      // 因为每个接口返回的code码不同，这里不再做统一校验
     }
+    // else if (response.data.code === result_code) {
+    return response.data
+    // } else {
+    //   ElMessage.error(response.data.message)
+    // }
   },
   (error: AxiosError) => {
     console.log('err' + error) // for debug
