@@ -137,7 +137,6 @@ export default [
     method: 'post',
     timeout,
     response: ({ body }) => {
-      console.log(body)
       const data = body
       let hasUser = false
       for (const user of List) {

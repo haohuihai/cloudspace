@@ -304,9 +304,8 @@ const getImageCode = async () => {
   const result = await getImageQRimage({
     code
   })
-  console.log('result', result)
 
-  imageCodeSvg.value = result
+  imageCodeSvg.value = result.data
 }
 
 // 发送验证吗
@@ -344,7 +343,6 @@ const handleSendNumber = async () => {
 
 // 登录
 const submitForm = async () => {
-  console.log(loginStore.getCode)
 
   if (unref(loginTypeIndex) === 'account') {
     if (loginForm.inputCode.toLowerCase() !== loginStore.getCode.toLowerCase()) {
@@ -359,7 +357,6 @@ const submitForm = async () => {
         loginLoding.value = true
         accountLoginHttp()
       } else {
-        console.log('error submit!', fields)
       }
     })
   } else if (unref(loginTypeIndex) === 'phone') {
@@ -373,7 +370,6 @@ const submitForm = async () => {
       if (valid) {
         phoneLogin()
       } else {
-        console.log('error submit!', fields)
       }
     })
   }
@@ -451,7 +447,7 @@ const getRole = async () => {
   }
   const res = await getAdminRoleApi(params)
   if (res) {
-    const routers = res || []
+    const routers = res.data || []
     wsCache.set('roleRouters', routers)
     push({ path: '/test' })
   }
@@ -475,7 +471,6 @@ const phoneLogin = async () => {
     loginInput: rulePhoneForm.phone,
     type: 'phone'
   })
-  console.log(result)
 
   if (result.code !== 200) {
     ElMessage.error(result.message)
@@ -497,7 +492,6 @@ const countDown = () => {
 }
 
 watch(loginTypeIndex, (value) => {
-  console.log(value)
   if (value === 'scan') {
     getQRcode()
   }
@@ -532,7 +526,6 @@ const checkScanCode = () => {
   // if ($store.state.successShow || $store.state.overtimeShow) {
   //   clearInterval(timerCheck.value) // 扫码成功，清除定时器，不再询问服务器
   // }
-  console.log('检查中')
   if (1) {
     clearInterval(timerCheck.value)
   }

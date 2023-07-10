@@ -183,7 +183,6 @@ export default defineComponent({
     function sendMessage() {
       // 每次生成随机的messageId,
 
-      console.log('userInfo', userInfo)
       if (!textareaValue.value.trim()) {
         ElMessage.error('请输入内容')
         return
@@ -201,7 +200,6 @@ export default defineComponent({
 
       const aaa = randomString(true, 18, 32)
 
-      console.log('aaa', aaa)
       chatStore.sendMessage({
         myUserId: userInfo.userId,
         heUserId: 2,

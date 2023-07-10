@@ -72,7 +72,6 @@ export const useDrawPanel = defineStore('game', {
     },
     // 某玩家退出游戏
     delFromNicknames(nickname) {
-      console.log('nickname', nickname)
       const names = this.nicknames.filter((item) => item !== nickname)
       this.updateNicknames(names)
     },

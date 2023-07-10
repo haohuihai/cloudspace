@@ -43,7 +43,6 @@ const enterGame = () => {
     if (!flag) return
     const nickname = formData.nickname
     const isExist = await drawondrawState.checkUserExist(nickname)
-    console.log(nickname)
     if (isExist) {
       ElMessage.error('大哥，该昵称已经被人占用了！换个吧')
     } else {

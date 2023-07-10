@@ -22,7 +22,7 @@ const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach(async (to, from, next) => {
   start()
   loadStart()
-  console.log(wsCache.get(appStore.getUserInfo))
+  console.log(wsCache.get(appStore.getUserInfo), to)
   if (wsCache.get(appStore.getUserInfo)) {
     if (to.path === '/login') {
       next({ path: '/dashboard' })
@@ -44,11 +44,14 @@ router.beforeEach(async (to, from, next) => {
 
       const redirectPath = from.query.redirect || to.path
       const redirect = decodeURIComponent(redirectPath as string)
+
+      console.log('redirect', redirect);
+
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
       // 路由添加完，可以直接进入下面的页面
       permissionStore.setIsAddRouters(true)
-
-      next(nextData)
+      console.log('nextData', nextData);
+      next(nextData.path)
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

@@ -61,17 +61,14 @@ onMounted(async () => {
 })
 
 const handleSearch = async () => {
-  console.log(inputKeyword.value)
   const result = await getAppListApi({name: inputKeyword.value})
   loading.value = false
   appList.list = result
 }
 
 const toggleCollapse = () => {
-  console.log(123)
 }
 const toDetailPage = (item) => {
-  console.log(item)
   router.push({
     path: item.path
   })
