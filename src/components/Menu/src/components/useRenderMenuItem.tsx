@@ -25,9 +25,6 @@ export const useRenderMenuItem = (
           (!onlyOneChild?.children || onlyOneChild?.noShowingChildren) &&
           !meta?.alwaysShow
         ) {
-          {
-            console.log('v', v)
-          }
           return (
             <ElMenuItem index={onlyOneChild ? pathResolve(fullPath, onlyOneChild.path) : fullPath}>
               {{
@@ -37,7 +34,6 @@ export const useRenderMenuItem = (
           )
         } else {
           const { getPrefixCls } = useDesign()
-          console.log('fullPath', fullPath)
           const preFixCls = getPrefixCls('menu-popper')
           return (
             <ElSubMenu

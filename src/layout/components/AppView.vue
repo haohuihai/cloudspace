@@ -17,8 +17,6 @@ const tagsViewStore = useTagsViewStore()
 const getCaches = computed((): string[] => {
   return tagsViewStore.getCachedViews
 })
-
-console.log('getCaches', getCaches)
 </script>
 
 <template>

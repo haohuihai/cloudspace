@@ -37,16 +37,16 @@ const adminList = [
       }
     ]
   },
-  {
-    path: '/test',
-    name: 'Dashboard',
-    meta: {
-      title: 'router.dashboard',
-      icon: 'ant-design:dashboard-filled',
-      alwaysShow: true
-    },
-    component: 'views/Test/test'
-  },
+  // {
+  //   path: '/test',
+  //   name: 'Test',
+  //   meta: {
+  //     title: 'router.dashboard',
+  //     icon: 'ant-design:dashboard-filled',
+  //     alwaysShow: true
+  //   },
+  //   component: 'views/Test/test'
+  // },
   // {
   //   path: '/component',
   //   component: '#',
