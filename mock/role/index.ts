@@ -232,7 +232,7 @@ const adminList = [
     name: 'ComponentsDemo',
     meta: {
       title: 'router.form',
-      icon: 'bx:bxs-component',
+      icon: 'ant-design:form-outlined',
       alwaysShow: true
     },
     children: [
@@ -280,7 +280,7 @@ const adminList = [
     name: 'ComponentsList',
     meta: {
       title: 'router.list',
-      icon: 'bx:bxs-component',
+      icon: 'ant-design:unordered-list',
       alwaysShow: true
     },
 
@@ -334,7 +334,7 @@ const adminList = [
     name: 'ComponentsUpload',
     meta: {
       title: 'router.upload',
-      icon: 'bx:bxs-component',
+      icon: 'ant-design:cloud-upload-outlined',
       alwaysShow: true
     },
 
@@ -379,7 +379,8 @@ const adminList = [
     name: 'TableDemo',
     meta: {
       title: 'router.table',
-      alwaysShow: true
+      alwaysShow: true,
+      icon: 'ant-design:table-outlined'
     },
     children: [
       {
@@ -407,7 +408,8 @@ const adminList = [
     name: 'EditorComp',
     meta: {
       title: 'router.editor',
-      alwaysShow: true
+      alwaysShow: true,
+      icon: 'dashicons:editor-spellcheck'
     },
     children: [
       {
@@ -434,7 +436,8 @@ const adminList = [
     name: 'Editor',
     meta: {
       title: 'router.treeComp',
-      alwaysShow: true
+      alwaysShow: true,
+      icon: 'iconoir:pine-tree'
     },
     children: [
       {
@@ -461,7 +464,8 @@ const adminList = [
     name: 'UtilityComp',
     meta: {
       title: 'router.utilityComp',
-      alwaysShow: true
+      alwaysShow: true,
+      icon: 'iconoir:tools'
     },
     children: [
       {

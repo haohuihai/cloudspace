@@ -255,5 +255,5 @@ onMounted(() => {
 })
 </script>
 <style lang="less">
-@import '../../../styles/vision.css';
+@import '../../../styles/vision.less';
 </style>
