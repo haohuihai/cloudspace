@@ -1,5 +1,5 @@
 <template>
-  <ElCard>
+  <ElCard body-style="height: calc(100vh - 87px)">
     <ElSteps :active="active" align-center>
       <ElStep title="第一步" description="输入账单信息" />
       <ElStep title="第二步" description="输入派送地点" />
@@ -7,12 +7,13 @@
       <ElStep title="第四步" description="确认账单信息" />
     </ElSteps>
     <ElForm
-      ref="ruleFormRef" 
-      :model="ruleForm" 
-      status-icon 
-      :rules="rules" 
-      label-width="120px" 
-      class="demo-ruleForm">
+      ref="ruleFormRef"
+      :model="ruleForm"
+      status-icon
+      :rules="rules"
+      label-width="120px"
+      class="w-120 mt-30"
+    >
       <ElFormItem label="姓名" prop="pass">
         <ElInput v-model="ruleForm.pass" type="password" autocomplete="off" />
       </ElFormItem>
@@ -25,7 +26,6 @@
         <ElButton v-else @click="onSubmit">提交</ElButton>
       </ElFormItem>
     </ElForm>
-   
   </ElCard>
 </template>
 <script setup lang="ts">
@@ -77,7 +77,6 @@ const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
-    
     callback()
   }
 }
@@ -105,12 +104,7 @@ const preSteps = () => {
   active.value -= 1
 }
 const onSubmit = () => {
-  ElAlert("提交成功")
+  ElAlert('提交成功')
 }
 </script>
-<style scoped lang="less">
-.demo-ruleForm {
-  max-width: 600px;
-  margin: 50px auto;
-}
-</style>
+<style scoped lang="less"></style>

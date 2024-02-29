@@ -6,13 +6,12 @@
         <ElButton text type="primary" size="small" style="fontsize: 16px">更多</ElButton></div
       ></template
     >
-
     <div class="flex w-100%" v-for="(item, index) in dynamicInfoItems" :key="index">
       <img class="w-30px h-30px rounded-full mr-10px" :src="headerImg" alt="" />
       <div class="flex-1">
         <div class="h-30px leading-30px"> {{ item.name }} <span v-html="item.desc"></span> </div>
         <div>{{ item.date }}</div>
-        <ElDivider style="margintop: 10px; marginbottom: 10px" />
+        <ElDivider style="margin-bottom: 10px; margin-top: 10px" />
       </div>
     </div>
   </ElCard>

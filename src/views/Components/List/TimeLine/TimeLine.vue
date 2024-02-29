@@ -1,15 +1,17 @@
 <template>
   <ElCard>
-    <ElTimeline vInfiniteScroll="load" :style="{'overflow': 'auto', 'height': 'calc(100vh - 85px)'}" ref="elTimeLine">
+    <ElTimeline vInfiniteScroll="load" :infinite-scroll-distance="20" :style="{'overflow': 'auto', 'height': 'calc(100vh - 50px)'}" ref="elTimeLine">
       <ElTimelineItem
         v-for="item in articleData"
         :key="item.key"
-        :timestamp="item.data"
+        :timestamp="item.date"
         placement="top"
+        :color="item.color"
+        :type="item.type"
       >
         <ElCard>
-          <h4>Update Github template</h4>
-          <p>Tom committed 2018/4/12 20:46</p>
+          <h4>{{item.title}}</h4>
+          <p>{{item.outline}}</p>
         </ElCard>
       </ElTimelineItem>
     </ElTimeline>
@@ -22,52 +24,73 @@
   import { reactive } from 'vue';
   const articleData = reactive([
     {
-      data: '2021-12-23',
-      title: '',
+      date: '2021-12-23',
+      title: '完成了跑步',
       outline: '',
+      color: 'green',
+      type: 'success',
+      icon: '',
       avatar: '',
       key: '1',
     },
     {
-      data: '2021-12-23',
-      title: '',
+      date: '2021-12-23',
+      title: '看完了vue实战',
       outline: '',
       avatar: '',
       key: '2',
+      color: 'green',
+      type: 'success',
+      icon: '',
     },
     {
-      data: '2021-12-23',
+      date: '2021-12-23',
       title: '',
       outline: '',
       avatar: '',
+      color: 'green',
+      type: 'success',
+      icon: '',
       key: '3',
     },
     {
-      data: '2021-12-23',
+      date: '2021-12-23',
       title: '',
       outline: '',
       avatar: '',
       key: '4',
+      color: 'green',
+      type: 'success',
+      icon: '',
     },
     {
-      data: '2021-12-23',
+      date: '2021-12-23',
       title: '',
       outline: '',
       avatar: '',
+      color: 'green',
+      type: 'success',
+      icon: '',
       key: '5',
     },
     {
-      data: '2021-12-23',
+      date: '2021-12-23',
       title: '',
       outline: '',
       avatar: '',
       key: '6',
+      color: 'green',
+      type: 'success',
+      icon: '',
     },
     {
-      data: '2021-12-23',
+      date: '2021-12-23',
       title: '',
       outline: '',
       avatar: '',
+      color: 'green',
+      type: 'success',
+      icon: '',
       key: '7',
     },
   ]);

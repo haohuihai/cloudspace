@@ -16,6 +16,7 @@ function pathResolve(dir: string) {
 }
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+  // 读取当前环境的配置文件
   let env = {} as any
   const isBuild = command === 'build'
   if (!isBuild) {
@@ -24,6 +25,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     env = loadEnv(mode, root)
   }
   return {
+    // 配置插件
     plugins: [
       vue(),
       vueJsx(),
@@ -41,11 +43,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         ]
       }),
       PurgeIcons(),
+      // 国际化
       VueI18n({
         runtimeOnly: true,
         compositionOnly: true,
         include: [resolve(__dirname, 'src/locales/**')]
       }),
+      // mock服务
       viteMockServe({
         ignore: /^\_/,
         mockPath: './mock/',
@@ -56,6 +60,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           setupProdMockServer()
           `
       }),
+      // 模板文件
       createHtmlPlugin({
         inject: {
           data: {

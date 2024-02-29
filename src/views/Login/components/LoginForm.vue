@@ -1,6 +1,6 @@
 <template>
   <!-- 用户名密码登录 -->
-  <div class="w-350px flex flex-col bg-light-50" :style="{ height: 'fit-content' }">
+  <div class="w-400px flex flex-col bg-light-50" :style="{ height: 'fit-content' }">
     <ElTabs v-model="loginTypeIndex" class="demo-tabs">
       <ElTabPane label="账号登录" name="account">
         <ElForm
@@ -343,7 +343,6 @@ const handleSendNumber = async () => {
 
 // 登录
 const submitForm = async () => {
-
   if (unref(loginTypeIndex) === 'account') {
     if (loginForm.inputCode.toLowerCase() !== loginStore.getCode.toLowerCase()) {
       ElMessage.error('验证码输入错误')

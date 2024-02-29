@@ -1,23 +1,23 @@
 <template>
   <div>
     <ElCard>
-      <ElCalendar v-model="value">
+      <ElCalendar v-model="value" class="calendarContainer">
         <template #dateCell="{ data }">
           <p :class="data.isSelected ? 'is-selected' : ''" class="">
             {{ data.day.split('-').slice(1).join('-') }}
           </p> 
           <div  v-for="(item, index) in tableData" :key="item.key">
-            <div class="h-54px overflow-scroll" v-if="data.day == item.day">
-              <div class="mt-1 mb-1 text-white px-2px flex justify-between" :style="{background: it.bg}" v-for="(it, iIndex) in tableData[index].info" :key="item.key">
+            <div class="cellClass" v-if="data.day == item.day" >
+              <div class="mt-1 mb-1 text-white px-2px flex justify-between rounded-sm " :style="{background: it.bg}" @click="handleDetail(it)" v-for="(it) in tableData[index].info" :key="item.key">
                   <span>{{ it.name }} </span><span>{{ it.createAt }}</span>
               </div>
             </div>
           </div>
         </template>
       </ElCalendar>
-       <ElAffix :offset="120">
-            <Icon icon="ic:baseline-plus"/>
-        </ElAffix>
+       <div class="fixed right-30px bottom-30">
+            <ElButton size="large" type="primary" :icon="Plus" circle />
+        </div>
     </ElCard>
    
   </div>
@@ -25,7 +25,10 @@
 
 <script lang="ts" setup>
   import { reactive, ref } from 'vue';
-  import { ElCalendar } from 'element-plus';
+  import { ElCalendar, ElAffix, ElCard, ElButton } from 'element-plus';
+  import {
+  Plus
+} from '@element-plus/icons-vue'
   const tableData = reactive([
     {
       day: '2024-02-29',
@@ -109,9 +112,24 @@
     },
   ]);
   const value = ref(new Date());
+
+  const handleDetail = (item) => {
+    console.log('item', item);
+    
+  }
 </script>
-<style>
+<style lang="less" scoped>
+@cellHeight: calc((100vh - 205px - 80px) / 5);
   .is-selected {
     color: #1989fa;
+  }
+  .calendarContainer {
+    :deep(.el-calendar-day) {
+      height: @cellHeight;
+      .cellClass {
+        overflow: overlay;
+        height: calc(@cellHeight - 35px);
+      }
+    }
   }
 </style>

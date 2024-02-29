@@ -1,5 +1,5 @@
 <template>
-  <ElCard>
+  <ElCard body-style="height: calc(100vh - 87px)">
     <ElForm status-icon ref="ruleFormRef" :rules="rules" :model="form" label-width="120px">
       <ElFormItem label="标题">
         <ElInput v-model="form.name" />
@@ -12,7 +12,12 @@
       </ElFormItem>
       <ElFormItem label="选择时间">
         <ElCol :span="4">
-          <ElDatePicker v-model="form.date1" type="date" placeholder="选择日期" style="width: 100%" />
+          <ElDatePicker
+            v-model="form.date1"
+            type="date"
+            placeholder="选择日期"
+            style="width: 100%"
+          />
         </ElCol>
         <ElCol :span="2" class="text-center">
           <span class="text-gray-500">-</span>

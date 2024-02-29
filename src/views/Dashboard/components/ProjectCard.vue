@@ -19,9 +19,9 @@
               :sm="24"
               :xs="24"
             >
-              <ElCard shadow="hover">
+              <ElCard shadow="hover" class="cursor-pointer">
                 <div class="flex items-center">
-                  <Icon :icon="item.icon" :size="25" class="mr-10px" />
+                  <Icon :icon="item.icon" :color="item.color" :size="25" class="mr-10px" />
                   <span class="text-16px">{{ item.title }}</span>
                 </div>
                 <div class="mt-15px text-14px text-gray-400"> {{ item.desc }}</div>

@@ -531,19 +531,19 @@ export const groupItems: GroupItem[] = [
 ]
 export const activities = [
   {
-    content: 'Custom icon',
+    content: 'patton',
     timestamp: '2018-04-12 20:46',
     size: 'large',
     type: 'primary',
     icon: 'CirclePlus'
   },
   {
-    content: 'Custom color',
+    content: 'nicole',
     timestamp: '2018-04-03 20:46',
     color: '#0bbd87'
   },
   {
-    content: 'Custom size',
+    content: 'anthony',
     timestamp: '2018-04-03 20:46',
     size: 'large'
   },
@@ -554,15 +554,15 @@ export const activities = [
     hollow: true
   },
   {
-    content: 'Default node',
+    content: 'venus',
     timestamp: '2018-04-03 20:46'
   },
   {
-    content: 'Default node',
+    content: 'alexander',
     timestamp: '2018-04-03 20:46'
   },
   {
-    content: 'Default node',
+    content: 'zachary',
     timestamp: '2018-04-03 20:46'
   }
 ]
