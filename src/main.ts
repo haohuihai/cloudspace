@@ -10,6 +10,8 @@ import { setupI18n } from '@/plugins/vueI18n'
 import '@/styles/index.less'
 import './assets/main.css'
 
+
+
 // 引入字体的文件
 import '@/assets/font/iconfont.css'
 // 引入全局的样式文件
