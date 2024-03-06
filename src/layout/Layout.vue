@@ -4,6 +4,8 @@ import { useAppStore } from '@/stores/modules/app'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useRenderLayout } from './components/useRenderLayout'
 import { Setting } from '@/components/Setting'
+import { Chat } from '@/components/Chat'
+import { ChatModal } from '@/components/ChatModal'
 const { getPrefixCls } = useDesign()
 const prefixCls = getPrefixCls('layout')
 
@@ -47,6 +49,8 @@ export default defineComponent({
           ></div>
         ) : undefined}
         {renderLayout()}
+        <Chat />
+        <ChatModal />
         <Setting></Setting>
       </section>
     )

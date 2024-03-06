@@ -14,16 +14,16 @@ const currentSize = computed(() => appStore.getCurrentSize)
 const greyMode = computed(() => appStore.getGreyMode)
 const { wsCache } = useCache()
 // 根据浏览器当前主题设置系统主题色
-const setDefaultTheme = () => {
-  if (wsCache.get('isDark')) {
-    appStore.setIsDark(wsCache.get('isDark'))
-    return
-  }
-  const isDarkTheme = isDark()
-  appStore.setIsDark(isDarkTheme)
-}
+// const setDefaultTheme = () => {
+//   if (wsCache.get('isDark')) {
+//     appStore.setIsDark(wsCache.get('isDark'))
+//     return
+//   }
+//   const isDarkTheme = isDark()
+//   appStore.setIsDark(isDarkTheme)
+// }
 
-setDefaultTheme()
+// setDefaultTheme()
 </script>
 
 <template>

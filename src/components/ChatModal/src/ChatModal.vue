@@ -99,7 +99,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref, reactive, onMounted } from 'vue'
+import { defineComponent, computed, ref, reactive, onMounted, nextTick } from 'vue'
 import { ElDialog, ElAvatar, ElTabs, ElTabPane, ElInput, ElMessage } from 'element-plus'
 
 import { useDesign } from '@/hooks/web/useDesign'
@@ -176,6 +176,10 @@ export default defineComponent({
       if (event.keyCode === 13) {
         event.preventDefault() // 阻止浏览器默认换行操作
         sendMessage() // 发送文本
+        // 滚动条始终在底部
+        nextTick(() => {
+          messageRef.value && messageRef.value.scrollTo({ top: messageRef.value.scrollHeight, behavior: 'smooth' })
+        })
         return false
       }
     }
@@ -230,6 +234,7 @@ export default defineComponent({
       currentUser,
       tabChange,
       textareaValue,
+      messageRef,
       messageList,
       handleSendMessage,
       handleKeydown
@@ -296,7 +301,7 @@ export default defineComponent({
       }
       .user_bottom {
         font-size: 13px;
-        color: #696969;
+        color: #b8b8b8;
       }
     }
   }
