@@ -40,7 +40,6 @@ export const getRawRoute = (route: RouteLocationNormalized): RouteLocationNormal
  
 export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRecordRaw[] => {
   const res: AppRouteRecordRaw[] = []
-  console.log('routes', routes);
 
   for (const route of routes) {
     const data: AppRouteRecordRaw = {

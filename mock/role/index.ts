@@ -293,7 +293,7 @@ const adminList = [
   {
     path: '/lockScreen',
     name: 'lockScreen',
-    component: () => import('@/views/LockScreen/LockScreen.vue'),
+    component: '/views/LockScreen/LockScreen.vue',
     meta: {
       hidden: true,
       title: 'router.upload',

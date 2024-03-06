@@ -6,6 +6,7 @@ import { useRenderLayout } from './components/useRenderLayout'
 import { Setting } from '@/components/Setting'
 import { Chat } from '@/components/Chat'
 import { ChatModal } from '@/components/ChatModal'
+import { LockScreenModal } from '@/components/LockScreen'
 const { getPrefixCls } = useDesign()
 const prefixCls = getPrefixCls('layout')
 
@@ -13,6 +14,8 @@ const appStore = useAppStore()
 const mobile = computed(() => appStore.getMobile)
 const collapse = computed(() => appStore.getCollapse)
 const layout = computed(() => appStore.getLayout)
+const isShoLockModal = computed(() => appStore.getLockScreen)
+
 const handleClickOutside = () => {
   appStore.setCollapse(true)
 }
@@ -51,6 +54,7 @@ export default defineComponent({
         {renderLayout()}
         <Chat />
         <ChatModal />
+        <LockScreenModal isShoLockModal={isShoLockModal}/>
         <Setting></Setting>
       </section>
     )

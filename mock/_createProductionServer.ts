@@ -6,6 +6,8 @@ const modules = import.meta.glob('./**/*.ts', {
 })
 
 const mockModules: any[] = []
+console.log("modules", modules);
+
 Object.keys(modules).forEach(async (key) => {
   if (key.includes('_')) {
     return
@@ -14,5 +16,7 @@ Object.keys(modules).forEach(async (key) => {
 })
 
 export function setupProdMockServer() {
+  console.log('setupProdMockServer');
+  
   createProdMockServer(mockModules)
 }

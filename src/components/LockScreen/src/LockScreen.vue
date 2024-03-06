@@ -17,6 +17,7 @@ const toggleFullScreen = () => {
 const handleLock = () => {
   // 设置锁屏弹框
   appStore.setLockScreen(true)
+  
 }
 </script>
 

@@ -11,7 +11,6 @@ export const useRenderMenuItem = (
   menuMode: 'vertical' | 'horizontal'
 ) => {
   const renderMenuItem = (routers: AppRouteRecordRaw[], parentPath = '/') => {
-    console.log('routers', routers);
     
     return routers.map((v) => {
       

@@ -11,7 +11,7 @@
       >
         <template #header>
           <div class="h-15 flex items-center justify-between">
-            <ElAvatar :size="40" class="" />
+            <ElAvatar :size="40" class="" src="../../../assets/imgs/users/avatar-1.jpg"/>
             <Icon
               icon="ic:round-close"
               @click="handleCloseChat"
@@ -41,7 +41,7 @@
                     v-for="i in [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15]"
                     :key="i"
                   >
-                    <ElAvatar :size="35" />
+                    <ElAvatar :size="35"  :src="item.avatar"/>
                     <div class="ml-3 flex-1 max">
                       <div class="user_top">
                         <span class="truncate">张三</span>
@@ -63,7 +63,7 @@
                   class="flex"
                   :class="[item.senderId === currentUser ? 'chat_item_right' : 'chat_item_left']"
                 >
-                  <ElAvatar />
+                  <ElAvatar :src="item.avatar"/>
                   <div
                     class="chat_contents"
                     :class="[item.senderId === currentUser ? 'chat_mycontent' : 'chat_itcontent']"
@@ -129,7 +129,7 @@ export default defineComponent({
           messageId: '33c3693b-dbb0-4bc9-99c6-fa77b9eb763f',
           name: 'Juanita',
           password: '123',
-          avatar: '/static/images/Avatar-4.png',
+          avatar: '/assets/imgs/avatar-1.png',
           email: 'Juanita@goeasy.io',
           content: '你好啊',
           phone: '138xxxxxxxx',
@@ -139,7 +139,7 @@ export default defineComponent({
           messageId: '33c3693b-dbb0-4bc9-99c6-fa77b9eb763f',
           name: 'Juanita',
           password: '123',
-          avatar: '/static/images/Avatar-4.png',
+          avatar: '/assets/imgs/avatar-1.png',
           email: 'Juanita@goeasy.io',
           phone: '138xxxxxxxx',
           senderId: '444444',
@@ -195,7 +195,7 @@ export default defineComponent({
         messageId: '33c3693b-dbb0-4bc9' + messageList.messages.length + 'adsdfd',
         name: 'Juanita',
         password: '123',
-        avatar: '/static/images/Avatar-4.png',
+        avatar: '/assets/imgs/avatar-1.png',
         email: 'Juanita@goeasy.io',
         phone: '138xxxxxxxx',
         senderId: '123222',
