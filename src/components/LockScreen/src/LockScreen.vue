@@ -2,6 +2,10 @@
 import { Icon } from '@/components/Icon'
 import { useFullscreen } from '@vueuse/core'
 import { propTypes } from '@/utils/propTypes'
+import { useAppStore } from '@/stores/modules/app'
+
+const appStore = useAppStore()
+
 defineProps({
   color: propTypes.string.def('')
 })
@@ -9,7 +13,11 @@ const { toggle, isFullscreen } = useFullscreen()
 const toggleFullScreen = () => {
   toggle()
 }
-const handleLock = () => {}
+
+const handleLock = () => {
+  // 设置锁屏弹框
+  appStore.setLockScreen(true)
+}
 </script>
 
 <template>

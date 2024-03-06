@@ -1,2 +1,3 @@
 import LockScreen from './src/LockScreen.vue'
-export { LockScreen }
+import LockScreenModal from './src/LockScreenModal.vue'
+export { LockScreen, LockScreenModal }

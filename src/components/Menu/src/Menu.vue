@@ -38,6 +38,7 @@ export default defineComponent({
       unref(layout) === 'cutMenu' ? permissionStore.getMenuTabRouters : permissionStore.getRouters
     )
 
+console.log('routers------', routers);
     const collapse = computed(() => appStore.getCollapse)
     const uniqueOpened = computed(() => appStore.getUniqueOpened)
 

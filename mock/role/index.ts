@@ -155,43 +155,6 @@ const adminList = [
       }
     ]
   },
-  {
-    path: '/game',
-    name: 'Game',
-    meta: {
-      title: 'GameList',
-      hidden: true
-    },
-    children: [
-      {
-        path: 'index',
-        component: 'views/Game/game',
-        name: 'GameList',
-        meta: {
-          title: 'router.gamelist',
-          noCache: true
-        }
-      },
-      {
-        path: 'drawonedraw',
-        component: 'views/Game/DrawAndDraw/DrawOneDraw',
-        name: '猜一猜',
-        meta: {
-          title: 'router.guess',
-          noCache: true
-        }
-      },
-      {
-        path: 'drawInto',
-        component: 'views/Game/DrawAndDraw/IntoBefore',
-        name: '登录游戏',
-        meta: {
-          title: 'router.logingame',
-          noCache: true
-        }
-      }
-    ]
-  },
   // {
   //   path: '/external-link',
   //   component: '#',
@@ -326,6 +289,17 @@ const adminList = [
         }
       }
     ]
+  },
+  {
+    path: '/lockScreen',
+    name: 'lockScreen',
+    component: () => import('@/views/LockScreen/LockScreen.vue'),
+    meta: {
+      hidden: true,
+      title: 'router.upload',
+      icon: 'ant-design:cloud-upload-outlined',
+      alwaysShow: true
+    },
   },
   {
     path: '/components/upload',

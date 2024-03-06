@@ -71,6 +71,9 @@ export const useAppStore = defineStore('app', {
     getUserInfo(): string {
       return this.userInfo
     },
+    getLockPassword(): string {
+      return this.lockPassword
+    },
     getIsDark(): boolean {
       return this.isDark
     },
@@ -121,6 +124,9 @@ export const useAppStore = defineStore('app', {
     setLockScreen(lock: boolean) {
       this.lockScreen = lock
     },
+    setLockPassword(lockpass: string) {
+      this.lockPassword = lockpass
+    }, 
     setNotice(notice: boolean) {
       this.notify = notice
     },

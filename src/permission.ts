@@ -19,24 +19,29 @@ const { loadStart, loadDone } = usePageLoading()
 
 const whiteList = ['/login'] // 不重定向白名单
 
+
+// 这里路由切换一次会重新走一次
 router.beforeEach(async (to, from, next) => {
   start()
   loadStart()
   if (wsCache.get(appStore.getUserInfo)) {
     if (to.path === '/login') {
       next({ path: '/dashboard' })
-    } else {
+    } else if (wsCache.get(appStore.getLockPassword)) {  // 判断是否是锁屏状态
+      next({path: '/lockScreen'})
+    }else {
       // 判断是否已经将路由添加到store里面
       if (permissionStore.getIsAddRouters) {
         next()
         return
       }
-
+      
+      // 没添加 进行添加
       // 开发者可根据实际情况进行修改   拿缓存中的路由；放到store里面 并push了404的路由
       const roleRouters = wsCache.get('roleRouters') || []
       await permissionStore.generateRoutes('admin', roleRouters as AppCustomRouteRecordRaw[])
 
-      // 拿store的路由   添加到可访问路由表
+      // 拿store的路由   添加到可访问路由表    
       permissionStore.getAddRouters.forEach((route) => {
         router.addRoute(route as unknown as RouteRecordRaw)
       })
@@ -44,6 +49,7 @@ router.beforeEach(async (to, from, next) => {
       const redirectPath = from.query.redirect || to.path
       const redirect = decodeURIComponent(redirectPath as string)
 
+      // 这里有重定向的问题
       const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect }
       // 路由添加完，可以直接进入下面的页面
       permissionStore.setIsAddRouters(true)

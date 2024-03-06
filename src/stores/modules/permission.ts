@@ -14,8 +14,8 @@ export interface PermissionState {
 export const usePermissionStore = defineStore('permission', {
   state: (): PermissionState => ({
     routers: [],
-    addRouters: [],
-    isAddRouters: false,
+    addRouters: [],   // 添加了原先的路由  + 404路由
+    isAddRouters: false,  // 
     menuTabRouters: []
   }),
   persist: {

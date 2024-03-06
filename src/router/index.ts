@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { App } from 'vue'
 import { Layout, getParentLayout } from '@/utils/routerHelper'
 
-// 这里的路由可以是默认路由
+// 这里的路由可以是默认路由  只放登录
 export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/login',
@@ -15,44 +15,6 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       noTagsView: true
     }
   }
-  // {
-  //   path: '/backmanage',
-  //   component: Layout,
-  //   redirect: '/backmanage/analysis',
-  //   name: 'Root',
-  //   meta: {
-  //     hidden: true
-  //   }
-  // }
-  // {
-  //   path: '/home',
-  //   component: () => import('@/views/Home/Home.vue'),
-  //   name: 'Home',
-  //   meta: {
-  //     title: '首页',
-  //     hidden: true
-  //   }
-  // },
-  // {
-  //   path: '/visualization',
-  //   component: () => import('@/views/Visualization/Visualization.vue'),
-  //   name: 'Visiual',
-  //   meta: {
-  //     title: '可视化',
-  //     hidden: true
-  //   }
-  // },
-
-  // {
-  //   path: '/canvas',
-  //   component: () => import('@/views/Canvas/index.vue'),
-  //   name: 'canvas',
-  //   meta: {
-  //     hidden: true,
-  //     title: 'canvas',
-  //     noTagsView: true
-  //   }
-  // }
 ]
 
 const router = createRouter({

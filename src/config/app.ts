@@ -39,6 +39,7 @@ export interface AppState {
   greyMode: boolean
   pageLoading: boolean
   layout: LayoutType
+  lockPassword: string
   title: string
   userInfo: string
   isDark: boolean
@@ -74,6 +75,7 @@ export const appModules: AppState = {
   fixedHeader: true, // 固定toolheader
   footer: true, // 显示页脚
   greyMode: false, // 是否开始灰色模式，用于特殊悼念日
+  lockPassword: '', // 锁屏密码
 
   layout: wsCache.get('layout') || 'classic', // layout布局
   isDark: wsCache.get('isDark') || false, // 是否是暗黑模式

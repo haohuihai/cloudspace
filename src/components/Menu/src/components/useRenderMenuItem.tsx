@@ -11,8 +11,15 @@ export const useRenderMenuItem = (
   menuMode: 'vertical' | 'horizontal'
 ) => {
   const renderMenuItem = (routers: AppRouteRecordRaw[], parentPath = '/') => {
+    console.log('routers', routers);
+    
     return routers.map((v) => {
+      
       const meta = (v.meta ?? {}) as RouteMeta
+      // 是否有隐藏的不展示在menu菜单上
+
+      // console.log('meta', meta);
+      
       if (!meta.hidden) {
         const { oneShowingChild, onlyOneChild } = hasOneShowingChild(v.children, v)
 

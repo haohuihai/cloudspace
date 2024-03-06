@@ -37,9 +37,11 @@ export const getRawRoute = (route: RouteLocationNormalized): RouteLocationNormal
       : undefined) as RouteRecordNormalized[]
   }
 }
-
+ 
 export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRecordRaw[] => {
   const res: AppRouteRecordRaw[] = []
+  console.log('routes', routes);
+
   for (const route of routes) {
     const data: AppRouteRecordRaw = {
       path: route.path,
@@ -47,6 +49,8 @@ export const generateRoutesFn2 = (routes: AppCustomRouteRecordRaw[]): AppRouteRe
       redirect: route.redirect,
       meta: route.meta
     }
+
+    
     if (route.component) {
       const comModule = modules[`../${route.component}.vue`] || modules[`../${route.component}.tsx`]
       const component = route.component as string
