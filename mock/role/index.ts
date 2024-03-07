@@ -201,7 +201,7 @@ const adminList = [
     children: [
       {
         path: 'base-form',
-        component: 'views/Components/Form/BaseForm/BaseForm',
+        component: 'views/Form/BaseForm/BaseForm',
         name: 'BaseForm',
         meta: {
           title: 'router.baseForm',
@@ -210,7 +210,7 @@ const adminList = [
       },
       {
         path: 'distribution-form',
-        component: 'views/Components/Form/Distribution/Distribution',
+        component: 'views/Form/Distribution/Distribution',
         name: 'Distribution',
         meta: {
           title: 'router.distributionForm',
@@ -219,7 +219,7 @@ const adminList = [
       },
       {
         path: 'high-form',
-        component: 'views/Components/Form/HighForm/HighForm',
+        component: 'views/Form/HighForm/HighForm',
         name: 'highForm',
         meta: {
           title: 'router.highForm',
@@ -228,7 +228,7 @@ const adminList = [
       },
       {
         path: 'calendar',
-        component: 'views/Components/Form/Calendar/Calendar',
+        component: 'views/Form/Calendar/Calendar',
         name: 'calendar',
         meta: {
           title: 'router.calendar'
@@ -250,7 +250,7 @@ const adminList = [
     children: [
       {
         path: 'timeLine',
-        component: 'views/Components/List/TimeLine/TimeLine',
+        component: 'views/List/TimeLine/TimeLine',
         name: 'TimeLine',
         meta: {
           title: 'router.timeLine'
@@ -258,7 +258,7 @@ const adminList = [
       },
       {
         path: 'lazyLoad',
-        component: 'views/Components/List/LazyLoad/LazyLoad',
+        component: 'views/List/LazyLoad/LazyLoad',
         name: 'LazyLoad',
         meta: {
           title: 'router.lazyLoad'
@@ -266,7 +266,7 @@ const adminList = [
       },
       {
         path: 'skeleton',
-        component: 'views/Components/List/Skeleton/Skeleton',
+        component: 'views/List/Skeleton/Skeleton',
         name: 'Skeleton',
         meta: {
           title: 'router.skeleton'
@@ -274,7 +274,7 @@ const adminList = [
       },
       {
         path: 'descriptionList',
-        component: 'views/Components/List/DescriptionList/DescriptionList',
+        component: 'views/List/DescriptionList/DescriptionList',
         name: 'DescriptionList',
         meta: {
           title: 'router.descriptionList'
@@ -282,7 +282,7 @@ const adminList = [
       },
       {
         path: 'virtualList',
-        component: 'views/Components/List/VirtualList/VirtualList',
+        component: 'views/List/VirtualList/VirtualList',
         name: 'virtualList',
         meta: {
           title: 'router.virtualList'
@@ -315,7 +315,7 @@ const adminList = [
     children: [
       {
         path: 'baseUpload',
-        component: 'views/Components/Upload/BaseUpload/BaseUpload',
+        component: 'views/Upload/BaseUpload/BaseUpload',
         name: 'BaseUpload',
         meta: {
           title: 'router.baseUpload'
@@ -323,7 +323,7 @@ const adminList = [
       },
       {
         path: 'splitUpload',
-        component: 'views/Components/Upload/SplitUpload/SplitUpload',
+        component: 'views/Upload/SplitUpload/SplitUpload',
         name: 'SplitUpload',
         meta: {
           title: 'router.splitUpload'
@@ -331,7 +331,7 @@ const adminList = [
       },
       {
         path: 'batchUpload',
-        component: 'views/Components/Upload/BatchUpload/BatchUpload',
+        component: 'views/Upload/BatchUpload/BatchUpload',
         name: 'BatchUpload',
         meta: {
           title: 'router.batchUpload'
@@ -339,7 +339,7 @@ const adminList = [
       },
       {
         path: 'complexUpload',
-        component: 'views/Components/Upload/ComplexUpload/ComplexUpload',
+        component: 'views/Upload/ComplexUpload/ComplexUpload',
         name: 'ComplexUpload',
         meta: {
           title: 'router.complexUpload'
@@ -359,7 +359,7 @@ const adminList = [
     children: [
       {
         path: 'default-table',
-        component: 'views/Components/Table/DefaultTable/DefaultTable',
+        component: 'views/Table/DefaultTable/DefaultTable',
         name: 'DefaultTable',
         meta: {
           title: 'router.defaultTable'
@@ -367,7 +367,7 @@ const adminList = [
       },
       {
         path: 'complex-table',
-        component: 'views/Components/Table/ComplexTable/ComplexTable',
+        component: 'views/Table/ComplexTable/ComplexTable',
         name: 'ComplexTable',
         meta: {
           title: 'router.complexTable'
@@ -388,7 +388,7 @@ const adminList = [
     children: [
       {
         path: 'editor',
-        component: 'views/Components/Editor/Editor/Editor',
+        component: 'views/Editor/Editor/Editor',
         name: 'Editor',
         meta: {
           title: 'router.markdown'
@@ -396,7 +396,7 @@ const adminList = [
       },
       {
         path: 'flowChart',
-        component: 'views/Components/Editor/FlowChart/FlowChart',
+        component: 'views/Editor/FlowChart/FlowChart',
         name: 'FlowChart',
         meta: {
           title: 'router.flowChart'
@@ -416,7 +416,7 @@ const adminList = [
     children: [
       {
         path: 'simpleTree',
-        component: 'views/Components/Tree/SimpleTree/SimpleTree',
+        component: 'views/Tree/SimpleTree/SimpleTree',
         name: 'SimpleTree',
         meta: {
           title: 'router.simpleTree'
@@ -424,7 +424,7 @@ const adminList = [
       },
       {
         path: 'complexTree',
-        component: 'views/Components/Tree/ComplexTree/ComplexTree',
+        component: 'views/Tree/ComplexTree/ComplexTree',
         name: 'ComplexTree',
         meta: {
           title: 'router.complexTree'
@@ -444,7 +444,7 @@ const adminList = [
     children: [
       {
         path: 'croppingImg',
-        component: 'views/Components/UtilityComp/CroppingImg/CroppingImg',
+        component: 'views/UtilityComp/CroppingImg/CroppingImg',
         name: 'CroppingImg',
         meta: {
           title: 'router.croppingImg'
@@ -452,7 +452,7 @@ const adminList = [
       },
       {
         path: 'qrcode',
-        component: 'views/Components/UtilityComp/Qrcode/Qrcode',
+        component: 'views/UtilityComp/Qrcode/Qrcode',
         name: 'qrcode',
         meta: {
           title: 'router.qrcode'
@@ -460,7 +460,7 @@ const adminList = [
       },
       {
         path: 'previewImg',
-        component: 'views/Components/UtilityComp/PreviewImg/PreviewImg',
+        component: 'views/UtilityComp/PreviewImg/PreviewImg',
         name: 'PreviewImg',
         meta: {
           title: 'router.previewImg'
@@ -468,7 +468,7 @@ const adminList = [
       },
       {
         path: 'carousel',
-        component: 'views/Components/UtilityComp/Carousel/Carousel',
+        component: 'views/UtilityComp/Carousel/Carousel',
         name: 'Carousel',
         meta: {
           title: 'router.carousel'
@@ -476,7 +476,7 @@ const adminList = [
       },
       {
         path: 'previewPDF',
-        component: 'views/Components/UtilityComp/PreviewPDF/PreviewPDF',
+        component: 'views/UtilityComp/PreviewPDF/PreviewPDF',
         name: 'PreviewPDF',
         meta: {
           title: 'router.previewPDF'
@@ -484,7 +484,7 @@ const adminList = [
       },
       {
         path: 'watermark',
-        component: 'views/Components/UtilityComp/Watermark/Watermark',
+        component: 'views/UtilityComp/Watermark/Watermark',
         name: 'Watermark',
         meta: {
           title: 'router.watermark'
@@ -492,7 +492,7 @@ const adminList = [
       },
       {
         path: 'previewExcel',
-        component: 'views/Components/UtilityComp/PreviewExcel/PreviewExcel',
+        component: 'views/UtilityComp/PreviewExcel/PreviewExcel',
         name: 'PreviewExcel',
         meta: {
           title: 'router.previewExcel'
@@ -500,7 +500,7 @@ const adminList = [
       },
       {
         path: 'verification',
-        component: 'views/Components/UtilityComp/Verification/Verification',
+        component: 'views/UtilityComp/Verification/Verification',
         name: 'Verification',
         meta: {
           title: 'router.verification'
@@ -508,7 +508,7 @@ const adminList = [
       },
       {
         path: 'guide-Page',
-        component: 'views/Components/UtilityComp/GuidePage/GuidePage',
+        component: 'views/UtilityComp/GuidePage/GuidePage',
         name: 'GuidePage',
         meta: {
           title: 'router.guidePage'
@@ -516,7 +516,7 @@ const adminList = [
       }
       // {
       //   path: 'dialog',
-      //   component: 'views/Components/Dialog',
+      //   component: 'views/Dialog',
       //   name: 'Dialog',
       //   meta: {
       //     title: 'router.dialog'
@@ -524,7 +524,7 @@ const adminList = [
       // },
       // {
       //   path: 'icon',
-      //   component: 'views/Components/Icon',
+      //   component: 'views/Icon',
       //   name: 'Icon',
       //   meta: {
       //     title: 'router.icon'
@@ -532,7 +532,7 @@ const adminList = [
       // },
       // {
       //   path: 'echart',
-      //   component: 'views/Components/Echart',
+      //   component: 'views/Echart',
       //   name: 'Echart',
       //   meta: {
       //     title: 'router.echart'
@@ -540,7 +540,7 @@ const adminList = [
       // },
       // {
       //   path: 'count-to',
-      //   component: 'views/Components/CountTo',
+      //   component: 'views/CountTo',
       //   name: 'CountTo',
       //   meta: {
       //     title: 'router.countTo'
@@ -548,7 +548,7 @@ const adminList = [
       // },
       // {
       //   path: 'qrcode',
-      //   component: 'views/Components/Qrcode',
+      //   component: 'views/Qrcode',
       //   name: 'Qrcode',
       //   meta: {
       //     title: 'router.qrcode'
@@ -556,7 +556,7 @@ const adminList = [
       // },
       // {
       //   path: 'highlight',
-      //   component: 'views/Components/Highlight',
+      //   component: 'views/Highlight',
       //   name: 'Highlight',
       //   meta: {
       //     title: 'router.highlight'
@@ -564,7 +564,7 @@ const adminList = [
       // },
       // {
       //   path: 'infotip',
-      //   component: 'views/Components/Infotip',
+      //   component: 'views/Infotip',
       //   name: 'Infotip',
       //   meta: {
       //     title: 'router.infotip'
@@ -572,7 +572,7 @@ const adminList = [
       // },
       // {
       //   path: 'input-password',
-      //   component: 'views/Components/InputPassword',
+      //   component: 'views/InputPassword',
       //   name: 'InputPassword',
       //   meta: {
       //     title: 'router.inputPassword'
@@ -580,7 +580,7 @@ const adminList = [
       // },
       // {
       //   path: 'sticky',
-      //   component: 'views/Components/Sticky',
+      //   component: 'views/Sticky',
       //   name: 'Sticky',
       //   meta: {
       //     title: 'router.sticky'
@@ -744,6 +744,70 @@ const adminList = [
   //     }
   //   ]
   // },
+
+  {
+    path: '/mechanism',
+    compoonent: '',
+    redirect: '/mechanism/list',
+    name: 'Error',
+    meta: {
+      title: 'router.errorPage',
+      icon: 'ci:error',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: '/mechanism/list',
+        component: 'views/Mechanism/List',
+        name: '404Demo',
+        meta: {
+          title: '机构列表'
+        }
+      }
+    ]
+  },
+  {
+    path: '/users',
+    compoonent: '',
+    redirect: '/users/list',
+    name: 'Error',
+    meta: {
+      title: 'router.errorPage',
+      icon: 'ci:error',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: '/users/list',
+        component: 'views/Users/List',
+        name: '404Demo',
+        meta: {
+          title: '志愿者列表'
+        }
+      }
+    ]
+  },
+  {
+    path: '/actions',
+    compoonent: '',
+    redirect: '/actions/list',
+    name: 'Error',
+    meta: {
+      title: 'router.errorPage',
+      icon: 'ci:error',
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: '/mechanism/list',
+        component: 'views/Actions/List',
+        name: '404Demo',
+        meta: {
+          title: '活动列表'
+        }
+      }
+    ]
+  },
   {
     path: '/error',
     component: '#',
