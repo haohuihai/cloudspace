@@ -137,6 +137,7 @@ export default {
     exampleEdit: '综合示例 - 编辑',
     exampleDetail: '综合示例 - 详情',
     errorPage: '错误页面',
+    mechanism: '机构管理',
     authorization: '权限管理',
     user: '用户管理',
     role: '角色管理',

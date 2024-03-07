@@ -67,7 +67,7 @@ export const appModules: AppState = {
   screenfull: true, // 全屏图标
   notify: true,
   size: true, // 尺寸图标
-  lockScreen: true,
+  lockScreen: false,
   locale: true, // 多语言图标
   tagsView: true, // 标签页
   tagsViewIcon: true, // 是否显示标签图标

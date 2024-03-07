@@ -18,7 +18,7 @@ const adminList = [
     },
     children: [
       {
-        path: 'analysis',
+        path: '/dashboard/analysis',
         component: 'views/Dashboard/Analysis',
         name: 'Analysis',
         meta: {
@@ -749,9 +749,9 @@ const adminList = [
     path: '/mechanism',
     compoonent: '',
     redirect: '/mechanism/list',
-    name: 'Error',
+    name: 'Mechanism',
     meta: {
-      title: 'router.errorPage',
+      title: 'router.mechanism',
       icon: 'ci:error',
       alwaysShow: true
     },
@@ -759,7 +759,7 @@ const adminList = [
       {
         path: '/mechanism/list',
         component: 'views/Mechanism/List',
-        name: '404Demo',
+        name: 'MechanismList',
         meta: {
           title: '机构列表'
         }

@@ -20,6 +20,9 @@ import '@/styles/global.less'
 // 引入element-plus
 import { setupElementPlus } from '@/plugins/elementPlus'
 
+// 引入formCreate
+import { setupFormCreate } from '@/plugins/formCreate'
+
 // 引入rem字体配置文件
 
 import '@/utils/rem'
@@ -44,12 +47,17 @@ import { setupVueMarkdownEditor } from '@/plugins/mdEditor'
 
 import '@/socket'
 // import SocketService from '@/utils/socket_service'
+import formCreate from '@form-create/element-ui'
+import FcDesigner from '@form-create/designer'
 
 
 // import '@/socket'
 // 创建实例
 const setupAll = async () => {
   const app = createApp(App)
+  
+  app.use(formCreate)
+  app.use(FcDesigner)
   await setupI18n(app)
   setupStore(app)
   setupRouter(app)
@@ -58,6 +66,7 @@ const setupAll = async () => {
   setupPermission(app)
   setupVueMarkdownEditor(app)
   setupVueKonva(app)
+  setupFormCreate(app)
   app.mount('#app')
 }
 

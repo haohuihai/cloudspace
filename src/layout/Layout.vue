@@ -54,7 +54,7 @@ export default defineComponent({
         {renderLayout()}
         <Chat />
         <ChatModal />
-        <LockScreenModal isShoLockModal={isShoLockModal}/>
+        <LockScreenModal isShoLockModal={unref(isShoLockModal)}/>
         <Setting></Setting>
       </section>
     )
