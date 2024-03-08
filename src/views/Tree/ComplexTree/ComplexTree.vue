@@ -1,5 +1,7 @@
 <template>
-  <fc-designer ></fc-designer>
+  <fc-designer 
+    height="800px"
+  ></fc-designer>
 </template>
 
 <script>
@@ -12,3 +14,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>
