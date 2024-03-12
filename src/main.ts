@@ -29,6 +29,8 @@ import '@/utils/rem'
 
 // 引入vueknova
 import { setupVueKonva } from '@/plugins/konva'
+
+import { setElementIcons } from '@/plugins/elIcon'
 // 引入动画
 import '@/plugins/animate.css'
 // 全局组件
@@ -61,6 +63,7 @@ const setupAll = async () => {
   await setupI18n(app)
   setupStore(app)
   setupRouter(app)
+  setElementIcons(app)
   setupElementPlus(app)
   setupGlobCom(app)
   setupPermission(app)

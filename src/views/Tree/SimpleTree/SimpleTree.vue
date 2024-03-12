@@ -27,7 +27,7 @@
         group="people" 
         item-key="id">
         <template #item="{ element }">
-            
+            11
         </template>
       </draggable>
     </ElCol>
