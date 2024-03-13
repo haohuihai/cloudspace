@@ -1,5 +1,5 @@
 <template>
-  <div id="container" class="hhh-container">
+  <div id="videoContainer" ref="videoContainerRef" class="hhh-container">
     <video ref="videoRef">
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
@@ -8,130 +8,294 @@
       <a href="/media/cc0-videos/flower.mp4">MP4</a>
       video.
     </video>
-    <div class="hhh-controls">
+    <div class="hhh-controls" ref="controlsRef" id="video-controls">
       <div class="hhh-process">
         <div class="hhh-process-outer">
-          <div class="hhh-process-cache"></div>
-          <div class="hhh-process-played"></div>
+          <progress id="progress" ref="processRef" value="0" min="0">
+            <span id="progress-bar" ref="progressBar"></span>
+          </progress>
         </div>
       </div>
-      <div class="hhh-btn-play">
-        <ElIcon><VideoPause /></ElIcon>
+      <div class="hhh-placholder"></div>
+      <div class="hhh-btn-play" ref="playpauseRef" id="playpause">
+        <Icon icon="majesticons:play-circle" size="25" />
       </div>
-      <div class="hhh-time">
+      <div class="hhh-time" ref="timeRef">
         <span class="hhh-time-current">01:12</span>
         <span>02:30</span>
+      </div>
+      <div class="hhh-restart-play" ref="restartPlayRef">
+        <Icon icon="gravity-ui:circle-stop" size="25" />
+      </div>
+      <div class="hhh-vol" ref="volRef">
+        <span id="volinc">
+          <Icon icon="gravity-ui:volume-low" size="25" />
+        </span>
+        <!-- <span id="voldec">vol-</span> -->
+      </div>
+
+      <div id="fs" class="hhh-full" ref="fullRef">
+        <Icon icon="majesticons:arrows-expand-full-line" size="25" />
       </div>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
-  import {
-  VideoPause
-} from '@element-plus/icons-vue'
-import { ElIcon  } from "element-plus";
-export default defineComponent({
-  setup() {
-    const videoRef = ref()
-    onMounted(() => {
-      const condom = document.getElementById('container')
-      console.log('condom', condom, videoRef)
-      console.log('this.refs.videoRef', videoRef)
-    })
-    return {
-      videoRef
-    }
-  }
-})
+  import { defineComponent, onMounted, onUnmounted, ref, unref } from 'vue';
+  import { VideoPause } from '@element-plus/icons-vue';
+  import { ElIcon } from 'element-plus';
+  export default defineComponent({
+    setup() {
+      const videoRef = ref();
+      const controlsRef = ref();
+      const processRef = ref();
+      const playpauseRef = ref();
+      const timeRef = ref();
+      const volRef = ref();
+      const fullRef = ref();
+      const restartPlayRef = ref();
+      const progressBar = ref();
+      const videoContainerRef = ref();
+      onMounted(() => {
+        // 获取DOM实例
+        // 判断是否支持video自定义控件
+        // 监听事件
+        initDom();
+      });
+
+      // 卸载事件
+      onUnmounted(() => {});
+
+      const initDom = () => {
+        const supportsVideo = !!document.createElement('video').canPlayType;
+        if (supportsVideo) {
+          // 注册事件
+          const videoContainer = document.getElementById('videoContainer');
+          const videoControls = document.getElementById('video-controls');
+
+          let videoUnRef = unref(videoRef);
+          // 隐藏原生控件，展示自定义控件
+          // Hide the default controls
+          videoUnRef.controls = false;
+          videoControls.style.display = 'flex';
+
+          // 自定义暂停播放事件
+          unref(playpauseRef).addEventListener('click', (e) => {
+            console.log('e', e);
+            if (videoUnRef.paused || videoUnRef.ended) {
+              videoUnRef.play();
+            } else {
+              videoUnRef.pause();
+            }
+          });
+
+          // 重新播放， 自定义从头开始播放
+          unref(restartPlayRef).addEventListener('click', (e) => {
+            videoUnRef.pause();
+            videoUnRef.currentTime = 0;
+            unref(processRef).value = 0;
+          });
+
+          // 静音
+
+          // mute.addEventListener("click", (e) => {
+          //   video.muted = !video.muted;
+          // });
+
+          // 音量+ 和 音量 -
+          unref(volRef).addEventListener('click', (e) => {
+            alterVolume('+');
+          });
+          // voldec.addEventListener('click', (e) => {
+          //   alterVolume('-');
+          // });
+
+          // 进度条发生改变
+          videoUnRef.addEventListener('timeupdate', () => {
+            console.log('time', videoUnRef.currentTime);
+            if (!unref(processRef).getAttribute('max'))
+              unref(processRef).setAttribute('max', videoUnRef.duration);
+            unref(processRef).value = videoUnRef.currentTime;
+            unref(progressBar).style.width = `${Math.floor(
+              (videoUnRef.currentTime * 100) / videoUnRef.duration,
+            )}%`;
+          });
+
+          // 监听 点击 滚动条到某一刻
+          unref(processRef).addEventListener('click', (e) => {
+            const rect = unref(progress).getBoundingClientRect();
+            const pos = (e.pageX - rect.left) / unref(progress).offsetWidth;
+            videoUnRef.currentTime = pos * videoUnRef.duration;
+          });
+
+          // 监听全屏按钮
+          unref(fullRef).addEventListener('click', (e) => {
+            handleFullscreen();
+          });
+
+          // 监听用户使用ESC退出
+          document.addEventListener('fullscreenchange', (e) => {
+            setFullscreenData(!!document.fullscreenElement);
+          });
+        }
+
+        // 加减音量
+        const alterVolume = (dir) => {
+          let videoUnRef = unref(videoRef);
+          const currentVolume = Math.floor(videoUnRef.volume * 10) / 10;
+          if (dir === '+' && currentVolume < 1) {
+            videoUnRef.volume += 0.1;
+          } else if (dir === '-' && currentVolume > 0) {
+            videoUnRef.volume -= 0.1;
+          }
+        };
+
+        const handleFullscreen = () => {
+          if (document.fullscreenElement !== null) {
+            // The document is in fullscreen mode
+            document.exitFullscreen();
+            setFullscreenData(false);
+          } else {
+            // The document is not in fullscreen mode
+            unref(videoContainerRef).requestFullscreen();
+            setFullscreenData(true);
+          }
+        };
+
+        const setFullscreenData = (state) => {
+          unref(videoContainerRef).setAttribute('data-fullscreen', !!state);
+        };
+      };
+      return {
+        videoRef,
+        controlsRef,
+        processRef,
+        fullRef,
+        volRef,
+        timeRef,
+        playpauseRef,
+        restartPlayRef,
+        progressBar,
+        videoContainerRef,
+      };
+    },
+  });
 </script>
 <style scoped lang="less">
-#container {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  height: 338px;
-  width: 600px;
-  video {
-    width: 100%;
-    height: 100%;
-  }
-}
-.hhh-container {
-  position: relative;
-}
-.hhh-controls {
-  position: absolute;
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background-image: linear-gradient(
-    180deg,
-    transparent,
-    rgba(0, 0, 0, 0.37),
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0.75)
-  );
-  z-index: 10;
-}
-.hhh-process {
-  display: block;
-  position: absolute;
-  height: 20px;
-  line-height: 20px;
-  left: 12px;
-  right: 12px;
-  outline: none;
-  top: -15px;
-  z-index: 35;
-}
-.hhh-btn-play {
-  width: 40px;
-  position: relative;
-  order: 0;
-  display: block;
-  cursor: pointer;
-  margin-left: 3px;
-}
-.hhh-time {
-  order: 2;
-  font-family: ArialMT;
-  font-size: 13px;
-  color: #fff;
-  line-height: 40px;
-  height: 40px;
-  text-align: center;
-  display: inline-block;
-  margin: auto 8px;
-  .hhh-time-current {
-    color: #fff;
-    &::after {
-      content: '/';
-      display: inline-block;
-      padding: 0 3px;
+  #container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    height: 338px;
+    width: 600px;
+    margin: 30px auto;
+    video {
+      width: 100%;
+      height: 100%;
     }
   }
-}
-.hhh-process-outer {
-  background: hsla(0, 0%, 100%, 0.3);
-  display: block;
-  height: 3px;
-  line-height: 3px;
-  margin-top: 8.5px;
-  width: 100%;
-  position: relative;
-  cursor: pointer;
-  .hhh-process-cache {
-    background: hsla(0, 0%, 100%, 0.5);
-    width: 43.9265%;
+  .hhh-container {
+    position: relative;
   }
-  .hhh-process-played {
-    background-image: linear-gradient(-90deg, #fa1f41, #e31106);
-    border-radius: 0 1.5px 1.5px 0;
-    width: 1.68238%;
+  .hhh-controls {
+    position: absolute;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: none;
+    background-image: linear-gradient(
+      180deg,
+      transparent,
+      rgba(0, 0, 0, 0.37),
+      rgba(0, 0, 0, 0.75),
+      rgba(0, 0, 0, 0.75)
+    );
+    z-index: 10;
   }
-}
+  .hhh-process {
+    display: block;
+    position: absolute;
+    height: 20px;
+    line-height: 20px;
+    left: 12px;
+    right: 12px;
+    outline: none;
+    top: -15px;
+    z-index: 35;
+  }
+  .hhh-btn-play {
+    width: 40px;
+    position: relative;
+    order: 0;
+    display: block;
+    cursor: pointer;
+    margin-left: 3px;
+    color: #fff;
+    text-align: center;
+    margin: auto 0px;
+    margin-left: 3px;
+  }
+
+  .hhh-time {
+    order: 2;
+    font-family: ArialMT;
+    font-size: 13px;
+    color: #fff;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin: auto 8px;
+    .hhh-time-current {
+      color: #fff;
+      &::after {
+        content: '/';
+        display: inline-block;
+        padding: 0 3px;
+      }
+    }
+  }
+  .hhh-vol {
+    order: 13;
+    color: #fff;
+    margin: auto 3px;
+    cursor: pointer;
+  }
+  .hhh-restart-play {
+    order: 12;
+    color: #fff;
+    margin: auto 3px;
+    cursor: pointer;
+  }
+  .hhh-full {
+    order: 14;
+    color: #fff;
+    margin: auto 3px;
+    cursor: pointer;
+  }
+  .hhh-placholder {
+    order: 3;
+    flex: 1;
+  }
+  .hhh-process-outer {
+    background: hsla(0, 0%, 100%, 0.3);
+    display: block;
+    height: 3px;
+    line-height: 3px;
+    margin-top: 8.5px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    .hhh-process-cache {
+      background: hsla(0, 0%, 100%, 0.5);
+      width: 43.9265%;
+    }
+    .hhh-process-played {
+      background-image: linear-gradient(-90deg, #fa1f41, #e31106);
+      border-radius: 0 1.5px 1.5px 0;
+      width: 1.68238%;
+    }
+  }
 </style>
