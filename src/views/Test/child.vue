@@ -6,7 +6,9 @@
         type="video/mp4"
       />
       <a href="/media/cc0-videos/flower.mp4">MP4</a>
-      video.
+      <track label="English" kind="subtitles" srclang="en" src="/child/subtitles/vtt/sintel-en.vtt" default>
+			<track label="Deutsch" kind="subtitles" srclang="de" src="/childsubtitles/vtt/sintel-de.vtt">
+			<track label="Español" kind="subtitles" srclang="es" src="/childsubtitles/vtt/sintel-es.vtt">
     </video>
     <div class="hhh-controls" ref="controlsRef" id="video-controls">
       <div class="hhh-process">
@@ -21,8 +23,8 @@
         <Icon icon="majesticons:play-circle" size="25" />
       </div>
       <div class="hhh-time" ref="timeRef">
-        <span class="hhh-time-current">01:12</span>
-        <span>02:30</span>
+        <span class="hhh-time-current">{{videoChangeTime}}</span>
+        <span>{{videoDuration}}</span>
       </div>
       <div class="hhh-restart-play" ref="restartPlayRef">
         <Icon icon="gravity-ui:circle-stop" size="25" />
@@ -56,6 +58,8 @@
       const restartPlayRef = ref();
       const progressBar = ref();
       const videoContainerRef = ref();
+      const videoChangeTime = ref(0);
+      const videoDuration = ref(0);
       onMounted(() => {
         // 获取DOM实例
         // 判断是否支持video自定义控件
@@ -112,9 +116,11 @@
 
           // 进度条发生改变
           videoUnRef.addEventListener('timeupdate', () => {
-            console.log('time', videoUnRef.currentTime);
+            console.log('time', videoUnRef.currentTime,  videoUnRef.duration);
             if (!unref(processRef).getAttribute('max'))
-              unref(processRef).setAttribute('max', videoUnRef.duration);
+            videoChangeTime.value = Math.floor(videoUnRef.currentTime)
+            videoDuration.value = Math.floor(videoUnRef.duration)
+            unref(processRef).setAttribute('max', videoUnRef.duration);
             unref(processRef).value = videoUnRef.currentTime;
             unref(progressBar).style.width = `${Math.floor(
               (videoUnRef.currentTime * 100) / videoUnRef.duration,
@@ -137,7 +143,25 @@
           document.addEventListener('fullscreenchange', (e) => {
             setFullscreenData(!!document.fullscreenElement);
           });
+          var subtitlesMenu;
+          if (videoUnRef.textTracks) {
+              var df = document.createDocumentFragment();
+              var subtitlesMenu = df.appendChild(document.createElement('ul'));
+              subtitlesMenu.className = 'subtitles-menu';
+              subtitlesMenu.appendChild(createMenuItem('subtitles-off', '', 'Off'));
+              for (var i = 0; i < videoUnRef.textTracks.length; i++) {
+                subtitlesMenu.appendChild(createMenuItem('subtitles-' + videoUnRef.textTracks[i].language, videoUnRef.textTracks[i].language, videoUnRef.textTracks[i].label));
+              }
+              unref(videoContainerRef).appendChild(subtitlesMenu);
+            }
+          // subtitles.addEventListener('click', function(e) {
+          //   if (subtitlesMenu) {
+          //     subtitlesMenu.style.display = (subtitlesMenu.style.display == 'block' ? 'none' : 'block');
+          //   }
+          // });
+
         }
+      }
 
         // 加减音量
         const alterVolume = (dir) => {
@@ -161,11 +185,42 @@
             setFullscreenData(true);
           }
         };
-
+        var subtitleMenuButtons = [];
+        const createMenuItem = (id, lang, label) => {
+           let videoUnRef = unref(videoRef);
+          var listItem = document.createElement('li');
+          var button = listItem.appendChild(document.createElement('button'));
+          button.setAttribute('id', id);
+          button.className = 'subtitles-button';
+          if (lang.length > 0) button.setAttribute('lang', lang);
+          button.value = label;
+          button.setAttribute('data-state', 'inactive');
+          button.appendChild(document.createTextNode(label));
+          button.addEventListener('click', function(e) {
+            // Set all buttons to inactive
+            subtitleMenuButtons.map(function(v, i, a) {
+              subtitleMenuButtons[i].setAttribute('data-state', 'inactive');
+            });
+            // Find the language to activate
+            var lang = this.getAttribute('lang');
+            for (var i = 0; i < videoUnRef.textTracks.length; i++) {
+              // For the 'subtitles-off' button, the first condition will never match so all will subtitles be turned off
+              if (videoUnRef.textTracks[i].language == lang) {
+                videoUnRef.textTracks[i].mode = 'showing';
+                this.setAttribute('data-state', 'active');
+              }
+              else {
+                videoUnRef.textTracks[i].mode = 'hidden';
+              }
+            }
+            subtitlesMenu.style.display = 'none';
+          });
+          subtitleMenuButtons.push(button);
+				return listItem;
+			  }
         const setFullscreenData = (state) => {
           unref(videoContainerRef).setAttribute('data-fullscreen', !!state);
         };
-      };
       return {
         videoRef,
         controlsRef,
@@ -177,25 +232,25 @@
         restartPlayRef,
         progressBar,
         videoContainerRef,
+        videoDuration,
+        videoChangeTime,
       };
     },
   });
 </script>
 <style scoped lang="less">
-  #container {
+  .hhh-container {
     display: flex;
     justify-content: center;
     margin-top: 30px;
     height: 338px;
     width: 600px;
     margin: 30px auto;
+    position: relative;
     video {
       width: 100%;
       height: 100%;
     }
-  }
-  .hhh-container {
-    position: relative;
   }
   .hhh-controls {
     position: absolute;
@@ -213,6 +268,10 @@
       rgba(0, 0, 0, 0.75)
     );
     z-index: 10;
+  }
+  .subtitles-menu {
+    position: absolute;
+    bottom: 0;
   }
   .hhh-process {
     display: block;
@@ -288,6 +347,9 @@
     width: 100%;
     position: relative;
     cursor: pointer;
+    progress {
+      width: 100%;
+    }
     .hhh-process-cache {
       background: hsla(0, 0%, 100%, 0.5);
       width: 43.9265%;
