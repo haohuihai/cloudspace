@@ -6,9 +6,9 @@
         type="video/mp4"
       />
       <a href="/media/cc0-videos/flower.mp4">MP4</a>
-      <track label="English" kind="subtitles" srclang="en" src="/child/subtitles/vtt/sintel-en.vtt" default>
-			<track label="Deutsch" kind="subtitles" srclang="de" src="/childsubtitles/vtt/sintel-de.vtt">
-			<track label="Español" kind="subtitles" srclang="es" src="/childsubtitles/vtt/sintel-es.vtt">
+      <track label="英文" kind="subtitles" srclang="en" src="/child/subtitles/vtt/sintel-en.vtt" default>
+			<track label="德语" kind="subtitles" srclang="de" src="/childsubtitles/vtt/sintel-de.vtt">
+			<track label="西班牙" kind="subtitles" srclang="es" src="/childsubtitles/vtt/sintel-es.vtt">
     </video>
     <div class="hhh-controls" ref="controlsRef" id="video-controls">
       <div class="hhh-process">
@@ -35,7 +35,9 @@
         </span>
         <!-- <span id="voldec">vol-</span> -->
       </div>
-
+      <div class="hhh-subtitles" ref="subtitlesRef">
+        <a ref="subtitlesBtnRef">英语</a>
+      </div>
       <div id="fs" class="hhh-full" ref="fullRef">
         <Icon icon="majesticons:arrows-expand-full-line" size="25" />
       </div>
@@ -60,6 +62,9 @@
       const videoContainerRef = ref();
       const videoChangeTime = ref(0);
       const videoDuration = ref(0);
+      const subtitlesRef = ref();
+      const subtitlesBtnRef = ref();
+       var subtitlesMenu;
       onMounted(() => {
         // 获取DOM实例
         // 判断是否支持video自定义控件
@@ -143,7 +148,7 @@
           document.addEventListener('fullscreenchange', (e) => {
             setFullscreenData(!!document.fullscreenElement);
           });
-          var subtitlesMenu;
+         
           if (videoUnRef.textTracks) {
               var df = document.createDocumentFragment();
               var subtitlesMenu = df.appendChild(document.createElement('ul'));
@@ -152,13 +157,14 @@
               for (var i = 0; i < videoUnRef.textTracks.length; i++) {
                 subtitlesMenu.appendChild(createMenuItem('subtitles-' + videoUnRef.textTracks[i].language, videoUnRef.textTracks[i].language, videoUnRef.textTracks[i].label));
               }
-              unref(videoContainerRef).appendChild(subtitlesMenu);
+              unref(subtitlesRef).appendChild(subtitlesMenu);
+          }
+
+          unref(subtitlesBtnRef).addEventListener('click', function(e) {
+            if (subtitlesMenu) {
+              subtitlesMenu.style.display = (subtitlesMenu.style.display == 'block' ? 'none' : 'block');
             }
-          // subtitles.addEventListener('click', function(e) {
-          //   if (subtitlesMenu) {
-          //     subtitlesMenu.style.display = (subtitlesMenu.style.display == 'block' ? 'none' : 'block');
-          //   }
-          // });
+          });
 
         }
       }
@@ -189,14 +195,14 @@
         const createMenuItem = (id, lang, label) => {
            let videoUnRef = unref(videoRef);
           var listItem = document.createElement('li');
-          var button = listItem.appendChild(document.createElement('button'));
-          button.setAttribute('id', id);
-          button.className = 'subtitles-button';
-          if (lang.length > 0) button.setAttribute('lang', lang);
-          button.value = label;
-          button.setAttribute('data-state', 'inactive');
-          button.appendChild(document.createTextNode(label));
-          button.addEventListener('click', function(e) {
+          // var button = listItem.appendChild(document.createElement('button'));
+          listItem.setAttribute('id', id);
+          listItem.className = 'subtitles-button';
+          if (lang.length > 0) listItem.setAttribute('lang', lang);
+          listItem.value = label;
+          listItem.setAttribute('data-state', 'inactive');
+          listItem.appendChild(document.createTextNode(label));
+          listItem.addEventListener('click', function(e) {
             // Set all buttons to inactive
             subtitleMenuButtons.map(function(v, i, a) {
               subtitleMenuButtons[i].setAttribute('data-state', 'inactive');
@@ -215,7 +221,7 @@
             }
             subtitlesMenu.style.display = 'none';
           });
-          subtitleMenuButtons.push(button);
+          subtitleMenuButtons.push(listItem);
 				return listItem;
 			  }
         const setFullscreenData = (state) => {
@@ -226,6 +232,8 @@
         controlsRef,
         processRef,
         fullRef,
+        subtitlesRef,
+        subtitlesBtnRef,
         volRef,
         timeRef,
         playpauseRef,
@@ -269,10 +277,7 @@
     );
     z-index: 10;
   }
-  .subtitles-menu {
-    position: absolute;
-    bottom: 0;
-  }
+ 
   .hhh-process {
     display: block;
     position: absolute;
@@ -328,6 +333,40 @@
     margin: auto 3px;
     cursor: pointer;
   }
+  .hhh-subtitles {
+    order: 10;
+    color: #fff;
+    margin: auto 3px;
+    cursor: pointer;
+    position: relative;
+     /deep/.subtitles-menu {
+        position: absolute;
+        bottom: 32px;
+        background: rgba(0, 0, 0, .54);
+        border-radius: 2px;
+        width: 60px;
+        left: -17px;
+        text-align: center;
+        display: none;
+        z-index: 40;
+        .subtitles-button {
+            opacity: .7;
+            font-family: PingFangSC-Regular;
+            font-size: 11px;
+            color: hsla(0, 0%, 100%, .8);
+            padding: 6px 13px;
+            &:hover {
+              color: #fff;
+              opacity: 1;
+            }
+        }
+    }
+    &:hover {
+      /deep/.subtitles-menu {
+        display: inline-block;
+      }
+    }
+  }
   .hhh-full {
     order: 14;
     color: #fff;
@@ -343,7 +382,6 @@
     display: block;
     height: 3px;
     line-height: 3px;
-    margin-top: 8.5px;
     width: 100%;
     position: relative;
     cursor: pointer;
