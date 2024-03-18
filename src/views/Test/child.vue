@@ -10,24 +10,30 @@
 			<track label="德语" kind="subtitles" srclang="de" src="/childsubtitles/vtt/sintel-de.vtt">
 			<track label="西班牙" kind="subtitles" srclang="es" src="/childsubtitles/vtt/sintel-es.vtt">
     </video>
-    <div class="hhh-controls" ref="controlsRef" id="video-controls">
-      <div class="hhh-process">
-        <div class="hhh-process-outer">
-          <progress id="progress" ref="processRef" value="0" min="0">
-            <span id="progress-bar" ref="progressBar"></span>
-          </progress>
-        </div>
-      </div>
-      <div class="hhh-placholder"></div>
-      <div class="hhh-btn-play" ref="playpauseRef" id="playpause">
-        <Icon icon="majesticons:play-circle" size="25" />
-      </div>
+    <div class="hhh-process">
       <div class="hhh-time" ref="timeRef">
         <span class="hhh-time-current">{{videoChangeTime}}</span>
         <span>{{videoDuration}}</span>
       </div>
+      <div class="hhh-process-outer">
+        <!-- <progress id="progress" ref="processRef" value="0" min="0">
+          <span id="progress-bar" ref="progressBar"></span>
+        </progress> -->
+
+         <ElSlider @change="handleProcessChange" @input="handleProcessInput" class="progress" v-model="processValue" />
+        <span id="process-dot" class="process-dot"></span>
+      </div>
+    </div>
+    <div class="hhh-controls" ref="controlsRef" id="video-controls">
+     
+      <div class="hhh-placholder"></div>
+      <div class="hhh-btn-play" ref="playpauseRef" @click="playAndPause" id="playpause">
+        <Icon icon="ant-design:play-circle-filled" size="25" v-show="isPause"/>
+        <Icon icon="ant-design:pause-circle-filled" size="25" v-show="!isPause"/>
+      </div>
+      
       <div class="hhh-input-danmu">
-        <el-input v-model="inputDanmuValue" @focus="handleInputFocus"  @blur="handleInputBlur" :style="{width: inputWidth + 'px'} " placeholder="发弹幕..." />
+        <ElInput v-model="inputDanmuValue" @focus="handleInputFocus"  @blur="handleInputBlur" :style="{width: inputWidth + 'px'} " placeholder="发弹幕..." />
       </div>
       <div class="hhh-restart-play" ref="restartPlayRef">
         <Icon icon="gravity-ui:circle-stop" size="25" />
@@ -36,18 +42,19 @@
         <ElSwitch
           v-model="danmuSwitch"
           inline-prompt
-          active-text="打开"
+          active-text="开"
           size="large"
           width="80"
           class="ml-2"
           style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-          inactive-text="关闭"
+          inactive-text="关"
         />
       </div>
       <div class="hhh-vol" ref="volRef">
         <span id="volinc">
           <Icon icon="gravity-ui:volume-low" size="25" />
         </span>
+         <ElSlider vertical @change="handleVoiceChange" @input="handleVoiceInput" class="voive" v-model="voiceValue" />
         <!-- <span id="voldec">vol-</span> -->
       </div>
       <div class="hhh-subtitles" ref="subtitlesRef">
@@ -74,7 +81,7 @@
 				</span>
 			</div>
 		</div>
-    <div class="hhh-pause-icon" v-if="isPause">
+    <div class="hhh-pause-icon" @click="playAndPause" v-if="isPause">
       <Icon :size="60" icon="bx:caret-right-circle"/>
     </div>
   </div>
@@ -94,14 +101,16 @@ import { reactify } from '@vueuse/core';
       const restartPlayRef = ref();
       const progressBar = ref();
       const videoContainerRef = ref();
-      const videoChangeTime = ref(0);
-      const videoDuration = ref(0);
+      const videoChangeTime = ref('00:00');
+      const videoDuration = ref('00:00');
+      const processValue = ref(0);
+      const voiceValue = ref(0);
       const subtitlesRef = ref();
       const subtitlesBtnRef = ref();
       const isPause = ref(true)
       const danmuSwitch = ref(true)
       const inputDanmuValue = ref('')
-      const inputWidth = ref(50)
+      const inputWidth = ref(70)
       const danmuList = reactive([
         {
           text: '测试1',
@@ -139,15 +148,7 @@ import { reactify } from '@vueuse/core';
           videoControls.style.display = 'flex';
 
           // 自定义暂停播放事件
-          unref(playpauseRef).addEventListener('click', (e) => {
-            if (videoUnRef.paused || videoUnRef.ended) {
-              videoUnRef.play();
-              isPause.value = false
-            } else {
-              videoUnRef.pause();
-              isPause.value = true
-            }
-          });
+         
 
           // 重新播放， 自定义从头开始播放
           unref(restartPlayRef).addEventListener('click', (e) => {
@@ -163,9 +164,9 @@ import { reactify } from '@vueuse/core';
           // });
 
           // 音量+ 和 音量 -
-          unref(volRef).addEventListener('click', (e) => {
-            alterVolume('+');
-          });
+          // unref(volRef).addEventListener('click', (e) => {
+          //   alterVolume('+');
+          // });
           // voldec.addEventListener('click', (e) => {
           //   alterVolume('-');
           // });
@@ -173,22 +174,38 @@ import { reactify } from '@vueuse/core';
           // 进度条发生改变
           videoUnRef.addEventListener('timeupdate', () => {
             console.log('time', videoUnRef.currentTime,  videoUnRef.duration);
+            if (videoUnRef.currentTime === videoUnRef.duration) {
+              videoUnRef.pause();
+              isPause.value = true
+            }
+            console.log(convertSecondsToHMS(videoUnRef.currentTime));
+
             if (!unref(processRef).getAttribute('max'))
-            videoChangeTime.value = Math.floor(videoUnRef.currentTime)
-            videoDuration.value = Math.floor(videoUnRef.duration)
-            unref(processRef).setAttribute('max', videoUnRef.duration);
-            unref(processRef).value = videoUnRef.currentTime;
-            unref(progressBar).style.width = `${Math.floor(
-              (videoUnRef.currentTime * 100) / videoUnRef.duration,
-            )}%`;
+            videoChangeTime.value = convertSecondsToHMS(videoUnRef.currentTime)
+
+            videoDuration.value = convertSecondsToHMS(videoUnRef.duration)
+            // unref(processRef).setAttribute('max', videoUnRef.duration);
+            // unref(processRef).value = videoUnRef.currentTime;
+            processValue.value = videoUnRef.currentTime
+            // unref(progressBar).style.width = `${Math.floor(
+            //   (videoUnRef.currentTime * 100) / videoUnRef.duration,
+            // )}%`;
           });
 
+          // 监听点击事件  暂停播放
+          videoUnRef.addEventListener('click', () => {
+            if (!isPause.value) {
+              videoUnRef.pause();
+              isPause.value = true
+            }
+            
+          })
           // 监听 点击 滚动条到某一刻
-          unref(processRef).addEventListener('click', (e) => {
-            const rect = unref(progress).getBoundingClientRect();
-            const pos = (e.pageX - rect.left) / unref(progress).offsetWidth;
-            videoUnRef.currentTime = pos * videoUnRef.duration;
-          });
+          // unref(processRef).addEventListener('click', (e) => {
+          //   const rect = unref(progress).getBoundingClientRect();
+          //   const pos = (e.pageX - rect.left) / unref(progress).offsetWidth;
+          //   videoUnRef.currentTime = pos * videoUnRef.duration;
+          // });
 
           // 监听全屏按钮
           unref(fullRef).addEventListener('click', (e) => {
@@ -219,7 +236,32 @@ import { reactify } from '@vueuse/core';
 
         }
       }
+      const playAndPause = () => {
+        let videoUnRef = unref(videoRef)
+          if (videoUnRef.paused || videoUnRef.ended) {
+              videoUnRef.play();
+              isPause.value = false
+            } else {
+              videoUnRef.pause();
+              isPause.value = true
+            }
+      }
+      const handleProcessChange = (value) => {
+        console.log('value', value);
+      }
+      const handleVoiceChange = (value) => {
+        console.log('value', value);
+      }
+      const handleVoiceInput = (value) => {
+        console.log('value', value);
+      }
 
+      
+
+      const handleProcessInput = (value) => {
+        console.log('handleProcessInput', value);
+
+      }
       // 加减音量
       const alterVolume = (dir) => {
         let videoUnRef = unref(videoRef);
@@ -230,7 +272,18 @@ import { reactify } from '@vueuse/core';
           videoUnRef.volume -= 0.1;
         }
       };
-
+      const convertSecondsToHMS = (seconds) => {
+          seconds = Math.floor(seconds)
+          let hour = Math.floor(seconds / 3600) >= 10 ? Math.floor(seconds / 3600) : '0' + Math.floor(seconds / 3600);
+            seconds -= 3600 * hour;
+            let min = Math.floor(seconds / 60) >= 10 ? Math.floor(seconds / 60) : '0' + Math.floor(seconds / 60);
+            seconds -= 60 * min;
+            let sec = seconds >= 10 ? seconds : '0' + seconds;
+            if (hour !== '00') {
+                return hour + ':' + min + ':' + sec;
+            }
+            return min + ':' + sec;
+      }
       const handleFullscreen = () => {
         if (document.fullscreenElement !== null) {
           // The document is in fullscreen mode
@@ -280,33 +333,40 @@ import { reactify } from '@vueuse/core';
       };
 
       const handleInputFocus = () => {
-        inputWidth.value = 100
+        inputWidth.value = 120
       }
       const handleInputBlur = () => {
-        if (!inputDanmuValue) {
-          inputWidth.value = 50
+        if (!inputDanmuValue.value) {
+          inputWidth.value = 70
         }
       }
       return {
         videoRef,
         controlsRef,
         processRef,
+        processValue,
+        voiceValue,
         fullRef,
+        handleVoiceInput,
+        handleVoiceChange,
         danmuList,
         subtitlesRef,
         subtitlesBtnRef,
         volRef,
         timeRef,
-        playpauseRef,
         restartPlayRef,
-        progressBar,
+        // progressBar,
         videoContainerRef,
         videoDuration,
+        playAndPause,
+        handleProcessInput,
+        handleProcessChange,
         videoChangeTime,
         inputDanmuValue,
         handleInputFocus,
         danmuSwitch,
         inputWidth,
+        handleInputBlur,
         isPause
       };
     },
@@ -348,18 +408,20 @@ import { reactify } from '@vueuse/core';
       margin: auto 3px;
       cursor: pointer;
     }
+    :deep(.el-icon) {
+      position: relative;
+      top: 3px;
+    }
   }
  
   .hhh-process {
     display: block;
     position: absolute;
-    height: 20px;
-    line-height: 20px;
-    left: 12px;
-    right: 12px;
+    left: 10px;
+    right: 10px;
     outline: none;
-    top: -15px;
-    z-index: 35;
+    bottom: 50px;
+    z-index: 9;
   }
   .hhh-btn-play {
     width: 40px;
@@ -372,6 +434,7 @@ import { reactify } from '@vueuse/core';
     text-align: center;
     margin: auto 0px;
     margin-left: 3px;
+   
   }
 
   .hhh-time {
@@ -381,30 +444,66 @@ import { reactify } from '@vueuse/core';
     color: #fff;
     line-height: 40px;
     height: 40px;
+
     text-align: center;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     margin: auto 8px;
     .hhh-time-current {
       color: #fff;
-      &::after {
-        content: '/';
-        display: inline-block;
-        padding: 0 3px;
-      }
     }
   }
   .hhh-input-danmu {
     order: 3;
-    width: 20px;
+    transition: width .3s;
+    height: 40px;
+    line-height: 40px;
     :deep(.el-input) {
-      transform: 0.3s inline;
+      transition: 0.3s;
+      background-color: transparent;
+      .el-input__wrapper {
+        background: hsla(0,0%,100%,.1);
+        padding: 0 4px;
+      }
+      input {
+        border: none;
+        color: #fff;
+        display: block;
+        flex-grow: 1;
+        height: 25px;
+        outline: none;
+        padding: 0 4px;
+        width: 100%;
+      }
     }
   }
   .hhh-vol {
     order: 13;
     color: #fff;
-    margin: auto 3px;
+    margin: auto 6px;
     cursor: pointer;
+    position: relative;
+    :deep(.el-slider) {
+      position: absolute;
+      bottom: 35px;
+      left: -4px;
+      z-index: 888;
+      border-radius: 6px;
+      height: 120px;
+      background: rgba(0, 0, 0, .54);
+      width: 24px;
+      padding: 10px 0px;
+      display: none;
+      .el-slider__runway {
+        --el-slider-button-size: 13px;
+        margin: 0 10px;
+      }
+    }
+    &:hover {
+      :deep(.el-slider) {
+        display: block;
+      }
+    }
   }
   .hhh-restart-play {
     order: 12;
@@ -415,13 +514,14 @@ import { reactify } from '@vueuse/core';
   .hhh-subtitles {
     order: 10;
     color: #fff;
-    margin: auto 3px;
+    margin: auto 9px;
     cursor: pointer;
     position: relative;
     a {
       font-size: 15px;
+      color: #fff;
     }
-     /deep/.subtitles-menu {
+     :deep(.subtitles-menu) {
         position: absolute;
         bottom: 32px;
         background: rgba(0, 0, 0, .54);
@@ -444,7 +544,7 @@ import { reactify } from '@vueuse/core';
         }
     }
     &:hover {
-      /deep/.subtitles-menu {
+      :deep(.subtitles-menu) {
         display: inline-block;
       }
     }
@@ -462,13 +562,13 @@ import { reactify } from '@vueuse/core';
   .hhh-process-outer {
     background: hsla(0, 0%, 100%, 0.3);
     display: block;
-    height: 3px;
-    line-height: 3px;
     width: 100%;
     position: relative;
     cursor: pointer;
-    progress {
+    .progress {
       width: 100%;
+      position: absolute;
+      height: 5px;
     }
     .hhh-process-cache {
       background: hsla(0, 0%, 100%, 0.5);
@@ -478,6 +578,27 @@ import { reactify } from '@vueuse/core';
       background-image: linear-gradient(-90deg, #fa1f41, #e31106);
       border-radius: 0 1.5px 1.5px 0;
       width: 1.68238%;
+    }
+    :deep(.el-slider__runway:hover) {
+      .el-slider__button {
+      transform: scale(1.1);
+      }
+    }
+    :deep(.el-slider__button) {
+      transform: scale(0.5);
+    }
+    
+    
+    .process-dot {
+      display: inline-block;
+      position: absolute;
+      height: 5px;
+      width: 5px;
+      top: 0;
+      left: 30px;
+      background: #fff;
+      border-radius: 2px;
+      z-index: 16;
     }
   }
   .hhh-player-danmu-container {
@@ -500,6 +621,7 @@ import { reactify } from '@vueuse/core';
     transform: translate(-50%, -50%);
     width: 50px;
     height: 50px;
+    cursor: pointer;
     color: #fff;
   }
 </style>
