@@ -1,6 +1,6 @@
 <template>
-  <div id="videoContainer" ref="videoContainerRef" class="hhh-container">
-    <video ref="videoRef">
+  <div ref="videoContainerRef"  class="hhh-container">
+    <video @mouseover.self="handleMouseOver" @mouseout.self="handleMouseOut" ref="videoRef">
       <source
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
         type="video/mp4"
@@ -10,7 +10,7 @@
 			<track label="德语" kind="subtitles" srclang="de" src="/childsubtitles/vtt/sintel-de.vtt">
 			<track label="西班牙" kind="subtitles" srclang="es" src="/childsubtitles/vtt/sintel-es.vtt">
     </video>
-    <div class="hhh-process">
+    <div class="hhh-process" v-show="isShowBottom">
       <div class="hhh-time" ref="timeRef">
         <span class="hhh-time-current">{{videoChangeTime}}</span>
         <span>{{videoDuration}}</span>
@@ -24,7 +24,7 @@
         <span id="process-dot" class="process-dot"></span>
       </div>
     </div>
-    <div class="hhh-controls" ref="controlsRef" id="video-controls">
+    <div  class="hhh-controls" ref="controlsRef" id="video-controls" v-if="isShowBottom">
      
       <div class="hhh-placholder"></div>
       <div class="hhh-btn-play" ref="playpauseRef" @click="playAndPause" id="playpause">
@@ -110,6 +110,8 @@ import { reactify } from '@vueuse/core';
       const isPause = ref(true)
       const danmuSwitch = ref(true)
       const inputDanmuValue = ref('')
+      const isShowBottom = ref(false)
+      const clearSetTimeId = ref()
       const inputWidth = ref(70)
       const danmuList = reactive([
         {
@@ -138,7 +140,6 @@ import { reactify } from '@vueuse/core';
         const supportsVideo = !!document.createElement('video').canPlayType;
         if (supportsVideo) {
           // 注册事件
-          const videoContainer = document.getElementById('videoContainer');
           const videoControls = document.getElementById('video-controls');
 
           let videoUnRef = unref(videoRef);
@@ -154,7 +155,7 @@ import { reactify } from '@vueuse/core';
           unref(restartPlayRef).addEventListener('click', (e) => {
             videoUnRef.pause();
             videoUnRef.currentTime = 0;
-            unref(processRef).value = 0;
+            // unref(processRef).value = 0;
           });
 
           // 静音
@@ -180,7 +181,7 @@ import { reactify } from '@vueuse/core';
             }
             console.log(convertSecondsToHMS(videoUnRef.currentTime));
 
-            if (!unref(processRef).getAttribute('max'))
+            // if (!unref(processRef).getAttribute('max'))
             videoChangeTime.value = convertSecondsToHMS(videoUnRef.currentTime)
 
             videoDuration.value = convertSecondsToHMS(videoUnRef.duration)
@@ -340,6 +341,18 @@ import { reactify } from '@vueuse/core';
           inputWidth.value = 70
         }
       }
+
+      const handleMouseOver = (e) => {
+        console.log(123);
+        isShowBottom.value = true
+        clearTimeout(clearSetTimeId.value)
+      }
+      const handleMouseOut = () => {
+         clearSetTimeId.value = setTimeout(() => {
+          isShowBottom.value = false
+        }, 1000)
+      }
+
       return {
         videoRef,
         controlsRef,
@@ -350,6 +363,7 @@ import { reactify } from '@vueuse/core';
         handleVoiceInput,
         handleVoiceChange,
         danmuList,
+        isShowBottom,
         subtitlesRef,
         subtitlesBtnRef,
         volRef,
@@ -367,6 +381,8 @@ import { reactify } from '@vueuse/core';
         danmuSwitch,
         inputWidth,
         handleInputBlur,
+        handleMouseOver,
+        handleMouseOut,
         isPause
       };
     },
@@ -388,12 +404,11 @@ import { reactify } from '@vueuse/core';
   }
   .hhh-controls {
     position: absolute;
-    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 40px;
-    display: none;
+    display: flex;
     background-image: linear-gradient(
       180deg,
       transparent,
